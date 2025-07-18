@@ -9,7 +9,7 @@ export class AssetMovement {
   constructor(private http:HttpClient) { }
 
   createAssetMovement(assetMovement:any){
-    return this.http.post(`AssetMovement`,assetMovement)
+    return this.http.post(`AssetMovement/process`,assetMovement)
   }
 
 

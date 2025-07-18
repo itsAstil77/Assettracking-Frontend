@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Asset } from '../../../services/asset/asset';
 
@@ -11,7 +11,7 @@ import { Asset } from '../../../services/asset/asset';
 })
 export class AssetMovement implements OnInit {
 
-  constructor(private assetService:Asset){}
+  constructor(private assetService:Asset,private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
     this.loadAssetMovement();
@@ -23,7 +23,8 @@ export class AssetMovement implements OnInit {
    loadAssetMovement(){
     this.assetService.getAssetMovementSummary(1,10).subscribe({
       next:(res:any)=>{
-        console.log(res.message)
+        this.assetMovements=res;
+         this.cdr.detectChanges(); 
 
       }
     })

@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let asset of assetMovements">
-      <td>{{ asset.movedDate?(asset.movedDate | date: 'dd-MM-yyyy , hh:mm a') : '-' }}</td>
+      <td>{{ asset.movedDate?(asset.movedDate | date: 'dd-MM-yyyy') : '-' }}</td>
       <td>{{ asset.movedBy }}</td>
       <td>{{ asset.approvalworkflow }}</td>
       <td>{{ asset.nextapprovalworkflow }}</td>
