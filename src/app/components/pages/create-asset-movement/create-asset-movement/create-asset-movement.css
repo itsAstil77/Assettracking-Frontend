@@ -1,0 +1,178 @@
+.navbar {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.navbar-left {
+  font-size: 15px;
+  font-weight: bolder;
+  font-family: 'RedHatDisplay-Regular';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.breadcrumb-wrapper {
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-link {
+  color: black;
+  text-decoration: none;
+  margin-right: 5px;
+  font-family: 'RedHatDisplay-Regular';
+}
+
+.breadcrumb-link:hover {
+  color: #7030a0;
+  font-weight: bold;
+
+}
+
+.breadcrumb-separator {
+  margin: 0 5px;
+  color: #666;
+}
+
+.breadcrumb-current {
+  color: #7030a0;
+  font-weight: bold;
+  font-family: 'RedHatDisplay-Regular';
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'RedHatDisplay-Regular';
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.company-table {
+  margin-top: 0px;
+}
+
+th {
+  background-color: white;
+  color: black;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+img {
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+
+
+.asset-form-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+}
+
+.asset-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-group {
+  flex:1 1 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-family: 'RedHatDisplay-Regular';
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+   font-family: 'RedHatDisplay-Regular';
+}
+
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007acc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #005fa3;
+}
+
+select {
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-family: 'RedHatDisplay-Regular';
+}

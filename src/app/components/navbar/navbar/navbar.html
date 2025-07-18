@@ -1,0 +1,125 @@
+<nav class="navbar">
+  <button class="menu-button" (click)="toggleSidebar()">&#9776;</button>
+  <div class="navbar-title">Asset Tracking</div>
+
+  <div class="navbar-right">
+    <span class="username">{{ loggedInUsername }}
+
+    </span>
+
+    <div class="user-dropdown-container" (click)="toggleUserDropdown()" tabindex="0" (blur)="hideUserDropdown()">
+      <span class="user-email">admin&#64;gmail.com</span>
+      <img src="assets/user.png" alt="User Icon" class="navbar-logo1" />
+
+
+      <div class="user-dropdown" *ngIf="showUserDropdown">
+        <a (click)="changePassword()">Change Password</a>
+        <a (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+  <img src="assets/PurpleIQ.png" alt="Logo" class="navbar-logo" />
+</nav>
+
+
+<!-- Sidebar and Main Content -->
+<div class="wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+    <ul class="menu">
+
+      <li class="menu-item" routerLink="/dashboard" (click)="setActive('dashboard')"
+        [class.active]="activeMenuItem === 'dashboard'">
+        <div class="tooltip-container">
+          <img src="assets/dashboard.png" alt="Dashboard Icon" class="menu-icon" />
+          <a [class.hidden]="isSidebarCollapsed" class="menu-text">Dashboard</a>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Dashboard</span>
+        </div>
+      </li>
+
+      <li class="menu-item" routerLink="/master" (click)="setActive('master')"
+        [class.active]="activeMenuItem === 'master'">
+        <div class="tooltip-container">
+          <img src="assets/master1.png" alt="master Icon" class="menu-icon" />
+          <a [class.hidden]="isSidebarCollapsed" class="menu-text">Master</a>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Master</span>
+        </div>
+      </li>
+
+      <!-- <li class="menu-item" routerLink="/transaction" (click)="setActive('transaction')"
+        [class.active]="activeMenuItem === 'transaction'">
+        <div class="tooltip-container">
+          <img src="assets/transaction.png" alt="transaction Icon" class="menu-icon" />
+          <a [class.hidden]="isSidebarCollapsed" class="menu-text">Transaction</a>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Transaction</span>
+        </div>
+      </li> -->
+
+
+
+
+
+
+      <li class="menu-item admin-dropdown" (click)="toggleTransaction()"
+        [class.active]="activeMenuItem === 'transaction'">
+        <div class=" tooltip-container">
+          <img src="assets/transaction.png" alt="Transaction Icon" class="menu-icon" />
+          <span class="menu-text" [class.hidden]="isSidebarCollapsed">Transaction</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">Transaction</span>
+        </div>
+
+      </li>
+      <div class="admin-right-panel" *ngIf="isTransactionExpanded"
+        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+
+        <div class="admin-title">
+
+          <!-- <img src="assets/transaction.png" alt="Transaction Icon" class="admin-icon" /> -->
+          <span class="admin-text">Transaction</span>
+        </div>
+        <ul class="admin-sub-menu">
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-movement" (click)="closeTransactionPanel()">Asset Movement</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-disposal" (click)="closeTransactionPanel()">Asset Disposal</a>
+          </li>
+        </ul>
+
+
+        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+          <img src="assets/arrow3.png" alt="Dropdown Arrow" class="arrow-icon" (click)="closeTransactionPanel()" />
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <li class="menu-item" routerLink="/report" (click)="setActive('report')"
+        [class.active]="activeMenuItem === 'report'">
+        <div class="tooltip-container">
+          <img src="assets/report.png" alt="report Icon" class="menu-icon" />
+          <a [class.hidden]="isSidebarCollapsed" class="menu-text">Report</a>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Report</span>
+        </div>
+      </li>
+
+      <li class="menu-item" routerLink="/admin" (click)="setActive('admin')"
+        [class.active]="activeMenuItem === 'admin'">
+        <div class="tooltip-container">
+          <img src="assets/admin.png" alt="admin Icon" class="menu-icon" />
+          <a [class.hidden]="isSidebarCollapsed" class="menu-text">Admin</a>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Admin</span>
+        </div>
+      </li>
+
+    </ul>
+  </aside>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

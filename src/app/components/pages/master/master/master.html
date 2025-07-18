@@ -1,0 +1,3049 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Master</span>
+  </div>
+</nav>
+
+
+<div class="user-tabs">
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Group' }" (click)="selectedRole = ('Group')">
+    Group
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Department' }" (click)="selectedRole = 'Department'">
+    Department
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Custodian' }" (click)="selectedRole = 'Custodian'">
+    Custodian
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Sector' }" (click)="selectedRole = 'Sector'">
+    Sector
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Supplier' }" (click)="selectedRole = 'Supplier'">
+    Supplier</div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Category' }" (click)="selectedRole = 'Category'">
+    Category</div>
+
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Asset' }" (click)="selectedRole = 'Asset'">
+    Asset</div>
+
+
+
+</div>
+
+
+<!-- Group Navbar -->
+<nav class="navbar1" *ngIf="selectedRole === 'Group'">
+  <div class="navbar-left1">
+    <span class="navbar-title1">Group</span>
+  </div>
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openGroupPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Group nested table -->
+<table class="company-table" *ngIf="selectedRole === 'Group'">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Group Code</th>
+      <th>Group Name</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let group of groupList">
+      <tr>
+        <td (mousedown)="toggleGroupRow(group)">
+          <img src="assets/dropdown.png" class="tab-icon" [ngClass]="{ 'rotated': expandedGroup[group.id] }" />
+        </td>
+        <td>{{ group.groupCode }}</td>
+        <td>{{ group.groupName }}</td>
+        <td>
+          <span [class.active]="group.isActive" [class.inactive]="!group.isActive">
+            {{ group.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <div class="tab">
+            <div class="tooltip-container">
+              <img src="assets/edit.png" alt="Edit" (click)="openUpdateGroupPopup(group)" class="tab-icon">
+              <span class="tooltip-text">Edit</span>
+            </div>
+            <div class="tooltip-container">
+              <img src="assets/delete.png" alt="Delete" (click)="showDeletePopup(group.id)" class="tab-icon">
+              <span class="tooltip-text">Delete</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Company Table -->
+      <tr *ngIf="expandedGroup[group.id] && companyMap[group.id]">
+        <td colspan="5">
+          <!-- Company Navbar -->
+          <nav class="navbar1">
+            <div class="navbar-left1">
+              <span class="navbar-title1">Company</span>
+            </div>
+            <div class="navbar-right">
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                <span class="tooltip-text">Refresh</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/add.png" (click)="openCreateCompanyPopup(group.id)"
+                    alt="Add"></button>
+                <span class="tooltip-text">Add</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                <span class="tooltip-text">Download</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/page.png"></button>
+                <span class="tooltip-text">Pagination</span>
+              </div>
+            </div>
+          </nav>
+
+          <table class="sub-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Company Code</th>
+                <th>Company Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let comp of companyMap[group.id]">
+                <tr>
+                  <td (mousedown)="toggleCompanyRow(comp)">
+                    <img src="assets/dropdown.png" class="tab-icon"
+                      [ngClass]="{ 'rotated': expandedCompany[comp.id] }" />
+                  </td>
+                  <td>{{ comp.companyCode }}</td>
+                  <td>{{ comp.companyName }}</td>
+                  <td>{{ comp.description }}</td>
+                  <td>
+                    <span [class.active]="comp.isActive" [class.inactive]="!comp.isActive">
+                      {{ comp.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="tab">
+                      <div class="tooltip-container">
+                        <img src="assets/edit.png" alt="Edit" (click)="openUpdateCompanyPopup(comp)" class="tab-icon">
+                        <span class="tooltip-text">Edit</span>
+                      </div>
+                      <div class="tooltip-container">
+                        <img src="assets/delete.png" alt="Delete" (click)="openDeleteCompanyPopup(comp)"
+                          class="tab-icon">
+                        <span class="tooltip-text">Delete</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Site Table -->
+                <tr *ngIf="expandedCompany[comp.id] && siteMap[comp.id]">
+                  <td colspan="6">
+                    <!-- Site Navbar -->
+                    <nav class="navbar1">
+                      <div class="navbar-left1">
+                        <span class="navbar-title1">Site</span>
+                      </div>
+                      <div class="navbar-right">
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                          <span class="tooltip-text">Refresh</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/add.png" (click)="openCreateSitePopup(comp.id)"
+                              alt="Add"></button>
+                          <span class="tooltip-text">Add</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                          <span class="tooltip-text">Download</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/page.png"></button>
+                          <span class="tooltip-text">Pagination</span>
+                        </div>
+                      </div>
+                    </nav>
+
+                    <table class="sub-table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Site Code</th>
+                          <th>Site Name</th>
+                          <th>Description</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let site of siteMap[comp.id]">
+                          <tr>
+                            <td (mousedown)="toggleSiteRow(site)">
+                              <img src="assets/dropdown.png" class="tab-icon"
+                                [ngClass]="{ 'rotated': expandedSite[site.id] }" />
+                            </td>
+                            <td>{{ site.siteCode }}</td>
+                            <td>{{ site.siteName }}</td>
+                            <td>{{ site.description }}</td>
+                            <td>
+                              <span [class.active]="site.isActive" [class.inactive]="!site.isActive">
+                                {{ site.isActive ? 'Active' : 'Inactive' }}
+                              </span>
+                            </td>
+                            <td>
+                              <div class="tab">
+                                <div class="tooltip-container">
+                                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateSitePopup(site)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Edit</span>
+                                </div>
+                                <div class="tooltip-container">
+                                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteSitePopup(site)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Delete</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <!-- Building Table -->
+                          <tr *ngIf="expandedSite[site.id] && buildingMap[site.id]">
+                            <td colspan="6">
+                              <nav class="navbar1">
+                                <div class="navbar-left1">
+                                  <span class="navbar-title1">Building</span>
+                                </div>
+                                <div class="navbar-right">
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                                    <span class="tooltip-text">Refresh</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/add.png"
+                                        (click)="openCreateBuildingPopup(site.id)" alt="Add"></button>
+                                    <span class="tooltip-text">Add</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                                    <span class="tooltip-text">Download</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/page.png"></button>
+                                    <span class="tooltip-text">Pagination</span>
+                                  </div>
+                                </div>
+                              </nav>
+
+                              <table class="sub-table">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Building Code</th>
+                                    <th>Building Name</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <ng-container *ngFor="let building of buildingMap[site.id]">
+                                    <tr>
+                                      <td (mousedown)="toggleBuildingRow(building)">
+                                        <img src="assets/dropdown.png" class="tab-icon"
+                                          [ngClass]="{ 'rotated': expandedBuilding[building.id] }" />
+                                      </td>
+                                      <td>{{ building.buildingCode }}</td>
+                                      <td>{{ building.buildingName }}</td>
+                                      <td>{{ building.description }}</td>
+                                      <td>
+                                        <span [class.active]="building.isActive" [class.inactive]="!building.isActive">
+                                          {{ building.isActive ? 'Active' : 'Inactive' }}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <div class="tab">
+                                          <div class="tooltip-container">
+                                            <img src="assets/edit.png" alt="Edit"
+                                              (click)="openUpdateBuildingPopup(building)" class="tab-icon">
+                                            <span class="tooltip-text">Edit</span>
+                                          </div>
+                                          <div class="tooltip-container">
+                                            <img src="assets/delete.png" alt="Delete"
+                                              (click)="openDeleteBuildingPopup(building)" class="tab-icon">
+                                            <span class="tooltip-text">Delete</span>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+
+                                    <!-- Floor Table -->
+                                    <tr *ngIf="expandedBuilding[building.id] && floorMap[building.id]">
+                                      <td colspan="6">
+                                        <nav class="navbar1">
+                                          <div class="navbar-left1">
+                                            <span class="navbar-title1">Floor</span>
+                                          </div>
+                                          <div class="navbar-right">
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/refresh.png"
+                                                  alt="Refresh"></button>
+                                              <span class="tooltip-text">Refresh</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button" (click)="openCreateFloorPopup(building.id)">
+                                                <img src="assets/add.png" alt="Add">
+                                              </button>
+                                              <span class="tooltip-text">Add</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/download.png"
+                                                  alt="Download"></button>
+                                              <span class="tooltip-text">Download</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/page.png"></button>
+                                              <span class="tooltip-text">Pagination</span>
+                                            </div>
+                                          </div>
+                                        </nav>
+
+                                        <table class="sub-table">
+                                          <thead>
+                                            <tr>
+                                              <th></th>
+                                              <th>Floor Code</th>
+                                              <th>Floor Name</th>
+                                              <th>Description</th>
+                                              <th>Status</th>
+                                              <th>Action</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <ng-container *ngFor="let floor of floorMap[building.id]">
+                                              <tr>
+                                                <td (mousedown)="toggleFloorRow(floor)">
+                                                  <img src="assets/dropdown.png" class="tab-icon"
+                                                    [ngClass]="{ 'rotated': expandedFloor[floor.id] }" />
+                                                </td>
+                                                <td>{{ floor.floorCode }}</td>
+                                                <td>{{ floor.floorName }}</td>
+                                                <td>{{ floor.description }}</td>
+                                                <td>{{ floor.isActive ? 'Active' : 'Inactive' }}</td>
+                                                <td>
+                                                  <div class="tab">
+                                                    <div class="tooltip-container">
+                                                      <img src="assets/edit.png" alt="Edit"
+                                                        (click)="openUpdateFloorPopup(floor)" class="tab-icon">
+                                                      <span class="tooltip-text">Edit</span>
+                                                    </div>
+                                                    <div class="tooltip-container">
+                                                      <img src="assets/delete.png" alt="Delete"
+                                                        (click)="openDeleteFloorPopup(floor)" class="tab-icon">
+                                                      <span class="tooltip-text">Delete</span>
+                                                    </div>
+                                                  </div>
+                                                </td>
+                                              </tr>
+
+                                              <!-- Room Table -->
+                                              <tr *ngIf="expandedFloor[floor.id] && roomMap[floor.id]">
+                                                <td colspan="6">
+                                                  <nav class="navbar1">
+                                                    <div class="navbar-left1">
+                                                      <span class="navbar-title1">Room</span>
+                                                    </div>
+                                                    <div class="navbar-right">
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/refresh.png"
+                                                            alt="Refresh"></button>
+                                                        <span class="tooltip-text">Refresh</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"
+                                                          (click)="openCreateRoomPopup(floor.id)">
+                                                          <img src="assets/add.png" alt="Add">
+                                                        </button>
+                                                        <span class="tooltip-text">Add</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/download.png"
+                                                            alt="Download"></button>
+                                                        <span class="tooltip-text">Download</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/page.png"></button>
+                                                        <span class="tooltip-text">Pagination</span>
+                                                      </div>
+                                                    </div>
+                                                  </nav>
+
+                                                  <table class="sub-table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Room Code</th>
+                                                        <th>Room Name</th>
+                                                        <th>Description</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let room of roomMap[floor.id]">
+                                                        <td>{{ room.roomCode }}</td>
+                                                        <td>{{ room.roomName }}</td>
+                                                        <td>{{ room.description }}</td>
+                                                        <td>{{ room.isActive ? 'Active' : 'Inactive' }}</td>
+                                                        <td>
+                                                          <div class="tab">
+                                                            <div class="tooltip-container">
+                                                              <img src="assets/edit.png" alt="Edit"
+                                                                (click)="openUpdateRoomPopup(room)" class="tab-icon">
+                                                              <span class="tooltip-text">Edit</span>
+                                                            </div>
+                                                            <div class="tooltip-container">
+                                                              <img src="assets/delete.png" alt="Delete"
+                                                                (click)="openDeleteRoomPopup(room)" class="tab-icon">
+                                                              <span class="tooltip-text">Delete</span>
+                                                            </div>
+                                                          </div>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                            </ng-container>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+
+
+
+
+<div class="modal" *ngIf="isCreateCompanyPopupOpen">
+  <div class="modal-content">
+    <p>Create Company</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Company Code:</label>
+        <input type="text" [(ngModel)]="newCompany.companyCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Company Name:</label>
+        <input type="text" [(ngModel)]="newCompany.companyName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newCompany.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newCompany.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createCompany()">Create</button>
+      <button (click)="closeCreateCompanyPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Update Company Popup -->
+<div class="modal" *ngIf="isUpdateCompanyPopupOpen">
+  <div class="modal-content">
+    <p>Update Company</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Company Code:</label>
+        <input type="text" [(ngModel)]="updateCompanyForm.companyCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Company Name:</label>
+        <input type="text" [(ngModel)]="updateCompanyForm.companyName" />
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="updateCompanyForm.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateCompanyForm.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateCompany()">Update</button>
+      <button (click)="closeUpdateCompanyPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Company Delete Confirmation Popup -->
+<div class="delete-modal" *ngIf="isDeleteCompanyPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this company?</p>
+
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteCompany()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteCompanyPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Department'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Department</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openCreateDepartmentPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+
+</nav>
+
+
+<table class="company-table" *ngIf="selectedRole === 'Department' && departmentList.length">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Other Name</th>
+      <th>Group</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dept of departmentList">
+      <td>{{ dept.departmentCode }}</td>
+      <td>{{ dept.departmentName }}</td>
+      <td>{{ dept.otherName }}</td>
+      <td>{{ dept.groupName }}</td>
+      <td>
+        <span [class.active]="dept.isActive" [class.inactive]="!dept.isActive">
+          {{ dept.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateDepartmentPopup(dept)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="openDeleteDepartmentPopup(dept.id)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Custodian'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Custodian</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openCustodianPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+
+</nav>
+
+
+<table class="company-table" *ngIf="selectedRole === 'Custodian' && custodianList.length">
+  <thead>
+    <tr>
+      <th>Custodian Code</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Other Name</th>
+      <th>Department</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let custodian of custodianList">
+      <td>{{ custodian.custodianCode }}</td>
+      <td>{{ custodian.custodianName }}</td>
+      <td>{{ custodian.custodianEmail }}</td>
+      <td>{{ custodian.otherName }}</td>
+      <td>{{ custodian.departmentName }}</td>
+      <td>
+        <span [class.active]="custodian.isActive" [class.inactive]="!custodian.isActive">
+          {{ custodian.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateCustodianPopup(custodian)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="openDeleteCustodianPopup(custodian.id)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Sector'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Sector</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openSectorPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+
+</nav>
+
+
+<table class="company-table" *ngIf="selectedRole === 'Sector' && sectorList.length">
+  <thead>
+    <tr>
+      <th>Sector Code</th>
+      <th>Sector Name</th>
+      <th>Other Name</th>
+      <th>Group</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sector of sectorList">
+      <td>{{ sector.sectorCode }}</td>
+      <td>{{ sector.sectorName }}</td>
+      <td>{{ sector.otherName }}</td>
+      <td>{{ sector.groupName }}</td>
+      <td>
+        <span [class.active]="sector.isActive" [class.inactive]="!sector.isActive">
+          {{ sector.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateSectorPopup(sector)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="openDeleteSectorPopup(sector)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Supplier'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Supplier</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openSupplierPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+
+</nav>
+
+
+<table class="company-table" *ngIf="selectedRole === 'Supplier' && supplierList.length">
+  <thead>
+    <tr>
+      <th>Supplier Code</th>
+      <th>Supplier Name</th>
+      <th>Other Name</th>
+      <th>Group Name</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let supplier of supplierList">
+      <td>{{ supplier.supplierCode }}</td>
+      <td>{{ supplier.supplierName }}</td>
+      <td>{{ supplier.otherName }}</td>
+      <td>{{ supplier.groupName }}</td>
+      <td>
+        <span [class.active]="supplier.isActive" [class.inactive]="!supplier.isActive">
+          {{ supplier.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateSupplierPopup(supplier)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="openDeleteSupplierPopup(supplier.id)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Category'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Group</span>
+  </div>
+
+
+
+</nav>
+
+
+<table class="company-table" *ngIf="selectedRole === 'Category' && groupList.length">
+  <thead>
+    <tr>
+
+      <th></th>
+      <th>Group Code</th>
+      <th>Group Name</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let group of groupList">
+      <tr>
+        <td (mousedown)="toggleCategoryRow(group)">
+          <img src="assets/dropdown.png" class="tab-icon" [ngClass]="{ 'rotated': expandedCategory[group.id] }" />
+        </td>
+
+        <td>{{ group.groupCode }}</td>
+        <td>{{ group.groupName }}</td>
+
+        <td>
+          <span [class.active]="group.isActive" [class.inactive]="!group.isActive">
+            {{ group.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+      </tr>
+
+
+
+
+      <tr *ngIf="expandedCategory[group.id] && categoryMap[group.id]">
+        <td colspan="5">
+
+          <nav class="navbar1">
+
+            <div class="navbar-left1">
+              <span class="navbar-title1">Main Category</span>
+            </div>
+
+            <div class="navbar-right">
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                <span class="tooltip-text">Refresh</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/add.png" (click)="openCreateCategoryPopup(group.id)"
+                    alt="Add"></button>
+                <span class="tooltip-text">Add</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                <span class="tooltip-text">Download</span>
+              </div>
+              <div class="tooltip-container">
+                <button class="icon-button"><img src="assets/page.png"></button>
+                <span class="tooltip-text">Pagination</span>
+              </div>
+            </div>
+
+          </nav>
+          <table class="sub-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Category Code</th>
+                <th>Category Name</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let cat of categoryMap[group.id]">
+                <tr>
+                  <td (mousedown)="toggleSubCategoryRow(cat)">
+                    <img src="assets/dropdown.png" class="tab-icon"
+                      [ngClass]="{ 'rotated': expandedSubCategory[cat.id] }" />
+                  </td>
+
+
+                  <td>{{ cat.categoryCode }}</td>
+                  <td>{{ cat.categoryName }}</td>
+                  <td>
+                    <span [class.active]="cat.isActive" [class.inactive]="!cat.isActive">
+                      {{ cat.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <div class="tab">
+                      <div class="tooltip-container">
+                        <img src="assets/edit.png" alt="Edit" (click)="openUpdateCategoryPopup(cat)" class="tab-icon">
+                        <span class="tooltip-text">Edit</span>
+                      </div>
+                      <div class="tooltip-container">
+                        <img src="assets/delete.png" alt="Delete" (click)="openDeleteCategoryPopup(cat)"
+                          class="tab-icon">
+                        <span class="tooltip-text">Delete</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+
+                <tr *ngIf="expandedSubCategory[cat.id] && subCategoryMap[cat.id]">
+                  <td colspan="5">
+                    <nav class="navbar1">
+
+                      <div class="navbar-left1">
+                        <span class="navbar-title1">Sub Category</span>
+                      </div>
+
+                      <div class="navbar-right">
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                          <span class="tooltip-text">Refresh</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/add.png"
+                              (click)="openCreateSubCategoryPopup(cat.id)" alt="Add"></button>
+                          <span class="tooltip-text">Add</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                          <span class="tooltip-text">Download</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <button class="icon-button"><img src="assets/page.png"></button>
+                          <span class="tooltip-text">Pagination</span>
+                        </div>
+                      </div>
+
+                    </nav>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Sub Category Code</th>
+                          <th>Sub Category Name</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let sub of subCategoryMap[cat.id]">
+                          <tr>
+
+                            <td (mousedown)="toggleSubSubCategoryRow(sub)">
+                              <img src="assets/dropdown.png" class="tab-icon"
+                                [ngClass]="{ 'rotated': expandedSubSubCategory[sub.id] }" />
+                            </td>
+
+                            <td>{{ sub.categoryCode }}</td>
+                            <td>{{ sub.categoryName }}</td>
+                            <td>{{ sub.isActive ? 'Active' : 'Inactive' }}</td>
+                            <td>
+                              <div class="tab">
+                                <div class="tooltip-container">
+                                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateSubCategoryPopup(sub)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Edit</span>
+                                </div>
+                                <div class="tooltip-container">
+                                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteSubCategoryPopup(sub)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Delete</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+
+
+
+                          <tr *ngIf="expandedSubSubCategory[sub.id] && subSubCategoryMap[sub.id]">
+                            <td colspan="5">
+
+                              <nav class="navbar1">
+
+                                <div class="navbar-left1">
+                                  <span class="navbar-title1">Sub SubCategory</span>
+                                </div>
+
+                                <div class="navbar-right">
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+                                    <span class="tooltip-text">Refresh</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/add.png"
+                                        (click)="openCreateSubSubCategoryPopup(sub.id)" alt="Add"></button>
+                                    <span class="tooltip-text">Add</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+                                    <span class="tooltip-text">Download</span>
+                                  </div>
+                                  <div class="tooltip-container">
+                                    <button class="icon-button"><img src="assets/page.png"></button>
+                                    <span class="tooltip-text">Pagination</span>
+                                  </div>
+                                </div>
+
+                              </nav>
+                              <table class="sub-table">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Sub-SubCategory Code</th>
+                                    <th>Sub-SubCategory Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <ng-container *ngFor="let subsub of subSubCategoryMap[sub.id]">
+                                    <tr>
+                                      <td (mousedown)="toggleBrandRow(subsub)">
+                                        <img src="assets/dropdown.png" class="tab-icon"
+                                          [ngClass]="{ 'rotated': expandedBrand[subsub.id] }" />
+                                      </td>
+
+                                      <td>{{ subsub.categoryCode }}</td>
+                                      <td>{{ subsub.categoryName }}</td>
+                                      <td>
+                                        <span [class.active]="subsub.isActive" [class.inactive]="!subsub.isActive">
+                                          {{ subsub.isActive ? 'Active' : 'Inactive' }}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <div class="tab">
+                                          <div class="tooltip-container">
+                                            <img src="assets/edit.png" alt="Edit"
+                                              (click)="openUpdateSubSubCategoryPopup(subsub)" class="tab-icon">
+                                            <span class="tooltip-text">Edit</span>
+                                          </div>
+                                          <div class="tooltip-container">
+                                            <img src="assets/delete.png" alt="Delete"
+                                              (click)="openDeleteSubSubCategoryPopup(subsub)" class="tab-icon">
+                                            <span class="tooltip-text">Delete</span>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+
+
+
+                                    <tr *ngIf="expandedBrand[subsub.id] && brandMap[subsub.id]">
+                                      <td colspan="6">
+                                        <nav class="navbar1">
+
+                                          <div class="navbar-left1">
+                                            <span class="navbar-title1">Brand</span>
+                                          </div>
+
+                                          <div class="navbar-right">
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/refresh.png"
+                                                  alt="Refresh"></button>
+                                              <span class="tooltip-text">Refresh</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/add.png"
+                                                  (click)="openCreateBrandPopup(subsub.id)" alt="Add"></button>
+                                              <span class="tooltip-text">Add</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/download.png"
+                                                  alt="Download"></button>
+                                              <span class="tooltip-text">Download</span>
+                                            </div>
+                                            <div class="tooltip-container">
+                                              <button class="icon-button"><img src="assets/page.png"></button>
+                                              <span class="tooltip-text">Pagination</span>
+                                            </div>
+                                          </div>
+
+                                        </nav>
+                                        <table class="sub-table">
+                                          <thead>
+                                            <tr>
+                                              <th></th>
+                                              <th>Brand Code</th>
+                                              <th>Brand Name</th>
+                                              <th>Status</th>
+                                              <th>Actions</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <ng-container *ngFor="let brand of brandMap[subsub.id]">
+                                              <tr>
+                                                <td (mousedown)="toggleModelRow(brand)">
+                                                  <img src="assets/dropdown.png" class="tab-icon"
+                                                    [ngClass]="{ 'rotated': expandedModel[brand.id] }" />
+                                                </td>
+                                                <td>{{ brand.categoryCode }}</td>
+                                                <td>{{ brand.categoryName }}</td>
+                                                <td>
+                                                  <span [class.active]="brand.isActive"
+                                                    [class.inactive]="!brand.isActive">
+                                                    {{ brand.isActive ? 'Active' : 'Inactive' }}
+                                                  </span>
+                                                </td>
+                                                <td>
+                                                  <div class="tab">
+                                                    <div class="tooltip-container">
+                                                      <img src="assets/edit.png" alt="Edit"
+                                                        (click)="openUpdateBrandPopup(brand)" class="tab-icon">
+                                                      <span class="tooltip-text">Edit</span>
+                                                    </div>
+                                                    <div class="tooltip-container">
+                                                      <img src="assets/delete.png" alt="Delete"
+                                                        (click)="openDeleteBrandPopup(brand)" class="tab-icon">
+                                                      <span class="tooltip-text">Delete</span>
+                                                    </div>
+                                                  </div>
+                                                </td>
+                                              </tr>
+
+
+
+                                              <tr *ngIf="expandedModel[brand.id] && modelMap[brand.id]">
+                                                <td colspan="5">
+                                                  <nav class="navbar1">
+
+                                                    <div class="navbar-left1">
+                                                      <span class="navbar-title1">Model</span>
+                                                    </div>
+
+                                                    <div class="navbar-right">
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/refresh.png"
+                                                            alt="Refresh"></button>
+                                                        <span class="tooltip-text">Refresh</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/add.png"
+                                                            (click)="openCreateModelPopup(brand.id)" alt="Add"></button>
+                                                        <span class="tooltip-text">Add</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/download.png"
+                                                            alt="Download"></button>
+                                                        <span class="tooltip-text">Download</span>
+                                                      </div>
+                                                      <div class="tooltip-container">
+                                                        <button class="icon-button"><img src="assets/page.png"></button>
+                                                        <span class="tooltip-text">Pagination</span>
+                                                      </div>
+                                                    </div>
+
+                                                  </nav>
+
+                                                  <table class="sub-table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Model Code</th>
+                                                        <th>Model Name</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <ng-container *ngFor="let model of modelMap[brand.id]">
+                                                        <tr>
+                                                          <td>{{ model.modelCode }}</td>
+                                                          <td>{{ model.modelName }}</td>
+                                                          <td>
+                                                            <span [class.active]="model.isActive"
+                                                              [class.inactive]="!model.isActive">
+                                                              {{ model.isActive ? 'Active' : 'Inactive' }}
+                                                            </span>
+                                                          </td>
+                                                          <td>
+                                                            <div class="tab">
+                                                              <div class="tooltip-container">
+                                                                <img src="assets/edit.png" alt="Edit"
+                                                                  (click)="openUpdateModelPopup(model)"
+                                                                  class="tab-icon">
+                                                                <span class="tooltip-text">Edit</span>
+                                                              </div>
+                                                              <div class="tooltip-container">
+                                                                <img src="assets/delete.png" alt="Delete"
+                                                                  (click)="openDeleteModelPopup(model)"
+                                                                  class="tab-icon">
+                                                                <span class="tooltip-text">Delete</span>
+                                                              </div>
+                                                            </div>
+                                                          </td>
+                                                        </tr>
+
+
+
+
+                                                      </ng-container>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+
+
+
+
+
+
+                                            </ng-container>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+
+
+
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+
+
+
+
+
+
+
+
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+
+
+
+
+              </ng-container>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+
+
+
+
+
+    </ng-container>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+<!-- group add popup -->
+<div class="modal" *ngIf="isGroupPopupOpen">
+  <div class="modal-content">
+    <p>Add Group</p>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Group Code:</label>
+        <input type="text" [(ngModel)]="groupForm.groupCode">
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <input type="text" [(ngModel)]="groupForm.groupName">
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="groupForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createGroup()">Apply</button>
+      <button (click)="closeGroupPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Group Update Popup -->
+<div class="modal" *ngIf="isUpdateGroupPopupOpen">
+  <div class="modal-content">
+    <p>Update Group</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Group Code:</label>
+        <input type="text" [(ngModel)]="updateGroupForm.groupCode" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <input type="text" [(ngModel)]="updateGroupForm.groupName">
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateGroupForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="groupUpdate()">Update</button>
+      <button (click)="closeUpdateGroupPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Confirmation Popup for Group -->
+<div class="delete-modal" *ngIf="isDeletePopupVisible">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this group?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteGroup()">Yes</button>
+      <button class="delete-no-btn" (click)="hideDeletePopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Department Add Popup -->
+<div class="modal" *ngIf="isDepartmentPopupOpen">
+  <div class="modal-content">
+    <p>Add Department</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Department Code:</label>
+        <input type="text" [(ngModel)]="departmentForm.departmentCode">
+      </div>
+
+      <div class="form-group">
+        <label>Department Name:</label>
+        <input type="text" [(ngModel)]="departmentForm.departmentName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="departmentForm.otherName">
+      </div>
+
+      <!-- Group Dropdown -->
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="departmentForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="departmentForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createDepartment()">Apply</button>
+      <button (click)="closeDepartmentPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Department Update Popup -->
+<div class="modal" *ngIf="isUpdateDepartmentPopupOpen">
+  <div class="modal-content">
+    <p>Update Department</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Department Code:</label>
+        <input type="text" [(ngModel)]="updateDepartmentForm.departmentCode" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Department Name:</label>
+        <input type="text" [(ngModel)]="updateDepartmentForm.departmentName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="updateDepartmentForm.otherName">
+      </div>
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="updateDepartmentForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateDepartmentForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateDepartment()">Update</button>
+      <button (click)="closeUpdateDepartmentPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Department Delete Confirmation Popup -->
+<div class="delete-modal" *ngIf="isDeleteDepartmentPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this department?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteDepartment()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteDepartmentPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Custodian Add Popup -->
+<div class="modal" *ngIf="isCustodianPopupOpen">
+  <div class="modal-content">
+    <p>Add Custodian</p>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Custodian Code:</label>
+        <input type="text" [(ngModel)]="custodianForm.custodianCode">
+      </div>
+
+      <div class="form-group">
+        <label>Custodian Name:</label>
+        <input type="text" [(ngModel)]="custodianForm.custodianName">
+      </div>
+
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="custodianForm.custodianEmail">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="custodianForm.otherName">
+      </div>
+
+      <!-- Department Dropdown -->
+      <div class="form-group">
+        <label>Department:</label>
+        <select [(ngModel)]="custodianForm.departmentName" (click)="loadDepartments()">
+          <option *ngFor="let dept of departmentList" [value]="dept.departmentName">
+            {{ dept.departmentName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="custodianForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createCustodian()">Apply</button>
+      <button (click)="closeCustodianPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Custodian Update Popup -->
+<div class="modal" *ngIf="isUpdateCustodianPopupOpen">
+  <div class="modal-content">
+    <p>Update Custodian</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Custodian Code:</label>
+        <input type="text" [(ngModel)]="updateCustodianForm.custodianCode" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Custodian Name:</label>
+        <input type="text" [(ngModel)]="updateCustodianForm.custodianName">
+      </div>
+
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="updateCustodianForm.custodianEmail">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="updateCustodianForm.otherName">
+      </div>
+
+      <div class="form-group">
+        <label>Department:</label>
+        <select [(ngModel)]="updateCustodianForm.departmentName" (click)="loadDepartments()">
+          <option *ngFor="let dept of departmentList" [value]="dept.departmentName">
+            {{ dept.departmentName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateCustodianForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateCustodian()">Update</button>
+      <button (click)="closeUpdateCustodianPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Custodian Delete Confirmation Popup -->
+<div class="delete-modal" *ngIf="isDeleteCustodianPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this custodian?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteCustodian()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteCustodianPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Sector Add Popup -->
+<div class="modal" *ngIf="isSectorPopupOpen">
+  <div class="modal-content">
+    <p>Add Sector</p>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Sector Code:</label>
+        <input type="text" [(ngModel)]="sectorForm.sectorCode">
+      </div>
+
+      <div class="form-group">
+        <label>Sector Name:</label>
+        <input type="text" [(ngModel)]="sectorForm.sectorName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="sectorForm.otherName">
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="sectorForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="sectorForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createSector()">Apply</button>
+      <button (click)="closeSectorPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sector Update Popup -->
+<div class="modal" *ngIf="isUpdateSectorPopupOpen">
+  <div class="modal-content">
+    <p>Update Sector</p>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Sector Code:</label>
+        <input type="text" [(ngModel)]="updateSectorForm.sectorCode" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Sector Name:</label>
+        <input type="text" [(ngModel)]="updateSectorForm.sectorName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="updateSectorForm.otherName">
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="updateSectorForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateSectorForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateSector()">Update</button>
+      <button (click)="closeUpdateSectorPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Sector Delete Confirmation Popup -->
+<div class="delete-modal" *ngIf="isDeleteSectorPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this sector?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteSector()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteSectorPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Supplier Add Popup -->
+<div class="modal" *ngIf="isSupplierPopupOpen">
+  <div class="modal-content">
+    <p>Add Supplier</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Supplier Code:</label>
+        <input type="text" [(ngModel)]="supplierForm.supplierCode">
+      </div>
+
+      <div class="form-group">
+        <label>Supplier Name:</label>
+        <input type="text" [(ngModel)]="supplierForm.supplierName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="supplierForm.otherName">
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="supplierForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="supplierForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createSupplier()">Apply</button>
+      <button (click)="closeSupplierPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Supplier Update Popup -->
+<div class="modal" *ngIf="isUpdateSupplierPopupOpen">
+  <div class="modal-content">
+    <p>Update Supplier</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Supplier Code:</label>
+        <input type="text" [(ngModel)]="updateSupplierForm.supplierCode" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Supplier Name:</label>
+        <input type="text" [(ngModel)]="updateSupplierForm.supplierName">
+      </div>
+
+      <div class="form-group">
+        <label>Other Name:</label>
+        <input type="text" [(ngModel)]="updateSupplierForm.otherName">
+      </div>
+
+      <div class="form-group">
+        <label>Group Name:</label>
+        <select [(ngModel)]="updateSupplierForm.groupName" (click)="loadGroups()">
+          <option *ngFor="let group of groupList" [value]="group.groupName">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateSupplierForm.isActive">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateSupplier()">Update</button>
+      <button (click)="closeUpdateSupplierPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Supplier Delete Confirmation Popup -->
+<div class="delete-modal" *ngIf="isDeleteSupplierPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this supplier?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteSupplier()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteSupplierPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isCreateSitePopupOpen">
+  <div class="modal-content">
+    <p>Create Site</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Site Code:</label>
+        <input type="text" [(ngModel)]="newSite.siteCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Site Name:</label>
+        <input type="text" [(ngModel)]="newSite.siteName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newSite.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newSite.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createSite()">Create</button>
+      <button (click)="closeCreateSitePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isUpdateSitePopupOpen">
+  <div class="modal-content">
+    <p>Update Site</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Site Code:</label>
+        <input type="text" [(ngModel)]="selectedSite.siteCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Site Name:</label>
+        <input type="text" [(ngModel)]="selectedSite.siteName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="selectedSite.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedSite.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateSite()">Update</button>
+      <button (click)="closeUpdateSitePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="delete-modal" *ngIf="isDeleteSitePopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this Site?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteSite()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteSitePopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isCreateBuildingPopupOpen">
+  <div class="modal-content">
+    <p>Create Building</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Building Code:</label>
+        <input type="text" [(ngModel)]="newBuilding.buildingCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Building Name:</label>
+        <input type="text" [(ngModel)]="newBuilding.buildingName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newBuilding.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newBuilding.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createBuilding()">Create</button>
+      <button (click)="closeCreateBuildingPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Update Building Modal -->
+<div class="modal" *ngIf="isUpdateBuildingPopupOpen">
+  <div class="modal-content">
+    <p>Update Building</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Building Code:</label>
+        <input type="text" [(ngModel)]="selectedBuilding.buildingCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Building Name:</label>
+        <input type="text" [(ngModel)]="selectedBuilding.buildingName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="selectedBuilding.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedBuilding.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateBuilding()">Update</button>
+      <button (click)="closeUpdateBuildingPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="delete-modal" *ngIf="isDeleteBuildingPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this Building?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteBuilding()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteBuildingPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isCreateFloorPopupOpen">
+  <div class="modal-content">
+    <p>Create Floor</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Floor Code:</label>
+        <input type="text" [(ngModel)]="newFloor.floorCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Floor Name:</label>
+        <input type="text" [(ngModel)]="newFloor.floorName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newFloor.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newFloor.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createFloor()">Create</button>
+      <button (click)="closeCreateFloorPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Update Floor Modal -->
+<div class="modal" *ngIf="isUpdateFloorPopupOpen">
+  <div class="modal-content">
+    <p>Update Floor</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Floor Code:</label>
+        <input type="text" [(ngModel)]="selectedFloor.floorCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Floor Name:</label>
+        <input type="text" [(ngModel)]="selectedFloor.floorName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="selectedFloor.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedFloor.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateFloor()">Update</button>
+      <button (click)="closeUpdateFloorPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="delete-modal" *ngIf="isDeleteFloorPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this Floor?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteFloor()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteFloorPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isCreateRoomPopupOpen">
+  <div class="modal-content">
+    <p>Create Room</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Room Code:</label>
+        <input type="text" [(ngModel)]="newRoom.roomCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Room Name:</label>
+        <input type="text" [(ngModel)]="newRoom.roomName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newRoom.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newRoom.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createRoom()">Create</button>
+      <button (click)="closeCreateRoomPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="isUpdateRoomPopupOpen">
+  <div class="modal-content">
+    <p>Update Room</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Room Code:</label>
+        <input type="text" [(ngModel)]="selectedRoom.roomCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Room Name:</label>
+        <input type="text" [(ngModel)]="selectedRoom.roomName" />
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="selectedRoom.description" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedRoom.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateRoom()">Update</button>
+      <button (click)="closeUpdateRoomPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="delete-modal" *ngIf="isDeleteRoomPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this Room?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteRoom()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteRoomPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- category -->
+<div class="modal" *ngIf="isCreateCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Create Category</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Category Code:</label>
+        <input type="text" [(ngModel)]="newCategory.categoryCode" />
+      </div>
+      <div class="form-group">
+        <label>Category Name:</label>
+        <input type="text" [(ngModel)]="newCategory.categoryName" />
+      </div>
+      <div class="form-group">
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newCategory.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createCategory()">Create</button>
+      <button (click)="closeCreateCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isUpdateCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Update Category</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Category Code:</label>
+        <input type="text" [(ngModel)]="selectedCategory.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Category Name:</label>
+        <input type="text" [(ngModel)]="selectedCategory.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedCategory.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateCategory()">Update</button>
+      <button (click)="closeUpdateCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="delete-modal" *ngIf="isDeleteCategoryPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete the category</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteCategory()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- sub category -->
+
+
+<div class="modal" *ngIf="isCreateSubCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Create Sub Category</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>SubCategory Code:</label>
+        <input type="text" [(ngModel)]="newSubCategory.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>SubCategory Name:</label>
+        <input type="text" [(ngModel)]="newSubCategory.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newSubCategory.isActive" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createSubCategory()">Create</button>
+      <button (click)="closeCreateSubCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isUpdateSubCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Update Sub Category</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Category Code:</label>
+        <input type="text" [(ngModel)]="updateSubCategoryForm.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Category Name:</label>
+        <input type="text" [(ngModel)]="updateSubCategoryForm.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateSubCategoryForm.isActive" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateSubCategory()">Update</button>
+      <button (click)="closeUpdateSubCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="delete-modal" *ngIf="isDeleteSubCategoryPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this subcategory?</p>
+
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteSubCategory()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteSubCategoryPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isCreateSubSubCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Create Sub-SubCategory</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Category Code:</label>
+        <input type="text" [(ngModel)]="newSubSubCategory.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Category Name:</label>
+        <input type="text" [(ngModel)]="newSubSubCategory.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newSubSubCategory.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createSubSubCategory()">Create</button>
+      <button (click)="closeCreateSubSubCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isUpdateSubSubCategoryPopupOpen">
+  <div class="modal-content">
+    <p>Update Sub-SubCategory</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Category Code:</label>
+        <input type="text" [(ngModel)]="updateSubSubCategoryData.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Category Name:</label>
+        <input type="text" [(ngModel)]="updateSubSubCategoryData.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updateSubSubCategoryData.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateSubSubCategory()">Update</button>
+      <button (click)="closeUpdateSubSubCategoryPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="delete-modal" *ngIf="isDeleteSubSubCategoryPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this Sub-SubCategory?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteSubSubCategory()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteSubSubCategoryPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- brand -->
+
+<div class="modal" *ngIf="isCreateBrandPopupOpen">
+  <div class="modal-content">
+    <p>Create Brand</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Brand Code</label>
+        <input type="text" [(ngModel)]="newBrand.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Brand Name</label>
+        <input type="text" [(ngModel)]="newBrand.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newBrand.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createBrand()">Create</button>
+      <button (click)="closeCreateBrandPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" *ngIf="isUpdateBrandPopupOpen">
+  <div class="modal-content">
+    <p>Update Brand</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Brand Code</label>
+        <input type="text" [(ngModel)]="updatedBrand.categoryCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Brand Name</label>
+        <input type="text" [(ngModel)]="updatedBrand.categoryName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="updatedBrand.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateBrand()">Update</button>
+      <button (click)="closeUpdateBrandPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="delete-modal" *ngIf="isDeleteBrandPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this brand?</p>
+
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteBrand()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteBrandPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Model -->
+
+
+<div class="modal" *ngIf="isCreateModelPopupOpen">
+  <div class="modal-content">
+    <p>Create Model</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Model Code:</label>
+        <input type="text" [(ngModel)]="newModel.modelCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Model Name:</label>
+        <input type="text" [(ngModel)]="newModel.modelName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="newModel.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="createModel()">Create</button>
+      <button (click)="closeCreateModelPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isUpdateModelPopupOpen">
+  <div class="modal-content">
+    <p>Update Model</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Model Code:</label>
+        <input type="text" [(ngModel)]="selectedModelToUpdate.modelCode" />
+      </div>
+
+      <div class="form-group">
+        <label>Model Name:</label>
+        <input type="text" [(ngModel)]="selectedModelToUpdate.modelName" />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="selectedModelToUpdate.isActive" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="updateModel()">Update</button>
+      <button (click)="closeUpdateModelPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="delete-modal" *ngIf="isDeleteModelPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete model</p>
+
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="confirmDeleteModel()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteModelPopup()">No</button>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'Asset'">
+  <div class="navbar-left1">
+    <span class="navbar-title1">Asset</span>
+  </div>
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container" (click)="openCreateAssetPopup()">
+      <button class="icon-button"><img src="assets/add.png" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+</nav>
+
+
+<table *ngIf="selectedRole === 'Asset'">
+  <thead>
+    <tr>
+      <th>Asset Code</th>
+      <th>Purchase Code</th>
+      <th>Description</th>
+      <th>Company</th>
+      <th>Site</th>
+      <th>Building</th>
+      <th>Floor</th>
+      <th>Room</th>
+      <th>Department</th>
+      <th>Custodian</th>
+      <!-- <th>Sector</th> -->
+      <th>Main Category</th>
+      <th>Sub Category</th>
+      <!-- <th>Sub Sub Category</th>
+      <th>Group</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Reference Code</th>
+      <th>Quantity</th>
+      <th>Status</th>
+      <th>Condition</th>
+      <th>Type</th> -->
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asset of assetList">
+      
+      
+      <td>{{ asset.assetCode }}</td>
+      <td>{{asset.purchaseCode}}</td>
+      <td>{{ asset.assetDescription }}</td>
+      <td>{{ asset.companyName }}</td>
+      <td>{{ asset.siteName }}</td>
+      <td>{{ asset.buildingName }}</td>
+      <td>{{ asset.floorName }}</td>
+      <td>{{ asset.room }}</td>
+      <td>{{ asset.department }}</td>
+      <td>{{ asset.custodian }}</td>
+      <!-- <td>{{ asset.sector }}</td> -->
+      <td>{{ asset.mainCategory }}</td>
+      <td>{{ asset.subCategory }}</td>
+      <!-- <td>{{ asset.subSubCategory }}</td>
+      <td>{{ asset.group }}</td>
+      <td>{{ asset.brand }}</td>
+      <td>{{ asset.model }}</td>
+      <td>{{ asset.referenceCode }}</td>
+      <td>{{ asset.quantity }}</td>
+      <td>{{ asset.assetStatus }}</td>
+      <td>{{ asset.assetCondition }}</td>
+      <td>{{ asset.assetType }}</td> -->
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateAssetPopup(asset)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="openDeleteAssetPopup(asset)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+        </div>
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+
+<div class="modal" *ngIf="isCreateAssetPopup">
+  <div class="modal-content">
+    <p>Create New Asset</p>
+
+    <div class="form-grid-asset">
+
+      <div class="form-group">
+        <label>Asset Group</label>
+        <select [(ngModel)]="newAsset.group"
+          (change)="getCompanyByGroupId(newAsset.group); getMainCategoryByGroupId(newAsset.group)">
+          <option *ngFor="let group of groupList" [ngValue]="group.id">
+            {{group.groupName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Companyname</label>
+        <select [(ngModel)]="newAsset.companyName" (change)="getSiteByCompanyId(newAsset.companyName)">
+          <option *ngFor="let company of companyList" [ngValue]="company.id">
+            {{company.companyName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Sitename</label>
+        <select [(ngModel)]="newAsset.siteName" (change)="getBuildingBySiteId(newAsset.siteName)">
+          <option *ngFor="let site of siteList" [ngValue]="site.id">
+            {{site.siteName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Buildingname</label>
+        <select [(ngModel)]="newAsset.buildingName" (change)="getFloorByBuildingId(newAsset.buildingName)">
+          <option *ngFor="let building of buildingList" [ngValue]="building.id">
+            {{building.buildingName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Floorname</label>
+        <select [(ngModel)]="newAsset.floorName" (change)="getRoomByFloorId(newAsset.floorName)">
+          <option *ngFor="let floor of floorList" [ngValue]="floor.id">
+            {{floor.floorName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Room</label>
+        <select [(ngModel)]="newAsset.room">
+          <option *ngFor="let room of roomList" [ngValue]="room.roomName">
+            {{room.roomName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Department</label>
+        <select [(ngModel)]="newAsset.department">
+          <option *ngFor="let department of departmentList" [ngValue]="department.departmentName">
+            {{department.departmentName}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label>Asset Custodian</label>
+        <select [(ngModel)]="newAsset.custodian">
+          <option *ngFor="let custodian of custodianList" [ngValue]="custodian.custodianName">
+            {{custodian.custodianName}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label>Asset sector</label>
+        <select [(ngModel)]="newAsset.sector">
+          <option *ngFor="let sector of sectorList" [ngValue]="sector.sectorName">
+            {{sector.sectorName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Maincategory</label>
+        <select [(ngModel)]="newAsset.mainCategory" (change)="getSubCategoryByMainCategoryId(newAsset.mainCategory)">
+          <option *ngFor="let category of mainCategoryList" [ngValue]="category.id">
+            {{category.categoryName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset subcategory</label>
+        <select [(ngModel)]="newAsset.subCategory" (change)="getSubSubCategoryBySubCategoryId(newAsset.subCategory)">
+          <option *ngFor="let subCategory of subCategoryList" [ngValue]="subCategory.id	">
+            {{subCategory.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Subsubcategory</label>
+        <select [(ngModel)]="newAsset.subSubCategory" (change)="getBrandBySubSubCategoryId(newAsset.subSubCategory)">
+          <option *ngFor="let subSubCategory of subSubCategoryList" [ngValue]="subSubCategory.id">
+            {{subSubCategory.categoryName}}
+          </option>
+        </select>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label>Asset Brand</label>
+        <select [(ngModel)]="newAsset.brand" (change)="getModelByBrandId(newAsset.brand)">
+          <option *ngFor="let brand of brandList" [ngValue]="brand.id">
+            {{brand.categoryName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Asset Model</label>
+        <select [(ngModel)]="newAsset.model">
+          <option *ngFor="let model of modelList" [ngValue]="model.model">
+            {{model.modelName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Asset Description</label>
+        <input type="text" [(ngModel)]="newAsset.assetDescription">
+      </div>
+      <div class="form-group">
+        <label>Asset Referencecode</label>
+        <input type="text" [(ngModel)]="newAsset.referenceCode">
+      </div>
+      <div class="form-group">
+        <label>Asset Quantity</label>
+        <input type="text" [(ngModel)]="newAsset.quantity">
+      </div>
+      <div class="form-group">
+        <label>Asset Type</label>
+        <input type="text" [(ngModel)]="newAsset.assetType">
+      </div>
+
+      <div class="form-group">
+        <label>Asset Status</label>
+        <input type="text" [(ngModel)]="newAsset.assetStatus">
+      </div>
+
+      <div class="form-group">
+        <label>Asset Condition</label>
+        <input type="text" [(ngModel)]="newAsset.assetCondition">
+      </div>
+
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="closeCreateAssetPopup()">cancel</button>
+      <button (click)="createAsset()">create</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal" *ngIf="isUpdateAssetPopupOpen">
+  <div class="modal-content">
+    <p>Update Asset</p>
+
+    <div class="form-grid-asset">
+
+      <!-- Asset Group -->
+      <div class="form-group">
+        <label>Asset Group</label>
+        <select [(ngModel)]="newAsset.group"
+          (change)="getCompanyByGroupId(newAsset.group); getMainCategoryByGroupId(newAsset.group)">
+          <option *ngFor="let group of groupList" [ngValue]="group.id">
+            {{ group.groupName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Company -->
+      <div class="form-group">
+        <label>Asset Company</label>
+        <select [(ngModel)]="newAsset.companyName" (change)="getSiteByCompanyId(newAsset.companyName)">
+          <option *ngFor="let company of companyList" [ngValue]="company.id">
+            {{ company.companyName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Site -->
+      <div class="form-group">
+        <label>Asset Site</label>
+        <select [(ngModel)]="newAsset.siteName" (change)="getBuildingBySiteId(newAsset.siteName)">
+          <option *ngFor="let site of siteList" [ngValue]="site.id">
+            {{ site.siteName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Building -->
+      <div class="form-group">
+        <label>Asset Building</label>
+        <select [(ngModel)]="newAsset.buildingName" (change)="getFloorByBuildingId(newAsset.buildingName)">
+          <option *ngFor="let building of buildingList" [ngValue]="building.id">
+            {{ building.buildingName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Floor -->
+      <div class="form-group">
+        <label>Asset Floor</label>
+        <select [(ngModel)]="newAsset.floorName" (change)="getRoomByFloorId(newAsset.floorName)">
+          <option *ngFor="let floor of floorList" [ngValue]="floor.id">
+            {{ floor.floorName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Room -->
+      <div class="form-group">
+        <label>Asset Room</label>
+        <select [(ngModel)]="newAsset.room">
+          <option *ngFor="let room of roomList" [ngValue]="room.roomName">
+            {{ room.roomName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Department -->
+      <div class="form-group">
+        <label>Asset Department</label>
+        <select [(ngModel)]="newAsset.department">
+          <option *ngFor="let department of departmentList" [ngValue]="department.departmentName">
+            {{ department.departmentName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Custodian -->
+      <div class="form-group">
+        <label>Asset Custodian</label>
+        <select [(ngModel)]="newAsset.custodian">
+          <option *ngFor="let custodian of custodianList" [ngValue]="custodian.custodianName">
+            {{ custodian.custodianName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sector -->
+      <div class="form-group">
+        <label>Asset Sector</label>
+        <select [(ngModel)]="newAsset.sector">
+          <option *ngFor="let sector of sectorList" [ngValue]="sector.sectorName">
+            {{ sector.sectorName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Main Category -->
+      <div class="form-group">
+        <label>Main Category</label>
+        <select [(ngModel)]="newAsset.mainCategory" (change)="getSubCategoryByMainCategoryId(newAsset.mainCategory)">
+          <option *ngFor="let category of mainCategoryList" [ngValue]="category.id">
+            {{ category.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sub Category -->
+      <div class="form-group">
+        <label>Sub Category</label>
+        <select [(ngModel)]="newAsset.subCategory" (change)="getSubSubCategoryBySubCategoryId(newAsset.subCategory)">
+          <option *ngFor="let sub of subCategoryList" [ngValue]="sub.id">
+            {{ sub.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- SubSub Category -->
+      <div class="form-group">
+        <label>Sub Sub Category</label>
+        <select [(ngModel)]="newAsset.subSubCategory" (change)="getBrandBySubSubCategoryId(newAsset.subSubCategory)">
+          <option *ngFor="let subsub of subSubCategoryList" [ngValue]="subsub.id">
+            {{ subsub.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Brand -->
+      <div class="form-group">
+        <label>Asset Brand</label>
+        <select [(ngModel)]="newAsset.brand" (change)="getModelByBrandId(newAsset.brand)">
+          <option *ngFor="let brand of brandList" [ngValue]="brand.id">
+            {{ brand.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Model -->
+      <div class="form-group">
+        <label>Asset Model</label>
+        <select [(ngModel)]="newAsset.model">
+          <option *ngFor="let model of modelList" [ngValue]="model.model">
+            {{ model.modelName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Text Fields -->
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" [(ngModel)]="newAsset.assetDescription">
+      </div>
+
+      <div class="form-group">
+        <label>Reference Code</label>
+        <input type="text" [(ngModel)]="newAsset.referenceCode">
+      </div>
+
+      <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" [(ngModel)]="newAsset.quantity">
+      </div>
+
+      <div class="form-group">
+        <label>Asset Type</label>
+        <input type="text" [(ngModel)]="newAsset.assetType">
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <input type="text" [(ngModel)]="newAsset.assetStatus">
+      </div>
+
+      <div class="form-group">
+        <label>Condition</label>
+        <input type="text" [(ngModel)]="newAsset.assetCondition">
+      </div>
+
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="closeUpdateAssetPopup()">Cancel</button>
+      <button (click)="updateAsset()">Update</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="delete-modal" *ngIf="isdeleteAssetPopupOpen">
+  <div class="delete-modal-content">
+    <p>Are you sure you want to delete this asset?</p>
+    <div class="delete-modal-buttons">
+      <button class="delete-yes-btn" (click)="deleteAsset()">Yes</button>
+      <button class="delete-no-btn" (click)="closeDeleteAssetPopup()">No</button>
+    </div>
+  </div>
+</div>

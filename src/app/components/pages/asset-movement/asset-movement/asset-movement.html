@@ -1,0 +1,43 @@
+
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a  class="breadcrumb-link">Transaction</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Asset Movement</span>
+  </nav>
+</div>
+
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Assert Movement</span>
+  </div>
+  <div class="navbar-right">
+    <button class="nav-button" routerLink="/create-asset-movement">New</button>
+  </div>
+</nav>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Moved Date</th>
+      <th>Moved By</th>
+      <th>Approval Workflow</th>
+      <th>Next Approval Workflow</th>
+      <th>Last Approval Workflow</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asset of assetMovements">
+      <td>{{ asset.movedDate?(asset.movedDate | date: 'dd-MM-yyyy , hh:mm a') : '-' }}</td>
+      <td>{{ asset.movedBy }}</td>
+      <td>{{ asset.approvalworkflow }}</td>
+      <td>{{ asset.nextapprovalworkflow }}</td>
+      <td>{{ asset.lastapprovalworkflow }}</td>
+      <td>{{ asset.status }}</td>
+    </tr>
+  </tbody>
+</table>
+

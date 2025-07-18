@@ -1,0 +1,146 @@
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Transaction</a>
+    <span class="breadcrumb-separator">››</span>
+    <a routerLink="/asset-movement" class="breadcrumb-link">Asset Movement</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Create Asset Movement</span>
+  </nav>
+</div>
+
+
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Create Assert Movement</span>
+  </div>
+</nav>
+
+
+
+<div class="asset-form-container">
+  <!-- Responsive Form -->
+  <form class="asset-form">
+    <div class="form-row">
+  
+      <div class="form-group">
+        <label>Company</label>
+        <select [(ngModel)]="assetMovement.company" name="company">
+          <option *ngFor="let comp of companyList " [ngValue]="comp.companyName">
+            {{comp.companyName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Site</label>
+        <!-- <select [(ngModel)]="assetMovement.site" name="site"  >
+          <option *ngFor="let site of siteList" [value]="site.siteName">
+            {{site.siteName}}
+          </option> 
+                </select>-->
+          <input type="text" [(ngModel)]="assetMovement.site" name="site" />
+  
+ 
+      </div>
+
+      <div class="form-group">
+        <label>Building</label>
+        <input type="text" [(ngModel)]="assetMovement.building" name="building" />
+      </div>
+
+      <div class="form-group">
+        <label>Floor</label>
+        <input type="text" [(ngModel)]="assetMovement.floor" name="floor" />
+      </div>
+
+      <div class="form-group">
+        <label>Room</label>
+        <input type="text" [(ngModel)]="assetMovement.room" name="room" />
+      </div>
+
+      <div class="form-group">
+        <label>Department</label>
+        <select  [(ngModel)]="assetMovement.department" name="department">
+          <option *ngFor="let dep of departmentList" [value]="dep.departmentName">
+              {{dep.departmentName}}
+          </option>
+        </select>
+      
+      </div>
+      <div class="form-group">
+        <label>Custodian</label>
+        <select [(ngModel)]="assetMovement.custodian" name="custodian">
+          <option *ngFor="let custodian of custodianList" [value]="custodian.custodianName">
+           {{custodian.custodianName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Moved Date</label>
+        <input type="date" [(ngModel)]="assetMovement.movedDate" name="movedDate" />
+      </div>
+      <div class="form-group">
+        <label>Moved By</label>
+        <input type="text" [(ngModel)]="assetMovement.movedBy" name="movedBy" />
+      </div>
+      
+      <!-- <div class="form-group">
+        <label>Status</label>
+        <input type="text" [(ngModel)]="assetMovement.status" name="status" />
+      </div> -->
+    </div>
+  </form>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAllAssets()" />
+      </th>
+      <th>Asset Code</th>
+      <th>Purchase Code</th>
+      <th>Description</th>
+      <th>Company</th>
+      <th>Site</th>
+      <th>Building</th>
+      <th>Floor</th>
+      <th>Room</th>
+      <th>Department</th>
+      <th>Custodian</th>
+      <th>Main Category</th>
+      <th>Sub Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asset of assetList"  (click)="toggleAsset(asset)">
+      <td>
+        <input type="checkbox" [(ngModel)]="asset.selected"/>
+      </td>
+
+      <td>{{ asset.assetCode }}</td>
+      <td>{{asset.purchaseCode}}</td>
+      <td>{{ asset.assetDescription }}</td>
+      <td>{{ asset.companyName }}</td>
+      <td>{{ asset.siteName }}</td>
+      <td>{{ asset.buildingName }}</td>
+      <td>{{ asset.floorName }}</td>
+      <td>{{ asset.room }}</td>
+      <td>{{ asset.department }}</td>
+      <td>{{ asset.custodian }}</td>
+      <td>{{ asset.mainCategory }}</td>
+      <td>{{ asset.subCategory }}</td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+
+ <div class="button-group">
+    <button (click)="createNewAssetMovement()">Save</button>
+    <button (click)="onCancel()">Cancel</button>
+  </div>
+</div>
