@@ -1,1 +1,30 @@
-<p>report works!</p>
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-title">Asset Report</span>
+    </div>
+</nav>
+<div class="asset-form-container">
+
+    <div class="movement-form">
+        <div class="form-group">
+            <label>Department</label>
+            <select [(ngModel)]="assetReport.departments">
+                <option *ngFor="let department of departmentList" [value]="department.departmentName">
+                   {{department.departmentName}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Custodian</label>
+            <select [(ngModel)]="assetReport.custodians">
+                <option *ngFor="let custodian of custodianList" [value]="custodian.custodianName">
+                    {{custodian.custodianName}}
+                </option>
+            </select>
+            
+        </div>
+    </div>
+
+
+</div>

@@ -106,7 +106,7 @@
 
 
 
-
+<!-- 
       <li class="menu-item" routerLink="/report" (click)="setActive('report')"
         [class.active]="activeMenuItem === 'report'">
         <div class="tooltip-container">
@@ -114,7 +114,39 @@
           <a [class.hidden]="isSidebarCollapsed" class="menu-text">Report</a>
           <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Report</span>
         </div>
+      </li> -->
+
+
+
+      <li class="menu-item admin-dropdown" (click)="toggleReport()"
+        [class.active]="activeMenuItem === 'reports'">
+        <div class=" tooltip-container">
+          <img src="assets/report.png" alt="report Icon" class="menu-icon" />
+          <span class="menu-text" [class.hidden]="isSidebarCollapsed">Report</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">Report</span>
+        </div>
+
       </li>
+      <div class="admin-right-panel" *ngIf="isReportexpanded"
+        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+
+        <div class="admin-title">
+
+          <img src="assets/report.png" alt="report Icon" class="admin-icon" />
+          <span class="admin-text">Report</span>
+        </div>
+        <ul class="admin-sub-menu">
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/report" (click)="closeReportPanel()">Asset Report</a>
+          </li>
+        </ul>
+
+
+        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+          <img src="assets/arrow3.png" alt="Dropdown Arrow" class="arrow-icon" (click)="closeReportPanel()" />
+        </div>
+      </div>
+
 
       <li class="menu-item" routerLink="/admin" (click)="setActive('admin')"
         [class.active]="activeMenuItem === 'admin'">
@@ -124,6 +156,7 @@
           <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Admin</span>
         </div>
       </li>
+      
 
     </ul>
   </aside>

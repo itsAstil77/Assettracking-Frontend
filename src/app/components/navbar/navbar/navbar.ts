@@ -16,6 +16,8 @@ export class Navbar {
 
   isTransactionExpanded = false;
 
+  isReportexpanded=false;
+
   admina() {
     this.isTransactionExpanded = !this.isTransactionExpanded;
     this.setActive('admina');
@@ -36,10 +38,37 @@ export class Navbar {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  toggleTransaction() {
-    this.isTransactionExpanded = !this.isTransactionExpanded;
-    this.setActive('transaction');
+  // toggleTransaction() {
+  //   this.isTransactionExpanded = !this.isTransactionExpanded;
+  //   this.setActive('transaction');
+  // }
+
+  //   toggleReport() {
+  //   this.isReportexpanded = !this.isReportexpanded;
+  //   this.setActive('report');
+  // }
+toggleTransaction() {
+  this.isTransactionExpanded = !this.isTransactionExpanded;
+  this.setActive('transaction');
+
+  // Close report panel when transaction is toggled
+  if (this.isTransactionExpanded) {
+    this.isReportexpanded = false;
   }
+}
+
+toggleReport() {
+  this.isReportexpanded = !this.isReportexpanded;
+  this.setActive('reports');
+
+  // Close transaction panel when report is toggled
+  if (this.isReportexpanded) {
+    this.isTransactionExpanded = false;
+  }
+}
+
+
+
 
   toggleDropdown(event: Event) {
     event.stopPropagation(); // Prevent immediate closing
@@ -68,8 +97,13 @@ export class Navbar {
     ) {
       this.activeMenuItem = 'transaction';
     }
+    if (
+      currentUrl.includes('/report') 
+    ) {
+      this.activeMenuItem = 'reports';
+    }
     else if (currentUrl.includes('master')) this.activeMenuItem = 'master';
-    else if (currentUrl.includes('report')) this.activeMenuItem = 'report';
+    // else if (currentUrl.includes('report')) this.activeMenuItem = 'report';
     else if (currentUrl.includes('admin')) this.activeMenuItem = 'admin';
     else this.activeMenuItem = 'dashboard'; // fallback default
   }
@@ -117,12 +151,31 @@ export class Navbar {
     this.isTransactionExpanded = false;
   }
 
+  closeReportPanel(){
+    this.isReportexpanded=false;
+  
+  }
+
   activeMenuItem: string = ''; // default active is dashboard
 
-  setActive(menuItem: string): void {
-    this.activeMenuItem = menuItem; // only one active at a time
-    if (menuItem !== 'transaction') {
+setActive(menuItem: string): void {
+  this.activeMenuItem = menuItem;
+
+  // Close transaction panel if another menu is selected
+  if (menuItem !== 'transaction') {
     this.isTransactionExpanded = false;
   }
+
+  // Close report panel if another menu is selected
+  if (menuItem !== 'reports') {
+    this.isReportexpanded = false;
   }
+
+  // Add more if you have other dropdown panels
 }
+
+  }
+
+
+  
+
