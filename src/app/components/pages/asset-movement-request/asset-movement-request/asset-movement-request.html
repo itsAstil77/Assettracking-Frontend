@@ -1,0 +1,125 @@
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Transaction</a>
+    <span class="breadcrumb-separator">››</span>
+    <a routerLink="/asset-movement" class="breadcrumb-link">Asset Movement</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Manage Movement </span>
+  </nav>
+</div>
+
+
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Manage Movement </span>
+  </div>
+</nav>
+
+
+<div class="user-tabs">
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Request' }" (click)="selectedRole = ('Request')">
+    Manage Movement Request
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'History' }" (click)="selectedRole = 'History'">
+    Approval History
+  </div>
+</div>
+
+<div class="asset-form-container">
+  <div *ngIf="selectedRole==='Request'" class="movement-form">
+
+    <div class="form-group">
+      <label>Reference Number</label>
+      <input type="text" [value]="movementData.referenceNumber" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Moved Date</label>
+      <input type="text" [value]="movementData.movedDate | date: 'dd-MM-yyyy'" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Moved By</label>
+      <input type="text" [value]="movementData.movedBy" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Next Approval Workflow</label>
+      <input type="text" [value]="movementData.nextapprovalworkflow" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Last Approval Workflow</label>
+      <input type="text" [value]="movementData.lastapprovalworkflow" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <input type="text" [value]="movementData.status" readonly>
+    </div>
+  </div>
+
+  <div *ngIf="selectedRole === 'Request'">
+    <table class="request">
+      <thead>
+        <tr>
+          <th>Asset Code</th>
+          <th>From Company</th>
+          <th>To Company</th>
+          <th>From Site</th>
+          <th>To Site</th>
+          <th>From Building</th>
+          <th>To Building</th>
+          <th>From Floor</th>
+          <th>To Floor</th>
+          <th>From Room</th>
+          <th>To Room</th>
+          <th>From Custodian</th>
+          <th>To Custodian</th>
+          <th>From Dept</th>
+          <th>To Dept</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movement of movementDetails">
+          <td>{{ movement.assetCode }}</td>
+          <td>{{ movement.fromCompany }}</td>
+          <td>{{ movement.toCompany }}</td>
+          <td>{{ movement.fromSite }}</td>
+          <td>{{ movement.toSite }}</td>
+          <td>{{ movement.fromBuilding }}</td>
+          <td>{{ movement.toBuilding }}</td>
+          <td>{{ movement.fromFloor }}</td>
+          <td>{{ movement.toFloor }}</td>
+          <td>{{ movement.fromRoom }}</td>
+          <td>{{ movement.toRoom }}</td>
+          <td>{{ movement.fromCustodian }}</td>
+          <td>{{ movement.toCustodian }}</td>
+          <td>{{ movement.fromDepartment }}</td>
+          <td>{{ movement.toDepartment }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+  <table class="history" *ngIf="selectedRole==='History'">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Approved By</th>
+        <th>Approved Date</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let approval of movementData.approvalSummary">
+        <td>{{ approval.status }}</td>
+        <td>{{ approval.requestApprovedBy }}</td>
+        <td>{{ approval.requestApprovedDate | date: 'dd-MM-yyyy hh:mm a' }}</td>
+        <td>{{ approval.remarks }}</td>
+      </tr>
+    </tbody>
+  </table>

@@ -79,10 +79,19 @@
         </div>
         <ul class="admin-sub-menu">
           <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-audit" (click)="closeTransactionPanel()">Asset Audit</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a routerLink="/asset-movement" (click)="closeTransactionPanel()">Asset Movement</a>
           </li>
           <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a routerLink="/asset-disposal" (click)="closeTransactionPanel()">Asset Disposal</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-checkin" (click)="closeTransactionPanel()">Asset checkIn</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-checkout" (click)="closeTransactionPanel()">Asset checkOut</a>
           </li>
         </ul>
 

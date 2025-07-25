@@ -59,7 +59,12 @@ export class Navbar {
     if (
       currentUrl.includes('/asset-movement') ||
       currentUrl.includes('/create-asset-movement')||
-      currentUrl.includes('/asset-disposal')
+      currentUrl.includes('/asset-disposal')||
+      currentUrl.includes('/create-asset-disposal')||
+      currentUrl.includes('/asset-checkin')||
+      currentUrl.includes('/asset-checkout')||
+      currentUrl.includes('/asset-audit')||
+      currentUrl.includes('/create-asset-audit')
     ) {
       this.activeMenuItem = 'transaction';
     }

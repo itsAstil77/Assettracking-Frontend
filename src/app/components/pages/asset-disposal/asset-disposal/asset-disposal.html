@@ -1,1 +1,50 @@
-<p>asset-disposal works!</p>
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Transaction</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Asset Disposal</span>
+  </nav>
+</div>
+
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Assert Disposal</span>
+  </div>
+  <div class="navbar-right">
+    <button class="nav-button" routerLink="/create-asset-disposal">New</button>
+  </div>
+</nav>
+
+
+<table>
+  <thead>
+    <th>Disposed Date</th>
+    <th>Approval workflow</th>
+    <th>Next Approval Workflow</th>
+    <th>Last Approval Workflow</th>
+    <th>Disposal Reason</th>
+    <th>Requestedby</th>
+    <th>Status</th>
+    <th>view</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asset of disposalAsset">
+      <td>{{asset.disposedDate}}</td>
+      <td>{{asset.approvalworkflow}}</td>
+      <td>{{asset.nextapprovalworkflow}}</td>
+      <td>{{asset.lastapprovalworkflow}}</td>
+      <td>{{asset.disposalReason}}</td>
+      <td>{{asset.requestedBy}}</td>
+      <td>{{asset.status}}</td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container" [routerLink]="['/asset-disposal-request', asset.id]">
+            <img src="assets/show.png" alt="Edit" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

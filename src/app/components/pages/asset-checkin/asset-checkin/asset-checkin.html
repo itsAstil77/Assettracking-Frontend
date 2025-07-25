@@ -1,0 +1,153 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Asset CheckIn</span>
+  </div>
+</nav>
+
+<div class="asset-form-container">
+
+  <div class="movement-form">
+    <div class="form-group">
+      <label>Select Custodian</label>
+      <select [(ngModel)]="assetCheckIn.oldCustodian" (change)="onCustodianChange(assetCheckIn.oldCustodian)">
+        <option *ngFor="let custodian of custodianList" [value]="custodian.custodianName">
+          {{ custodian.custodianName }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAllAssets()" />
+        </th>
+        <th>Asset Code</th>
+        <th>Company Name</th>
+        <th>Site Name</th>
+        <th>Building</th>
+        <th>Floor</th>
+        <th>Room</th>
+        <th>Department</th>
+        <th>Custodian</th>
+        <th>Main Category</th>
+        <th>Sub Category</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of assetsList" (click)="toggleAsset(asset)">
+        <td>
+          <input type="checkbox" [(ngModel)]="asset.selected" />
+        </td>
+
+        <td>{{ asset.assetCode }}</td>
+        <td>{{ asset.companyName }}</td>
+        <td>{{ asset.siteName }}</td>
+        <td>{{ asset.buildingName }}</td>
+        <td>{{ asset.floorName }}</td>
+        <td>{{ asset.room }}</td>
+        <td>{{ asset.department }}</td>
+        <td>{{ asset.custodian }}</td>
+        <td>{{ asset.mainCategory }}</td>
+        <td>{{ asset.subCategory }}</td>
+        <td>{{ asset.assetDescription }}</td>
+        <td>{{ asset.quantity }}</td>
+        <td>{{ asset.assetStatus }}</td>
+        <td>{{ asset.assetType }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="movement-form">
+    <div class="form-group">
+      <label>Custodian</label>
+      <select [(ngModel)]="assetCheckIn.newcustodian">
+        <option *ngFor="let custodian of custodianList" [value]="custodian.custodianName">
+          {{ custodian.custodianName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Department</label>
+      <select [(ngModel)]="assetCheckIn.department">
+        <option *ngFor="let department of departmentList" [value]="department.departmentName">
+          {{ department.departmentName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>Company</label>
+      <select [(ngModel)]="assetCheckIn.company" (change)="onSiteChangeByCompanyId(assetCheckIn.company)">
+        <option *ngFor="let company of companyList" [value]="company.id">
+          {{ company.companyName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>site</label>
+      <select [(ngModel)]="assetCheckIn.site" (change)="onSiteChange(assetCheckIn.site)">
+        <option *ngFor="let site of siteList" [value]="site.id">
+          {{ site.siteName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>Building</label>
+      <select [(ngModel)]="assetCheckIn.building" (change)="onBuildingChange(assetCheckIn.building)">
+        <option *ngFor="let building of buildingList" [value]="building.id">
+          {{ building.buildingName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>Floor</label>
+      <select [(ngModel)]="assetCheckIn.floor" (change)="onFloorChange(assetCheckIn.floor)">
+        <option *ngFor="let floor of floorList" [value]="floor.id">
+          {{ floor.floorName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>Room</label>
+      <select [(ngModel)]="assetCheckIn.room">
+        <option *ngFor="let room of roomList" [value]="room.roomName">
+          {{ room.roomName }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label>Remarks</label>
+      <input type="text" [(ngModel)]="assetCheckIn.remarks">
+    </div>
+
+  </div>
+
+
+  <div class="button-group">
+    <button (click)="submitCheckin()">Submit</button>
+  </div>
+
+
+
+
+
+</div>

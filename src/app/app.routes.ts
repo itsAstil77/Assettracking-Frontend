@@ -9,6 +9,14 @@ import { Admin } from './components/pages/admin/admin/admin';
 import { CreateAssetMovement } from './components/pages/create-asset-movement/create-asset-movement/create-asset-movement';
 import { AssetMovement } from './components/pages/asset-movement/asset-movement/asset-movement';
 import { AssetDisposal } from './components/pages/asset-disposal/asset-disposal/asset-disposal';
+import { CreateAssetDisposal } from './components/pages/create-asset-disposal/create-asset-disposal/create-asset-disposal';
+import { CreateAsset } from './components/pages/create-asset/create-asset/create-asset';
+import { AssetMovementRequest } from './components/pages/asset-movement-request/asset-movement-request/asset-movement-request';
+import { AssetDisposalRequest } from './components/pages/asset-disposal-request/asset-disposal-request/asset-disposal-request';
+import { AssetCheckin } from './components/pages/asset-checkin/asset-checkin/asset-checkin';
+import { AssetCheckout } from './components/pages/asset-checkout/asset-checkout/asset-checkout';
+import { AssetAudit } from './components/pages/asset-audit/asset-audit/asset-audit';
+import { CreateAssetAudit } from './components/pages/create-asset-audit/create-asset-audit/create-asset-audit';
 
 
 export const routes: Routes = [
@@ -39,7 +47,15 @@ export const routes: Routes = [
       { path: 'admin', component: Admin },
       {path:'create-asset-movement',component:CreateAssetMovement},
       {path:'asset-movement',component:AssetMovement},
-      {path:'asset-disposal',component:AssetDisposal}
+      {path:'asset-disposal',component:AssetDisposal},
+      {path:'create-asset-disposal',component:CreateAssetDisposal},
+      {path:'create-asset',component:CreateAsset},
+      {path:'asset-movement-request/:id',component:AssetMovementRequest},
+      {path:'asset-disposal-request/:id',component:AssetDisposalRequest},
+      {path:'asset-checkin',component:AssetCheckin},
+      {path:'asset-checkout',component:AssetCheckout},
+      {path:'asset-audit',component:AssetAudit},
+      {path:'create-asset-audit',component:CreateAssetAudit}
 
      
 ]}

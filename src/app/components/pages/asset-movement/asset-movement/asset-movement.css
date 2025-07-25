@@ -125,3 +125,59 @@ img {
     font-size: 14px;
   }
 }
+
+
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+} 
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  z-index: auto;
+
+}
+
+.tooltip-container .tooltip-text {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9999;
+  width:70px;
+}
+
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 8px 15px;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color:black;
+    transition: background 0.3s ease-in-out;
+    gap:10px;
+}
+
+
+.tab-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}

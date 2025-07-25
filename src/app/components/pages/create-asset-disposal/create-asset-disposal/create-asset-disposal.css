@@ -58,8 +58,6 @@
 }
 
 
-
-
 .asset-form-container {
   padding: 20px;
   background-color: #f9f9f9;
@@ -95,14 +93,13 @@
 .form-group input,
 .form-group select {
   height: 32px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid #ccc;
   font-size: 13px;
   font-family: 'RedHatDisplay-Regular';
   width: 100%;
   box-sizing: border-box;
-  background-color: white;
 }
 
 /* Make table responsive */

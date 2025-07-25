@@ -1,0 +1,150 @@
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Transaction</a>
+    <span class="breadcrumb-separator">››</span>
+    <a routerLink="/asset-disposal" class="breadcrumb-link">Asset Disposal</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Manage Disposal </span>
+  </nav>
+</div>
+
+
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Manage Disposal </span>
+  </div>
+</nav>
+
+<div class="user-tabs">
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Request' }" (click)="selectedRole = 'Request'">
+    Manage Disposal Request
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'History' }" (click)="selectedRole = 'History'">
+    Approval History
+  </div>
+</div>
+
+
+<div class="asset-form-container">
+  <div *ngIf="selectedRole==='Request'" class="movement-form">
+
+    <div class="form-group">
+      <label>Reference Number</label>
+      <input type="text" [value]="DisposalData.referenceNumber" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Request By</label>
+      <input type="text" [value]="DisposalData.requestedBy" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Disposal Reason</label>
+      <input type="text" [value]="DisposalData.disposalReason" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Last Approver</label>
+      <input type="text" [value]="DisposalData.lastapprovalworkflow" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Next Approver</label>
+      <input type="text" [value]="DisposalData.nextapprovalworkflow" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>disposed Date</label>
+      <input type="text" [value]="DisposalData.disposedDate | date: 'dd-MM-yyyy'" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Request Date</label>
+      <input type="text" [value]="DisposalData.disposalRequestDate | date: 'dd-MM-yyyy'" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <input type="text" [value]="DisposalData.status" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Remarks</label>
+      <input type="text" [value]="DisposalData.remarks" readonly>
+    </div>
+  </div>
+
+
+
+
+  <table class="request" *ngIf="selectedRole === 'Request'">
+    <thead>
+      <tr>
+        <th>Asset Code</th>
+        <th>Company</th>
+        <th>Site</th>
+        <th>Building</th>
+        <th>Floor</th>
+        <th>Room</th>
+        <th>Department</th>
+        <th>Custodian</th>
+        <th>Sector</th>
+        <th>Main Category</th>
+        <th>Sub Category</th>
+        <th>Sub-Sub Category</th>
+        <th>Group</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let disposal of disposalDetails">
+        <td>{{ disposal.assetCode }}</td>
+        <td>{{ disposal.companyName }}</td>
+        <td>{{ disposal.siteName }}</td>
+        <td>{{ disposal.buildingName }}</td>
+        <td>{{ disposal.floorName }}</td>
+        <td>{{ disposal.room }}</td>
+        <td>{{ disposal.department }}</td>
+        <td>{{ disposal.custodian }}</td>
+        <td>{{ disposal.sector }}</td>
+        <td>{{ disposal.mainCategory }}</td>
+        <td>{{ disposal.subCategory }}</td>
+        <td>{{ disposal.subSubCategory }}</td>
+        <td>{{ disposal.group }}</td>
+        <td>{{ disposal.brand }}</td>
+        <td>{{ disposal.model }}</td>
+        <td>{{ disposal.assetDescription }}</td>
+        <td>{{ disposal.quantity }}</td>
+        <td>{{ disposal.assetStatus }}</td>
+        <td>{{ disposal.assetType }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<table class="history" *ngIf="selectedRole==='History'">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Approved By</th>
+      <th>Approved Date</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let disposal of DisposalData.approvalSummary">
+      <td>{{ disposal.status }}</td>
+      <td>{{ disposal.requestApprovedBy }}</td>
+      <td>{{ disposal.requestApprovedDate | date: 'dd-MM-yyyy hh:mm a' }}</td>
+      <td>{{ disposal.remarks }}</td>
+    </tr>
+  </tbody>
+</table>

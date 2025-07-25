@@ -14,13 +14,14 @@ import { Brand } from '../../../services/brand/brand';
 import { Model } from '../../../services/model/model';
 import { Alert } from '../../../services/alert/alert';
 import { Asset } from '../../../services/asset/asset';
+import { RouterModule } from '@angular/router';
 
 
 
 
 @Component({
   selector: 'app-master',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './master.html',
   styleUrl: './master.css'
 })
@@ -72,7 +73,7 @@ export class Master implements OnInit {
         this.cdr.detectChanges(); 
 
       },
-      error: () => alert('Failed to load departments')
+      error: () => console.log('Failed to load departments')
     });
   }
 
@@ -84,7 +85,7 @@ export class Master implements OnInit {
         this.custodianList = res;
         this.cdr.detectChanges(); 
       },
-      error: () => alert('Failed to load custodians')
+      error: () => console.log('Failed to load custodians')
     });
   }
 
@@ -97,7 +98,7 @@ export class Master implements OnInit {
         this.sectorList = res;
         this.cdr.detectChanges(); 
       },
-      error: () => alert('Failed to load sectors')
+      error: () => console.log('Failed to load sectors')
     });
   }
 
@@ -109,7 +110,7 @@ export class Master implements OnInit {
         this.supplierList = res;
         this.cdr.detectChanges(); 
       },
-      error: () => alert('Failed to load suppliers')
+      error: () => console.log('Failed to load suppliers')
     });
   }
 

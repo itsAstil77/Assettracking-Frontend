@@ -25,6 +25,10 @@ deleteModel(id: string) {
   return this.http.delete<any>(`Model/delete/${id}`);
 }
 
+getModel(){
+  return this.http.get(`Model/summary`)
+}
+
 
 
 }
