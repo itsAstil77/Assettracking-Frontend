@@ -6,24 +6,24 @@ import { Injectable } from '@angular/core';
 })
 export class Brand {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getBrandsBySubSubCategoryId(subSubCategoryId: string) {
-  return this.http.get<any[]>(`Brand/getbrandbysubsubcategory?id=${subSubCategoryId}`);
-}
+    return this.http.get<any[]>(`Brand/getbrandbysubsubcategory?id=${subSubCategoryId}`);
+  }
 
-createBrand(brand: any) {
+  createBrand(brand: any) {
     return this.http.post(`Brand/create`, brand);
   }
 
   updateBrand(id: string, brand: any) {
-  return this.http.put(`Brand/update/${id}`, brand);
-}
+    return this.http.put(`Brand/update/${id}`, brand);
+  }
 
 
-deleteBrand(id: string) {
-  return this.http.delete(`Brand/delete/${id}`);
-}
+  deleteBrand(id: string) {
+    return this.http.delete(`Brand/delete/${id}`);
+  }
 
 
 }

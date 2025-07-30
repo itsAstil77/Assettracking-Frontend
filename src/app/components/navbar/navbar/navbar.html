@@ -33,7 +33,7 @@
         <div class="tooltip-container">
           <img src="assets/dashboard.png" alt="Dashboard Icon" class="menu-icon" />
           <a [class.hidden]="isSidebarCollapsed" class="menu-text">Dashboard</a>
-          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Dashboard</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Dashboard</span>
         </div>
       </li>
 
@@ -42,7 +42,7 @@
         <div class="tooltip-container">
           <img src="assets/master1.png" alt="master Icon" class="menu-icon" />
           <a [class.hidden]="isSidebarCollapsed" class="menu-text">Master</a>
-          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Master</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Master</span>
         </div>
       </li>
 
@@ -65,12 +65,12 @@
         <div class=" tooltip-container">
           <img src="assets/transaction.png" alt="Transaction Icon" class="menu-icon" />
           <span class="menu-text" [class.hidden]="isSidebarCollapsed">Transaction</span>
-          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">Transaction</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Transaction</span>
         </div>
 
       </li>
       <div class="admin-right-panel" *ngIf="isTransactionExpanded"
-        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">
 
         <div class="admin-title">
 
@@ -96,7 +96,7 @@
         </ul>
 
 
-        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">
           <img src="assets/arrow3.png" alt="Dropdown Arrow" class="arrow-icon" (click)="closeTransactionPanel()" />
         </div>
       </div>
@@ -123,12 +123,12 @@
         <div class=" tooltip-container">
           <img src="assets/report.png" alt="report Icon" class="menu-icon" />
           <span class="menu-text" [class.hidden]="isSidebarCollapsed">Report</span>
-          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">Report</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Report</span>
         </div>
 
       </li>
       <div class="admin-right-panel" *ngIf="isReportexpanded"
-        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+        [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">
 
         <div class="admin-title">
 
@@ -139,10 +139,13 @@
           <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a routerLink="/report" (click)="closeReportPanel()">Asset Report</a>
           </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-movement-report" (click)="closeReportPanel()">Asset Movement Report</a>
+          </li>
         </ul>
 
 
-        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">
+        <div class="arrow" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">
           <img src="assets/arrow3.png" alt="Dropdown Arrow" class="arrow-icon" (click)="closeReportPanel()" />
         </div>
       </div>
@@ -153,7 +156,7 @@
         <div class="tooltip-container">
           <img src="assets/admin.png" alt="admin Icon" class="menu-icon" />
           <a [class.hidden]="isSidebarCollapsed" class="menu-text">Admin</a>
-          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '270px' }">Admin</span>
+          <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Admin</span>
         </div>
       </li>
       

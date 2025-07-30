@@ -102,7 +102,7 @@ export class AssetCheckin implements OnInit {
 
   onSiteChangeByCompanyId(companyId: string): void {
     const selectedCompany = this.companyList.find(comp => comp.id === companyId);
-    this.assetCheckIn.company = selectedCompany?.companyName;
+    this.assetCheckIn.company = selectedCompany.companyName;
 
     this.checkinService.getSiteByCompanyId(companyId).subscribe({
       next: (res: any) => {

@@ -1,0 +1,52 @@
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Reports</a>
+    <span class="breadcrumb-separator">››</span>
+    <a routerLink="/asset-movement-report" class="breadcrumb-link">Asset Movement Report</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Asset Movement Report Summary</span>
+  </nav>
+</div>
+
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-title">Asset Movement Report</span>
+    </div>
+</nav>
+
+
+<table border="1" style="width: 100%; border-collapse: collapse;" *ngIf="reportData.length > 0">
+  <thead>
+    <tr>
+      <th>Asset Code</th>
+      <th>From Group</th>
+      <th>From Company</th>
+      <th>From Site</th>
+      <th>To Group</th>
+      <th>To Company</th>
+      <th>To Site</th>
+      <th>Reference Number</th>
+      <th>Asset Description</th>
+      <th>Main Category</th>
+      <th>Sub Category</th>
+      <th>Sub-Sub Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of reportData">
+      <td>{{ item.assetCode }}</td>
+      <td>{{ item.fromGroup }}</td>
+      <td>{{ item.fromCompany }}</td>
+      <td>{{ item.fromSite }}</td>
+      <td>{{ item.toGroup }}</td>
+      <td>{{ item.toCompany }}</td>
+      <td>{{ item.toSite }}</td>
+      <td>{{ item.referenceNumber }}</td>
+      <td>{{ item.assetDescription }}</td>
+      <td>{{ item.mainCategory }}</td>
+      <td>{{ item.subCategory }}</td>
+      <td>{{ item.subSubCategory }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -16,7 +16,7 @@ export class AssetMovement {
     return this.http.get(`AssetDisposal/ AssetDisposalsummary?page=${page}&pageSize=${pageSize}`)
   }
 
-  getSitesByGroupId(id:any){
+  getCompanyByGroupId(id:any){
     return this.http.get(`companies/company-summary?GroupId=${id}`)
   }
 

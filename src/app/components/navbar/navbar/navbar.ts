@@ -16,7 +16,7 @@ export class Navbar {
 
   isTransactionExpanded = false;
 
-  isReportexpanded=false;
+  isReportexpanded = false;
 
   admina() {
     this.isTransactionExpanded = !this.isTransactionExpanded;
@@ -47,25 +47,25 @@ export class Navbar {
   //   this.isReportexpanded = !this.isReportexpanded;
   //   this.setActive('report');
   // }
-toggleTransaction() {
-  this.isTransactionExpanded = !this.isTransactionExpanded;
-  this.setActive('transaction');
+  toggleTransaction() {
+    this.isTransactionExpanded = !this.isTransactionExpanded;
+    this.setActive('transaction');
 
-  // Close report panel when transaction is toggled
-  if (this.isTransactionExpanded) {
-    this.isReportexpanded = false;
+    // Close report panel when transaction is toggled
+    if (this.isTransactionExpanded) {
+      this.isReportexpanded = false;
+    }
   }
-}
 
-toggleReport() {
-  this.isReportexpanded = !this.isReportexpanded;
-  this.setActive('reports');
+  toggleReport() {
+    this.isReportexpanded = !this.isReportexpanded;
+    this.setActive('reports');
 
-  // Close transaction panel when report is toggled
-  if (this.isReportexpanded) {
-    this.isTransactionExpanded = false;
+    // Close transaction panel when report is toggled
+    if (this.isReportexpanded) {
+      this.isTransactionExpanded = false;
+    }
   }
-}
 
 
 
@@ -87,18 +87,21 @@ toggleReport() {
     const currentUrl = this.router.url;
     if (
       currentUrl.includes('/asset-movement') ||
-      currentUrl.includes('/create-asset-movement')||
-      currentUrl.includes('/asset-disposal')||
-      currentUrl.includes('/create-asset-disposal')||
-      currentUrl.includes('/asset-checkin')||
-      currentUrl.includes('/asset-checkout')||
-      currentUrl.includes('/asset-audit')||
+      currentUrl.includes('/create-asset-movement') ||
+      currentUrl.includes('/asset-disposal') ||
+      currentUrl.includes('/create-asset-disposal') ||
+      currentUrl.includes('/asset-checkin') ||
+      currentUrl.includes('/asset-checkout') ||
+      currentUrl.includes('/asset-audit') ||
       currentUrl.includes('/create-asset-audit')
     ) {
       this.activeMenuItem = 'transaction';
     }
     if (
-      currentUrl.includes('/report') 
+      currentUrl.includes('/report') ||
+      currentUrl.includes('/asset-movement-report') ||
+      currentUrl.includes('/asset-report-sum') ||
+      currentUrl.includes('/asset-movement-report-sum')
     ) {
       this.activeMenuItem = 'reports';
     }
@@ -151,31 +154,31 @@ toggleReport() {
     this.isTransactionExpanded = false;
   }
 
-  closeReportPanel(){
-    this.isReportexpanded=false;
-  
+  closeReportPanel() {
+    this.isReportexpanded = false;
+
   }
 
   activeMenuItem: string = ''; // default active is dashboard
 
-setActive(menuItem: string): void {
-  this.activeMenuItem = menuItem;
+  setActive(menuItem: string): void {
+    this.activeMenuItem = menuItem;
 
-  // Close transaction panel if another menu is selected
-  if (menuItem !== 'transaction') {
-    this.isTransactionExpanded = false;
+    // Close transaction panel if another menu is selected
+    if (menuItem !== 'transaction') {
+      this.isTransactionExpanded = false;
+    }
+
+    // Close report panel if another menu is selected
+    if (menuItem !== 'reports') {
+      this.isReportexpanded = false;
+    }
+
+    // Add more if you have other dropdown panels
   }
 
-  // Close report panel if another menu is selected
-  if (menuItem !== 'reports') {
-    this.isReportexpanded = false;
-  }
-
-  // Add more if you have other dropdown panels
 }
 
-  }
 
 
-  
 

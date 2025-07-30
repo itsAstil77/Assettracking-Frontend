@@ -1,30 +1,226 @@
+
+<div class="breadcrumb-wrapper">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-link">Reports</a>
+    <span class="breadcrumb-separator">››</span>
+    <span class="breadcrumb-current">Asset Report</span>
+  </nav>
+</div>
+
 <nav class="navbar">
-    <div class="navbar-left">
-        <span class="navbar-title">Asset Report</span>
-    </div>
+  <div class="navbar-left">
+    <span class="navbar-title">Asset Report</span>
+  </div>
 </nav>
 <div class="asset-form-container">
 
-    <div class="movement-form">
-        <div class="form-group">
-            <label>Department</label>
-            <select [(ngModel)]="assetReport.departments">
-                <option *ngFor="let department of departmentList" [value]="department.departmentName">
-                   {{department.departmentName}}
-                </option>
-            </select>
-        </div>
+  
 
-        <div class="form-group">
-            <label>Custodian</label>
-            <select [(ngModel)]="assetReport.custodians">
-                <option *ngFor="let custodian of custodianList" [value]="custodian.custodianName">
-                    {{custodian.custodianName}}
-                </option>
-            </select>
-            
+  <div class="movement-form">
+
+    <!-- From Department -->
+    <div class="form-group">
+      <label> Department</label>
+      <div class="dropdown-wrapper" (click)="showFromDeptDropdown = !showFromDeptDropdown">
+        <div class="dropdown-display">
+          {{ assetReport.department.length ? assetReport.department.join(', ') : 'SelectDepartment(s)'
+          }}
         </div>
+        <div class="dropdown-list" *ngIf="showFromDeptDropdown" (click)="$event.stopPropagation()">
+          <label *ngFor="let department of departmentList">
+            <input type="checkbox" [checked]="assetReport.department.includes(department.departmentName)"
+              (change)="onCheckboxChange($event, department.departmentName, 'department')" />
+            {{ department.departmentName }}
+          </label>
+        </div>
+      </div>
     </div>
 
 
-</div>
+
+    <!-- From Custodian -->
+    <div class="form-group">
+      <label>Custodian</label>
+      <div class="dropdown-wrapper" (click)="showFromCustodianDropdown = !showFromCustodianDropdown">
+        <div class="dropdown-display">
+          {{ assetReport.custodian.length ? assetReport.custodian.join(', ') : 'Select Custodian(s)'
+          }}
+        </div>
+        <div class="dropdown-list" *ngIf="showFromCustodianDropdown" (click)="$event.stopPropagation()">
+          <label *ngFor="let custodian of custodianList">
+            <input type="checkbox" [checked]="assetReport.custodian.includes(custodian.custodianName)"
+              (change)="onCheckboxChange($event, custodian.custodianName, 'custodian')" />
+            {{ custodian.custodianName }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="dropdown-container">
+      <div class="dropdown-input" (click)="dropdownOpenFrom = !dropdownOpenFrom">
+        <label>location</label>
+        <input type="text" readonly [value]="fromLocationLabel" />
+      </div>
+
+      <div class="dropdown-panel" *ngIf="dropdownOpenFrom">
+        <ul class="tree-list">
+          <li *ngFor="let group of groupList">
+            <!-- Group -->
+            <div class="tree-item">
+              <input type="checkbox" [checked]="assetReport.groupName.includes(group.id)"
+                (change)="onCheckboxChange($event, group.id, 'groupName')" />
+              <span class="label-with-icon" (mousedown)="toggleDropdown(group.id)">
+                <span [class.rotate]="expandedGroupId === group.id">&#9654;</span>
+                {{ group.groupName }}
+              </span>
+            </div>
+
+            <!-- Company -->
+            <ul *ngIf="expandedGroupId === group.id && companyMap[group.id]">
+              <li *ngFor="let company of companyMap[group.id]">
+                <div class="tree-item">
+                  <input type="checkbox" [checked]="assetReport.companyName.includes(company.id)"
+                    (change)="onCheckboxChange($event, company.id, 'companyName')" />
+                  <span class="label-with-icon" (mousedown)="toggleCompany(company.id)">
+                    <span [class.rotate]="expandedCompanyId === company.id">&#9654;</span>
+                    {{ company.companyName }}
+                  </span>
+                </div>
+
+                <!-- Site -->
+                <ul *ngIf="expandedCompanyId === company.id && siteMap[company.id]">
+                  <li *ngFor="let site of siteMap[company.id]">
+                    <div class="tree-item">
+                      <input type="checkbox" [checked]="assetReport.siteName.includes(site.id)"
+                        (change)="onCheckboxChange($event, site.id, 'siteName')" />
+                      <span class="label-with-icon" (mousedown)="toggleSite(site.id)">
+                        <span [class.rotate]="expandedSiteId === site.id">&#9654;</span>
+                        {{ site.siteName }}
+                      </span>
+                    </div>
+
+                    <!-- Building -->
+                    <ul *ngIf="expandedSiteId === site.id && buildingMap[site.id]">
+                      <li *ngFor="let building of buildingMap[site.id]">
+                        <div class="tree-item">
+                          <input type="checkbox" [checked]="assetReport.buildingName.includes(building.id)"
+                            (change)="onCheckboxChange($event, building.id, 'buildingName')" />
+                          <span class="label-with-icon" (mousedown)="toggleBuilding(building.id)">
+                            <span [class.rotate]="expandedBuildingId === building.id">&#9654;</span>
+                            {{ building.buildingName }}
+                          </span>
+                        </div>
+
+                        <!-- Floor -->
+                        <ul *ngIf="expandedBuildingId === building.id && floorMap[building.id]">
+                          <li *ngFor="let floor of floorMap[building.id]">
+                            <div class="tree-item">
+                              <input type="checkbox" [checked]="assetReport.floorName.includes(floor.id)"
+                                (change)="onCheckboxChange($event, floor.id, 'floorName')" />
+                              <span class="label-with-icon" (mousedown)="toggleFloor(floor.id)">
+                                <span [class.rotate]="expandedFloorId === floor.id">&#9654;</span>
+                                {{ floor.floorName }}
+                              </span>
+                            </div>
+
+                            <!-- Room -->
+                            <ul *ngIf="expandedFloorId === floor.id && roomMap[floor.id]">
+                              <li *ngFor="let room of roomMap[floor.id]">
+                                <div class="tree-item">
+                                  <input type="checkbox" [checked]="assetReport.roomName.includes(room.id)"
+                                    (change)="onCheckboxChange($event, room.id, 'roomName')" />
+                                  {{ room.roomName }}
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+    <div class="dropdown-container">
+      <div class="dropdown-input" (click)="dropdownOpenCategory = !dropdownOpenCategory">
+        <label>Category</label>
+        <input type="text" readonly [value]="fromCategoryLabel" />
+      </div>
+
+      <div class="dropdown-panel" *ngIf="dropdownOpenCategory">
+        <ul class="tree-list">
+          <li *ngFor="let group of groupList">
+            <!-- Group -->
+            <div class="tree-item">
+              <input type="checkbox" [checked]="assetReport.groupName.includes(group.id)"
+                (change)="onCheckboxChange($event, group.id, 'groupName')" />
+              <span class="label-with-icon" (mousedown)="toggleMainCategory(group.id)">
+                <span [class.rotate]="expandedCategoryGroupId === group.id">&#9654;</span>
+                {{ group.groupName }}
+              </span>
+            </div>
+
+            <!-- Main Category -->
+            <ul *ngIf="expandedCategoryGroupId === group.id && mainCategoryMap[group.id]">
+              <li *ngFor="let main of mainCategoryMap[group.id]">
+                <div class="tree-item">
+                  <input type="checkbox" [checked]="assetReport.mainCategory.includes(main.id)"
+                    (change)="onCheckboxChange($event, main.id, 'mainCategory')" />
+                  <span class="label-with-icon" (mousedown)="toggleSubCategory(main.id)">
+                    <span [class.rotate]="expandedMainCategoryId === main.id">&#9654;</span>
+                    {{ main.categoryName }}
+                  </span>
+                </div>
+
+                <!-- Sub Category -->
+                <ul *ngIf="expandedMainCategoryId === main.id && subCategoryMap[main.id]">
+                  <li *ngFor="let sub of subCategoryMap[main.id]">
+                    <div class="tree-item">
+                      <input type="checkbox" [checked]="assetReport.subCategory.includes(sub.id)"
+                        (change)="onCheckboxChange($event, sub.id, 'subCategory')" />
+                      <span class="label-with-icon" (mousedown)="toggleSubSubCategory(sub.id)">
+                        <span [class.rotate]="expandedSubCategoryId === sub.id">&#9654;</span>
+                        {{ sub.categoryName }}
+                      </span>
+                    </div>
+
+                    <!-- Sub Sub Category -->
+                    <ul *ngIf="expandedSubCategoryId === sub.id && subSubCategoryMap[sub.id]">
+                      <li *ngFor="let subsub of subSubCategoryMap[sub.id]">
+                        <div class="tree-item">
+                          <input type="checkbox" [checked]="assetReport.subSubCategory.includes(subsub.id)"
+                            (change)="onCheckboxChange($event, subsub.id, 'subSubCategory')" />
+                          {{ subsub.categoryName }}
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+    <div class="form-buttons">
+      <button class="btn-submit" (click)="createAssetReport()">Create</button>
+    </div>
+
+  </div>

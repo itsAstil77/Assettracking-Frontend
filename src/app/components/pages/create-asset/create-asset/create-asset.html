@@ -34,7 +34,7 @@
     <div class="form-grid-asset">
 
         <div class="form-group">
-            <label>Asset Group</label>
+            <label>Group</label>
             <select [(ngModel)]="newAsset.group"
                 (change)="getCompanyByGroupId(newAsset.group); getMainCategoryByGroupId(newAsset.group)">
                 <option *ngFor="let group of groupList" [ngValue]="group.id">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Companyname</label>
+            <label>Company</label>
             <select [(ngModel)]="newAsset.companyName" (change)="getSiteByCompanyId(newAsset.companyName)">
                 <option *ngFor="let company of companyList" [ngValue]="company.id">
                     {{company.companyName}}
@@ -53,7 +53,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Sitename</label>
+            <label>Site</label>
             <select [(ngModel)]="newAsset.siteName" (change)="getBuildingBySiteId(newAsset.siteName)">
                 <option *ngFor="let site of siteList" [ngValue]="site.id">
                     {{site.siteName}}
@@ -62,7 +62,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Buildingname</label>
+            <label>Building</label>
             <select [(ngModel)]="newAsset.buildingName" (change)="getFloorByBuildingId(newAsset.buildingName)">
                 <option *ngFor="let building of buildingList" [ngValue]="building.id">
                     {{building.buildingName}}
@@ -71,7 +71,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Floorname</label>
+            <label>Floor</label>
             <select [(ngModel)]="newAsset.floorName" (change)="getRoomByFloorId(newAsset.floorName)">
                 <option *ngFor="let floor of floorList" [ngValue]="floor.id">
                     {{floor.floorName}}
@@ -80,7 +80,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Room</label>
+            <label>Room</label>
             <select [(ngModel)]="newAsset.room">
                 <option *ngFor="let room of roomList" [ngValue]="room.roomName">
                     {{room.roomName}}
@@ -89,7 +89,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Department</label>
+            <label>Department</label>
             <select [(ngModel)]="newAsset.department">
                 <option *ngFor="let department of departmentList" [ngValue]="department.departmentName">
                     {{department.departmentName}}
@@ -99,7 +99,7 @@
 
 
         <div class="form-group">
-            <label>Asset Custodian</label>
+            <label>Custodian</label>
             <select [(ngModel)]="newAsset.custodian">
                 <option *ngFor="let custodian of custodianList" [ngValue]="custodian.custodianName">
                     {{custodian.custodianName}}
@@ -109,7 +109,7 @@
 
 
         <div class="form-group">
-            <label>Asset sector</label>
+            <label>sector</label>
             <select [(ngModel)]="newAsset.sector">
                 <option *ngFor="let sector of sectorList" [ngValue]="sector.sectorName">
                     {{sector.sectorName}}
@@ -118,7 +118,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Maincategory</label>
+            <label>Maincategory</label>
             <select [(ngModel)]="newAsset.mainCategory"
                 (change)="getSubCategoryByMainCategoryId(newAsset.mainCategory)">
                 <option *ngFor="let category of mainCategoryList" [ngValue]="category.id">
@@ -128,7 +128,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset subcategory</label>
+            <label>subcategory</label>
             <select [(ngModel)]="newAsset.subCategory"
                 (change)="getSubSubCategoryBySubCategoryId(newAsset.subCategory)">
                 <option *ngFor="let subCategory of subCategoryList" [ngValue]="subCategory.id	">
@@ -138,7 +138,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Subsubcategory</label>
+            <label>Subsubcategory</label>
             <select [(ngModel)]="newAsset.subSubCategory"
                 (change)="getBrandBySubSubCategoryId(newAsset.subSubCategory)">
                 <option *ngFor="let subSubCategory of subSubCategoryList" [ngValue]="subSubCategory.id">
@@ -148,7 +148,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Brand</label>
+            <label>Brand</label>
             <select [(ngModel)]="newAsset.brand" (change)="getModelByBrandId(newAsset.brand)">
                 <option *ngFor="let brand of brandList" [ngValue]="brand.id">
                     {{brand.categoryName}}
@@ -157,7 +157,7 @@
         </div>
 
         <div class="form-group">
-            <label>Asset Model</label>
+            <label>Model</label>
             <select [(ngModel)]="newAsset.model">
                 <option *ngFor="let model of modelList" [ngValue]="model.model">
                     {{model.modelName}}
@@ -165,29 +165,29 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Asset Description</label>
+            <label>Description</label>
             <input type="text" [(ngModel)]="newAsset.assetDescription">
         </div>
         <div class="form-group">
-            <label>Asset Referencecode</label>
+            <label>Referencecode</label>
             <input type="text" [(ngModel)]="newAsset.referenceCode">
         </div>
         <div class="form-group">
-            <label>Asset Quantity</label>
+            <label>Quantity</label>
             <input type="text" [(ngModel)]="newAsset.quantity">
         </div>
         <div class="form-group">
-            <label>Asset Type</label>
+            <label>Type</label>
             <input type="text" [(ngModel)]="newAsset.assetType">
         </div>
 
         <div class="form-group">
-            <label>Asset Status</label>
+            <label>Status</label>
             <input type="text" [(ngModel)]="newAsset.assetStatus">
         </div>
 
         <div class="form-group">
-            <label>Asset Condition</label>
+            <label>Condition</label>
             <input type="text" [(ngModel)]="newAsset.assetCondition">
         </div>
     </div>

@@ -32,7 +32,7 @@ export class CreateAsset implements OnInit {
   constructor(private masterService: Masters, private departmentService: Department,
     private custodianService: Custodian, private sectorService: Sector, private cdr: ChangeDetectorRef, private assetService: Asset,
     private assetMovementService: AssetMovement, private router: Router, private alertService: Alert, private supplierService: Supplier,
-  private modelService:Model) { }
+    private modelService: Model) { }
 
   groupList: any[] = []
 
@@ -96,11 +96,12 @@ export class CreateAsset implements OnInit {
     });
   }
 
-  getModelList:any[]=[];
-  loadModels(){
+  getModelList: any[] = [];
+  loadModels() {
     this.modelService.getModel().subscribe({
-      next:(res:any)=>{
-        this.getModelList=res;
+      next: (res: any) => {
+        this.getModelList = res;
+        this.cdr.detectChanges();
       }
     })
   }
@@ -113,6 +114,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getCompanyByGroupId(group).subscribe({
       next: (res: any) => {
         this.companyList = res;
+        this.cdr.detectChanges();
 
         // If newAsset.companyId is already selected, get the companyName
         const selectedCompany = this.companyList.find(
@@ -137,6 +139,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getMainCategoryByGroupId(groupId).subscribe({
       next: (res: any) => {
         this.mainCategoryList = res;
+        this.cdr.detectChanges();
 
         const selected = res.find((item: any) => item.id === this.newAsset.mainCategory);
         this.newAsset.mainCategory = selected ? selected.categoryName : '';
@@ -149,6 +152,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getSiteByCompanyId(companyId).subscribe({
       next: (res: any) => {
         this.siteList = res;
+        this.cdr.detectChanges();
 
         const selectedSite = this.siteList.find(site => site.id === this.newAsset.siteName);
         this.newAsset.siteName = selectedSite ? selectedSite.siteName : '';
@@ -162,6 +166,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getBuildingBySiteId(siteId).subscribe({
       next: (res: any) => {
         this.buildingList = res;
+        this.cdr.detectChanges();
 
         const selected = this.buildingList.find(b => b.id === this.newAsset.buildingName);
         this.newAsset.buildingName = selected ? selected.buildingName : '';
@@ -174,6 +179,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getFloorByBuildingId(buildingId).subscribe({
       next: (res: any) => {
         this.floorList = res;
+        this.cdr.detectChanges();
 
         const selected = this.floorList.find(f => f.id === this.newAsset.floorName);
         this.newAsset.floorName = selected ? selected.floorName : '';
@@ -187,6 +193,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getRoomByFloorId(floorId).subscribe({
       next: (res: any) => {
         this.roomList = res;
+        this.cdr.detectChanges();
 
         const selected = this.roomList.find(r => r.id === this.newAsset.room);
         this.newAsset.room = selected ? selected.roomName : '';
@@ -200,6 +207,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getSubCategoryByMainCategoryId(mainCategoryId).subscribe({
       next: (res: any) => {
         this.subCategoryList = res;
+        this.cdr.detectChanges();
 
         const selected = res.find((item: any) => item.id === this.newAsset.subCategory);
         this.newAsset.subCategory = selected ? selected.categoryName : '';
@@ -214,6 +222,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getSubSubCategoryBySubCategoryId(subCategoryId).subscribe({
       next: (res: any) => {
         this.subSubCategoryList = res;
+        this.cdr.detectChanges();
 
         const selected = res.find((item: any) => item.id === this.newAsset.subSubCategory);
         this.newAsset.subSubCategory = selected ? selected.categoryName : '';
@@ -227,6 +236,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getBrandBySubSubCategoryId(subSubCategoryId).subscribe({
       next: (res: any) => {
         this.brandList = res;
+        this.cdr.detectChanges();
 
         const selected = res.find((item: any) => item.id === this.newAsset.brand);
         this.newAsset.brand = selected ? selected.categoryName : '';
@@ -240,6 +250,7 @@ export class CreateAsset implements OnInit {
     this.assetService.getModelByBrandId(brandId).subscribe({
       next: (res: any) => {
         this.modelList = res;
+        this.cdr.detectChanges();
 
         const selected = res.find((item: any) => item.model === this.newAsset.model);
         this.newAsset.model = selected ? selected.modelName : '';
@@ -308,7 +319,8 @@ export class CreateAsset implements OnInit {
     quantity: "",
     assetStatus: "",
     assetCondition: "",
-    assetType: ""
+    assetType: "",
+    purchaseCode: ""
   };
 
   createAsset() {
@@ -382,7 +394,7 @@ export class CreateAsset implements OnInit {
   AdditionalInfo = {
     id: '',
     model: '',
-    make:'',
+    make: '',
     assetType: '',
   }
 

@@ -847,6 +847,7 @@ export class Master implements OnInit {
       this.masterService.getSitesByCompanyId(id).subscribe({
         next: (data) => {
           this.siteMap[id] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error loading sites:', err);
@@ -1012,6 +1013,7 @@ export class Master implements OnInit {
       this.masterService.getBuildingsBySiteId(id).subscribe({
         next: (data) => {
           this.buildingMap[id] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error loading buildings:', err);
@@ -1172,6 +1174,7 @@ export class Master implements OnInit {
       this.masterService.getFloorsByBuildingId(id).subscribe({
         next: (data) => {
           this.floorMap[id] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error loading floors:', err);
@@ -1318,6 +1321,7 @@ export class Master implements OnInit {
       this.masterService.getRoomsByFloorId(id).subscribe({
         next: (data) => {
           this.roomMap[id] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error loading rooms:', err);
@@ -1480,6 +1484,7 @@ export class Master implements OnInit {
       this.categoryService.getMainCategoryByGroupId(groupId).subscribe({
         next: (data) => {
           this.categoryMap[groupId] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error fetching category data:', err);
@@ -1650,6 +1655,7 @@ export class Master implements OnInit {
       this.subCategoryService.getSubCategoriesByMainCategory(categoryId).subscribe({
         next: (data) => {
           this.subCategoryMap[categoryId] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Failed to load subcategories:', err);
@@ -1814,6 +1820,7 @@ export class Master implements OnInit {
       this.subSubCategoryService.getSubSubCategoriesBySubCategoryId(subCategoryId).subscribe({
         next: (data) => {
           this.subSubCategoryMap[subCategoryId] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error fetching sub-subcategory data:', err);
@@ -1987,6 +1994,7 @@ export class Master implements OnInit {
       this.brandService.getBrandsBySubSubCategoryId(subSubCategoryId).subscribe({
         next: (data) => {
           this.brandMap[subSubCategoryId] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error fetching brand data:', err);
@@ -2151,6 +2159,7 @@ export class Master implements OnInit {
       this.modelService.getModelsByBrandId(brandId).subscribe({
         next: (data) => {
           this.modelMap[brandId] = data;
+           this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error fetching models:', err);
@@ -2492,6 +2501,7 @@ export class Master implements OnInit {
     this.assetService.getSiteByCompanyId(companyId).subscribe({
       next: (res: any) => {
         this.siteList = res;
+         this.cdr.detectChanges(); 
 
         const selectedSite = this.siteList.find(site => site.id === this.newAsset.siteName);
         this.newAsset.siteName = selectedSite ? selectedSite.siteName : '';
@@ -2514,6 +2524,7 @@ export class Master implements OnInit {
     this.assetService.getBuildingBySiteId(siteId).subscribe({
       next: (res: any) => {
         this.buildingList = res;
+         this.cdr.detectChanges(); 
 
         const selected = this.buildingList.find(b => b.id === this.newAsset.buildingName);
         this.newAsset.buildingName = selected ? selected.buildingName : '';
@@ -2536,6 +2547,7 @@ export class Master implements OnInit {
     this.assetService.getFloorByBuildingId(buildingId).subscribe({
       next: (res: any) => {
         this.floorList = res;
+         this.cdr.detectChanges(); 
 
         const selected = this.floorList.find(f => f.id === this.newAsset.floorName);
         this.newAsset.floorName = selected ? selected.floorName : '';
@@ -2558,6 +2570,7 @@ export class Master implements OnInit {
     this.assetService.getRoomByFloorId(floorId).subscribe({
       next: (res: any) => {
         this.roomList = res;
+         this.cdr.detectChanges(); 
 
         const selected = this.roomList.find(r => r.id === this.newAsset.room);
         this.newAsset.room = selected ? selected.roomName : '';
@@ -2620,6 +2633,7 @@ export class Master implements OnInit {
     this.assetService.getMainCategoryByGroupId(groupId).subscribe({
       next: (res: any) => {
         this.mainCategoryList = res;
+         this.cdr.detectChanges(); 
 
         const selected = res.find((item: any) => item.id === this.newAsset.mainCategory);
         this.newAsset.mainCategory = selected ? selected.categoryName : '';
@@ -2633,6 +2647,7 @@ export class Master implements OnInit {
     this.assetService.getSubCategoryByMainCategoryId(mainCategoryId).subscribe({
       next: (res: any) => {
         this.subCategoryList = res;
+         this.cdr.detectChanges(); 
 
         const selected = res.find((item: any) => item.id === this.newAsset.subCategory);
         this.newAsset.subCategory = selected ? selected.categoryName : '';
@@ -2646,6 +2661,7 @@ export class Master implements OnInit {
     this.assetService.getSubSubCategoryBySubCategoryId(subCategoryId).subscribe({
       next: (res: any) => {
         this.subSubCategoryList = res;
+         this.cdr.detectChanges(); 
 
         const selected = res.find((item: any) => item.id === this.newAsset.subSubCategory);
         this.newAsset.subSubCategory = selected ? selected.categoryName : '';
@@ -2659,6 +2675,7 @@ export class Master implements OnInit {
     this.assetService.getBrandBySubSubCategoryId(subSubCategoryId).subscribe({
       next: (res: any) => {
         this.brandList = res;
+         this.cdr.detectChanges(); 
 
         const selected = res.find((item: any) => item.id === this.newAsset.brand);
         this.newAsset.brand = selected ? selected.categoryName : '';
@@ -2672,6 +2689,7 @@ export class Master implements OnInit {
     this.assetService.getModelByBrandId(brandId).subscribe({
       next: (res: any) => {
         this.modelList = res;
+         this.cdr.detectChanges(); 
 
         const selected = res.find((item: any) => item.model === this.newAsset.model);
         this.newAsset.model = selected ? selected.modelName : '';

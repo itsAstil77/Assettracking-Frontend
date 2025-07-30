@@ -204,7 +204,7 @@ export class CreateAssetMovement implements OnInit {
     const selectedGroup = this.groupList.find(group => group.id === groupId);
     this.assetMovement.group = selectedGroup?.groupName;
 
-    this.assetMovementService.getSitesByGroupId(groupId).subscribe({
+    this.assetMovementService.getCompanyByGroupId(groupId).subscribe({
       next: (res: any) => {
         this.companyList = res;
         this.cdr.detectChanges();

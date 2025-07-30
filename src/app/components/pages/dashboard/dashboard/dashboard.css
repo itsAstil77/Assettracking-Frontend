@@ -1,0 +1,52 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  height: 150px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-value {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: auto;
+  margin-top: 30px;
+  font-family: 'RedHatDisplay-Regular';
+}
+
+.card-title {
+  position: absolute;
+  bottom: 15px;
+  font-size: 13px;
+  font-family: 'RedHatDisplay-Regular';
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Different background colors for each card */
+.card-1 {
+  background-color: #4f46e5; /* Indigo */
+}
+
+.card-2 {
+  background-color: #059669; /* Emerald */
+}
+
+.card-3 {
+  background-color: #dc2626; /* Red */
+}
+
+.card-4 {
+  background-color: #f59e0b; /* Amber */
+}

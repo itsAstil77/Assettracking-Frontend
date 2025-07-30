@@ -1,0 +1,61 @@
+<div class="breadcrumb-wrapper">
+    <nav class="breadcrumb">
+        <a class="breadcrumb-link">Reports</a>
+        <span class="breadcrumb-separator">››</span>
+        <a routerLink="/report" class="breadcrumb-link">Asset Report</a>
+        <span class="breadcrumb-separator">››</span>
+        <span class="breadcrumb-current">Asset Report Summary</span>
+    </nav>
+</div>
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-title">Asset Report Summary</span>
+    </div>
+</nav>
+
+
+<div class="asset-table-container">
+    <table class="asset-table">
+        <thead>
+            <tr>
+                <th>Asset Code</th>
+                <th>Company</th>
+                <th>Site</th>
+                <th>Building</th>
+                <th>Floor</th>
+                <th>Room</th>
+                <th>Department</th>
+                <th>Custodian</th>
+                <th>Main Category</th>
+                <th>Sub Category</th>
+                <th>SubSub Category</th>
+                <th>Asset Type</th>
+                <th>Asset Condition</th>
+                <th>Status</th>
+                <th>Brand</th>
+                <th>Model</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let asset of reportData">
+                <td>{{ asset.assetCode }}</td>
+                <td>{{ asset.companyName }}</td>
+                <td>{{ asset.siteName }}</td>
+                <td>{{ asset.buildingName }}</td>
+                <td>{{ asset.floorName }}</td>
+                <td>{{ asset.room }}</td>
+                <td>{{ asset.department }}</td>
+                <td>{{ asset.custodian }}</td>
+                <td>{{ asset.mainCategory }}</td>
+                <td>{{ asset.subCategory }}</td>
+                <td>{{ asset.subSubCategory }}</td>
+                <td>{{ asset.assetType }}</td>
+                <td>{{ asset.assetCondition }}</td>
+                <td>{{ asset.assetStatus }}</td>
+                <td>{{ asset.brand }}</td>
+                <td>{{ asset.model }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

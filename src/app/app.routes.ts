@@ -17,6 +17,9 @@ import { AssetCheckin } from './components/pages/asset-checkin/asset-checkin/ass
 import { AssetCheckout } from './components/pages/asset-checkout/asset-checkout/asset-checkout';
 import { AssetAudit } from './components/pages/asset-audit/asset-audit/asset-audit';
 import { CreateAssetAudit } from './components/pages/create-asset-audit/create-asset-audit/create-asset-audit';
+import { AssetMovementReport } from './components/pages/asset-movement-report/asset-movement-report/asset-movement-report';
+import { AssetMovementReportSum } from './components/pages/asset-movement-report-sum/asset-movement-report-sum/asset-movement-report-sum';
+import { AssetReportSum } from './components/pages/asset-report-sum/asset-report-sum/asset-report-sum';
 
 
 export const routes: Routes = [
@@ -55,7 +58,10 @@ export const routes: Routes = [
       {path:'asset-checkin',component:AssetCheckin},
       {path:'asset-checkout',component:AssetCheckout},
       {path:'asset-audit',component:AssetAudit},
-      {path:'create-asset-audit',component:CreateAssetAudit}
+      {path:'create-asset-audit',component:CreateAssetAudit},
+      {path:'asset-movement-report',component:AssetMovementReport},
+      {path:'asset-movement-report-sum',component:AssetMovementReportSum},
+      {path:'asset-report-sum',component:AssetReportSum}
 
      
 ]}

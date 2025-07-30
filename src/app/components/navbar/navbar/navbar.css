@@ -80,7 +80,7 @@
   
   /* Expand sidebar when not collapsed */
   .sidebar:not(.collapsed) {
-    width: 270px;
+    width: 230px;
   }
   
   /* Sidebar Menu */   
@@ -389,7 +389,7 @@ h2{
   z-index: 999;
 }
 .content {
-  margin-left: 270px; /* Match sidebar width when expanded */
+  margin-left: 230px; /* Match sidebar width when expanded */
   margin-top: 60px; /* Match navbar height */
   padding: 20px;
   background-color: #ecf0f1;
@@ -414,7 +414,7 @@ h2{
   position: fixed;
   top: 59px; 
   left: 220px; 
-  width: 250px;
+  width: 220px;
   background-color: #ffffff;
   border-left: 1px solid #ddd;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
