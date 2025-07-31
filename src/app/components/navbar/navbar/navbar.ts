@@ -101,7 +101,17 @@ export class Navbar {
       currentUrl.includes('/report') ||
       currentUrl.includes('/asset-movement-report') ||
       currentUrl.includes('/asset-report-sum') ||
-      currentUrl.includes('/asset-movement-report-sum')
+      currentUrl.includes('/asset-movement-report-sum') ||
+      currentUrl.includes('/asset-audit-report') ||
+      currentUrl.includes('/asset-catalogue-report') ||
+      currentUrl.includes('/asset-category-report') ||
+      currentUrl.includes('/asset-depreciation-report') ||
+      currentUrl.includes('/asset-disposal-report') ||
+      currentUrl.includes('/asset-dof-report') ||
+      currentUrl.includes('/asset-value-report') ||
+      currentUrl.includes('/audit-logs') ||
+      currentUrl.includes('/inventory-report') ||
+      currentUrl.includes('/tagged-asset-report') 
     ) {
       this.activeMenuItem = 'reports';
     }

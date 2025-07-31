@@ -4,16 +4,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-
-
 }
-
 
 .auth-box {
     display: flex;
     width: 100vw;
     height: 100vh;
-
     background: #7030a0;
     padding: 0;
     margin: 0;
@@ -33,16 +29,12 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    /* centers horizontally */
     align-items: center;
-    /* centers vertically */
 
 }
 
 .auth-left img {
     width: 60%;
-    /* height: auto;   
-     max-height: 80%;  */
     object-fit: contain;
 }
 
@@ -52,9 +44,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    /* padding: 20px; */
     background-color: white;
-    /* or keep transparent if needed */
 }
 
 
@@ -73,14 +64,11 @@ h3 {
 
 p {
     font-size: 16px;
-    /* Adjust for Welcome message */
     font-family: 'RedHatDisplay-Regular';
-
-
     font-style: normal;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -89,17 +77,6 @@ form {
 
 }
 
-.small-text {
-    font-size: 16px;
-    /* Reduce font size */
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-    /* Optional spacing */
-    font-family: 'Red Hat Display';
-
-    font-style: normal;
-}
 
 input {
     width: 100%;
@@ -115,7 +92,6 @@ input {
 
 label {
     font-family: 'RedHatDisplay-Regular';
-
 }
 
 button {
@@ -134,61 +110,4 @@ button {
     font-family: 'RedHatDisplay-Regular';
     font-weight: bold;
     font-style: normal;
-}
-
-.otp-box {
-    display: flex;
-    gap: 10px;
-}
-
-.otp-box input {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    font-size: 20px;
-}
-
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
-    justify-content: flex-start;
-
-}
-
-.checkbox-container label {
-    font-size: 12px;
-    /* Adjust the font size as needed */
-}
-
-
-input[type="checkbox"] {
-
-    margin-right: 8px;
-    /* Adds space between checkbox and label*/
-}
-
-label {
-    font-size: 16px;
-    color: #2c2c54;
-    margin-left: 5px;
-}
-
-::placeholder {
-    font-size: 12px;
-}
-
-.forgot-link {
-    color: #007bff;
-    /* Blue link color */
-    text-decoration: none;
-    /* Remove underline */
-    font-weight: bold;
-    /* Make it stand out */
-    cursor: pointer;
-}
-
-.forgot-link:hover {
-    text-decoration: underline;
-    /* Underline on hover */
 }

@@ -17,7 +17,7 @@ export class Otp {
     otpForm: FormGroup;
 
   otpObj: any = {
-    "username": "",
+    "email": "",
     "otp": ""
   };
 
@@ -45,9 +45,9 @@ export class Otp {
     this.authType = localStorage.getItem('authType') || '';
 
     if (this.authType === "forgot-password") {
-      this.otpObj.username = localStorage.getItem('resetEmail');
+      this.otpObj.email = localStorage.getItem('resetEmail');
     } else {
-      this.otpObj.username = localStorage.getItem('userEmail');
+      this.otpObj.email = localStorage.getItem('userEmail');
     }
 
   }
@@ -56,7 +56,7 @@ export class Otp {
 
   // ✅ Verify OTP
   onSubmit() {
-    if (!this.otpObj.username) {
+    if (!this.otpObj.email) {
       //alert("User email is missing!");
       return;
     }
@@ -73,52 +73,53 @@ export class Otp {
     this.otpObj.otp = otpValue;
 
 
-    this.http.post("http://172.16.100.68:5000/login/verify-otp", this.otpObj)
+    this.http.post("Auth/verify-otp", this.otpObj)
       .subscribe({
         next: (res: any) => {
-          if (res.success) {
-            if (res.user.role !== "Admin") {
-              this.alertService.showAlert("Please Use Admin Credentials", "error");
-              this.router.navigateByUrl("login");
-              return;
-            }
+          // if (res.success) {
+          //   if (res.user.role !== "Admin") {
+          //     this.alertService.showAlert("Please Use Admin Credentials", "error");
+          //     this.router.navigateByUrl("login");
+          //     return;
+          //   }
             this.alertService.showAlert(res.message);
+            this.router.navigateByUrl("dashboard");
 
             
-            if (res.token) {
-              localStorage.setItem('token', res.token);
-              localStorage.setItem('userId', res.user.userId);
-              localStorage.setItem('userRole', res.user.role);
-            }
+            // if (res.token) {
+            //   localStorage.setItem('token', res.token);
+            //   localStorage.setItem('userId', res.user.userId);
+            //   localStorage.setItem('userRole', res.user.role);
+            // }
 
-        if (res.user?.userId) {
-            localStorage.setItem('userId', res.user.userId);
-            localStorage.setItem('userRole', res.user.role);
-            console.log('Current user ID:', res.user.userId); 
-          }
+        // if (res.user?.userId) {
+        //     localStorage.setItem('userId', res.user.userId);
+        //     localStorage.setItem('userRole', res.user.role);
+        //     console.log('Current user ID:', res.user.userId); 
+        //   }
            
-            const loggedInAdminId = localStorage.getItem('userId');
-            console.log('Current admin ID:', loggedInAdminId); 
+            // const loggedInAdminId = localStorage.getItem('userId');
+            // console.log('Current admin ID:', loggedInAdminId); 
 
-            if (this.authType === "signup") {
-              localStorage.setItem("authType", "");
-              this.router.navigateByUrl("login");
-            } else if (this.authType === "login") {
-              localStorage.setItem("authType", ""); 
-              // this.router.navigateByUrl("dashboard"); 
-              this.router.navigateByUrl("user-management");
-            } else if (this.authType === "forgot-password") { 
-              localStorage.setItem("authType", "");
-              this.router.navigateByUrl("update-password");  
-            } else {
-              this.alertService.showAlert("Unknown authentication type. Redirecting to login.", "error");
-              this.router.navigateByUrl("login");
-            }
+            // if (this.authType === "signup") {
+            //   localStorage.setItem("authType", "");
+            //   this.router.navigateByUrl("login");
+            // } else if (this.authType === "login") {
+            //   localStorage.setItem("authType", ""); 
+            //   // this.router.navigateByUrl("dashboard"); 
+            //   this.router.navigateByUrl("user-management");
+            // } else if (this.authType === "forgot-password") { 
+            //   localStorage.setItem("authType", "");
+            //   this.router.navigateByUrl("update-password");  
+            // } else {
+            //   this.alertService.showAlert("Unknown authentication type. Redirecting to login.", "error");
+            //   this.router.navigateByUrl("login");
+            // }
 
 
-          } else {
-            this.alertService.showAlert("Invalid OTP! Please try again.", "error");
-          }
+          // } else {
+          //   this.alertService.showAlert("Invalid OTP! Please try again.", "error");
+          // }
         },
         error: (error: HttpErrorResponse) => {
           console.error("OTP Verification Error:", error);

@@ -106,7 +106,7 @@
 
 
 
-<!-- 
+      <!-- 
       <li class="menu-item" routerLink="/report" (click)="setActive('report')"
         [class.active]="activeMenuItem === 'report'">
         <div class="tooltip-container">
@@ -118,8 +118,7 @@
 
 
 
-      <li class="menu-item admin-dropdown" (click)="toggleReport()"
-        [class.active]="activeMenuItem === 'reports'">
+      <li class="menu-item admin-dropdown" (click)="toggleReport()" [class.active]="activeMenuItem === 'reports'">
         <div class=" tooltip-container">
           <img src="assets/report.png" alt="report Icon" class="menu-icon" />
           <span class="menu-text" [class.hidden]="isSidebarCollapsed">Report</span>
@@ -142,6 +141,37 @@
           <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a routerLink="/asset-movement-report" (click)="closeReportPanel()">Asset Movement Report</a>
           </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-audit-report" (click)="closeReportPanel()">Asset Audit Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-catalogue-report" (click)="closeReportPanel()">Asset Catalogue Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-category-report" (click)="closeReportPanel()">Asset Category Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-depreciation-report" (click)="closeReportPanel()">Asset Depreciation Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-disposal-report" (click)="closeReportPanel()">Asset Disposal Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-dof-report" (click)="closeReportPanel()">Asset DOF Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/asset-value-report" (click)="closeReportPanel()">Asset Value Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/audit-logs" (click)="closeReportPanel()">Audit Logs</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/inventory-report" (click)="closeReportPanel()">Inventory Report</a>
+          </li>
+          <li class="sub-menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/tagged-asset-report" (click)="closeReportPanel()">Tagged Asset Report</a>
+          </li>
+
         </ul>
 
 
@@ -159,7 +189,7 @@
           <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '230px' }">Admin</span>
         </div>
       </li>
-      
+
 
     </ul>
   </aside>

@@ -22,19 +22,14 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    /* centers horizontally */
     align-items: center;
-    /* centers vertically */
 
 }
 
 .auth-left img {
     width: 50%;
-    /* reduce size */
     height: auto;
-    /* maintain aspect ratio */
     max-height: 80%;
-    /* prevent overflow vertically */
     object-fit: contain;
 }
 
@@ -46,7 +41,6 @@
     align-items: center;
     padding: 20px;
     background-color: white;
-    /* or keep transparent if needed */
 }
 
 h2 {
@@ -77,20 +71,10 @@ p {
     border-radius: 5px;
 }
 
-/* .submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: #7030a0;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-} */
+
 
 .submit-btn {
     width: 80%;
-    /* Decreased width */
     padding: 12px;
     background: #7030a0;
     border: none;
