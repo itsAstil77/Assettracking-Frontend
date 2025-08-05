@@ -31,38 +31,15 @@
 </div>
 
 
-<!-- Group Navbar -->
-<nav class="navbar1" *ngIf="selectedRole === 'Group'">
-  <div class="navbar-left1">
-    <span class="navbar-title1">Group</span>
-  </div>
-  <div class="navbar-right">
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-      <span class="tooltip-text">Refresh</span>
-    </div>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/add.png" (click)="openGroupPopup()" alt="Add"></button>
-      <span class="tooltip-text">Add</span>
-    </div>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-      <span class="tooltip-text">Download</span>
-    </div>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/page.png"></button>
-      <span class="tooltip-text">Pagination</span>
-    </div>
-  </div>
-</nav>
+
 
 <!-- Group nested table -->
-<table class="company-table" *ngIf="selectedRole === 'Group'">
+<!-- <table class="company-table" *ngIf="selectedRole === 'Group'">
   <thead>
     <tr>
       <th></th>
-      <th>Group Code</th>
-      <th>Group Name</th>
+      <th>Location Code</th>
+      <th>Location Name</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -83,6 +60,10 @@
         <td>
           <div class="tab">
             <div class="tooltip-container">
+              <img src="assets/plus.png" alt="Add" (click)="openGroupPopup()" class="tab-icon">
+              <span class="tooltip-text">Add</span>
+            </div>
+            <div class="tooltip-container">
               <img src="assets/edit.png" alt="Edit" (click)="openUpdateGroupPopup(group)" class="tab-icon">
               <span class="tooltip-text">Edit</span>
             </div>
@@ -90,50 +71,18 @@
               <img src="assets/delete.png" alt="Delete" (click)="showDeletePopup(group.id)" class="tab-icon">
               <span class="tooltip-text">Delete</span>
             </div>
+
           </div>
         </td>
       </tr>
 
-      <!-- Company Table -->
+
+
       <tr *ngIf="expandedGroup[group.id] && companyMap[group.id]">
         <td colspan="5">
-          <!-- Company Navbar -->
-          <nav class="navbar1">
-            <div class="navbar-left1">
-              <span class="navbar-title1">Company</span>
-            </div>
-            <div class="navbar-right">
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                <span class="tooltip-text">Refresh</span>
-              </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/add.png" (click)="openCreateCompanyPopup(group.id)"
-                    alt="Add"></button>
-                <span class="tooltip-text">Add</span>
-              </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                <span class="tooltip-text">Download</span>
-              </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/page.png"></button>
-                <span class="tooltip-text">Pagination</span>
-              </div>
-            </div>
-          </nav>
-
+         
           <table class="sub-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Company Code</th>
-                <th>Company Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+
             <tbody>
               <ng-container *ngFor="let comp of companyMap[group.id]">
                 <tr>
@@ -143,7 +92,7 @@
                   </td>
                   <td>{{ comp.companyCode }}</td>
                   <td>{{ comp.companyName }}</td>
-                  <td>{{ comp.description }}</td>
+   
                   <td>
                     <span [class.active]="comp.isActive" [class.inactive]="!comp.isActive">
                       {{ comp.isActive ? 'Active' : 'Inactive' }}
@@ -151,6 +100,10 @@
                   </td>
                   <td>
                     <div class="tab">
+                      <div class="tooltip-container">
+                        <img src="assets/plus.png" alt="Add"(click)="openCreateCompanyPopup(group.id)" class="tab-icon">
+                        <span class="tooltip-text">Add</span>
+                      </div>
                       <div class="tooltip-container">
                         <img src="assets/edit.png" alt="Edit" (click)="openUpdateCompanyPopup(comp)" class="tab-icon">
                         <span class="tooltip-text">Edit</span>
@@ -164,46 +117,13 @@
                   </td>
                 </tr>
 
-                <!-- Site Table -->
+       
                 <tr *ngIf="expandedCompany[comp.id] && siteMap[comp.id]">
                   <td colspan="6">
-                    <!-- Site Navbar -->
-                    <nav class="navbar1">
-                      <div class="navbar-left1">
-                        <span class="navbar-title1">Site</span>
-                      </div>
-                      <div class="navbar-right">
-                        <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                          <span class="tooltip-text">Refresh</span>
-                        </div>
-                        <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/add.png" (click)="openCreateSitePopup(comp.id)"
-                              alt="Add"></button>
-                          <span class="tooltip-text">Add</span>
-                        </div>
-                        <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                          <span class="tooltip-text">Download</span>
-                        </div>
-                        <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/page.png"></button>
-                          <span class="tooltip-text">Pagination</span>
-                        </div>
-                      </div>
-                    </nav>
+ 
 
                     <table class="sub-table">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Site Code</th>
-                          <th>Site Name</th>
-                          <th>Description</th>
-                          <th>Status</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
+         
                       <tbody>
                         <ng-container *ngFor="let site of siteMap[comp.id]">
                           <tr>
@@ -213,7 +133,7 @@
                             </td>
                             <td>{{ site.siteCode }}</td>
                             <td>{{ site.siteName }}</td>
-                            <td>{{ site.description }}</td>
+                          
                             <td>
                               <span [class.active]="site.isActive" [class.inactive]="!site.isActive">
                                 {{ site.isActive ? 'Active' : 'Inactive' }}
@@ -221,6 +141,10 @@
                             </td>
                             <td>
                               <div class="tab">
+                                <div class="tooltip-container">
+                                  <img src="assets/plus.png" alt="Add" (click)="openCreateSitePopup(comp.id)" class="tab-icon">
+                                  <span class="tooltip-text">Add</span>
+                                </div>
                                 <div class="tooltip-container">
                                   <img src="assets/edit.png" alt="Edit" (click)="openUpdateSitePopup(site)"
                                     class="tab-icon">
@@ -235,45 +159,13 @@
                             </td>
                           </tr>
 
-                          <!-- Building Table -->
+         
                           <tr *ngIf="expandedSite[site.id] && buildingMap[site.id]">
                             <td colspan="6">
-                              <nav class="navbar1">
-                                <div class="navbar-left1">
-                                  <span class="navbar-title1">Building</span>
-                                </div>
-                                <div class="navbar-right">
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                                    <span class="tooltip-text">Refresh</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/add.png"
-                                        (click)="openCreateBuildingPopup(site.id)" alt="Add"></button>
-                                    <span class="tooltip-text">Add</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                                    <span class="tooltip-text">Download</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/page.png"></button>
-                                    <span class="tooltip-text">Pagination</span>
-                                  </div>
-                                </div>
-                              </nav>
+                             
 
                               <table class="sub-table">
-                                <thead>
-                                  <tr>
-                                    <th></th>
-                                    <th>Building Code</th>
-                                    <th>Building Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                  </tr>
-                                </thead>
+
                                 <tbody>
                                   <ng-container *ngFor="let building of buildingMap[site.id]">
                                     <tr>
@@ -283,7 +175,7 @@
                                       </td>
                                       <td>{{ building.buildingCode }}</td>
                                       <td>{{ building.buildingName }}</td>
-                                      <td>{{ building.description }}</td>
+
                                       <td>
                                         <span [class.active]="building.isActive" [class.inactive]="!building.isActive">
                                           {{ building.isActive ? 'Active' : 'Inactive' }}
@@ -291,6 +183,11 @@
                                       </td>
                                       <td>
                                         <div class="tab">
+                                          <div class="tooltip-container">
+                                            <img src="assets/plus.png" alt="Add"
+                                              (click)="openCreateBuildingPopup(site.id)" class="tab-icon">
+                                            <span class="tooltip-text">Add</span>
+                                          </div>
                                           <div class="tooltip-container">
                                             <img src="assets/edit.png" alt="Edit"
                                               (click)="openUpdateBuildingPopup(building)" class="tab-icon">
@@ -305,48 +202,13 @@
                                       </td>
                                     </tr>
 
-                                    <!-- Floor Table -->
+                               
                                     <tr *ngIf="expandedBuilding[building.id] && floorMap[building.id]">
                                       <td colspan="6">
-                                        <nav class="navbar1">
-                                          <div class="navbar-left1">
-                                            <span class="navbar-title1">Floor</span>
-                                          </div>
-                                          <div class="navbar-right">
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/refresh.png"
-                                                  alt="Refresh"></button>
-                                              <span class="tooltip-text">Refresh</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button" (click)="openCreateFloorPopup(building.id)">
-                                                <img src="assets/add.png" alt="Add">
-                                              </button>
-                                              <span class="tooltip-text">Add</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/download.png"
-                                                  alt="Download"></button>
-                                              <span class="tooltip-text">Download</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/page.png"></button>
-                                              <span class="tooltip-text">Pagination</span>
-                                            </div>
-                                          </div>
-                                        </nav>
+                                        
 
                                         <table class="sub-table">
-                                          <thead>
-                                            <tr>
-                                              <th></th>
-                                              <th>Floor Code</th>
-                                              <th>Floor Name</th>
-                                              <th>Description</th>
-                                              <th>Status</th>
-                                              <th>Action</th>
-                                            </tr>
-                                          </thead>
+
                                           <tbody>
                                             <ng-container *ngFor="let floor of floorMap[building.id]">
                                               <tr>
@@ -356,10 +218,14 @@
                                                 </td>
                                                 <td>{{ floor.floorCode }}</td>
                                                 <td>{{ floor.floorName }}</td>
-                                                <td>{{ floor.description }}</td>
                                                 <td>{{ floor.isActive ? 'Active' : 'Inactive' }}</td>
                                                 <td>
                                                   <div class="tab">
+                                                    <div class="tooltip-container">
+                                                      <img src="assets/plus.png" alt="Add"
+                                                        (click)="openCreateFloorPopup(building.id)" class="tab-icon">
+                                                      <span class="tooltip-text">Add</span>
+                                                    </div>
                                                     <div class="tooltip-container">
                                                       <img src="assets/edit.png" alt="Edit"
                                                         (click)="openUpdateFloorPopup(floor)" class="tab-icon">
@@ -374,48 +240,13 @@
                                                 </td>
                                               </tr>
 
-                                              <!-- Room Table -->
+                                      
                                               <tr *ngIf="expandedFloor[floor.id] && roomMap[floor.id]">
                                                 <td colspan="6">
-                                                  <nav class="navbar1">
-                                                    <div class="navbar-left1">
-                                                      <span class="navbar-title1">Room</span>
-                                                    </div>
-                                                    <div class="navbar-right">
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/refresh.png"
-                                                            alt="Refresh"></button>
-                                                        <span class="tooltip-text">Refresh</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"
-                                                          (click)="openCreateRoomPopup(floor.id)">
-                                                          <img src="assets/add.png" alt="Add">
-                                                        </button>
-                                                        <span class="tooltip-text">Add</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/download.png"
-                                                            alt="Download"></button>
-                                                        <span class="tooltip-text">Download</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/page.png"></button>
-                                                        <span class="tooltip-text">Pagination</span>
-                                                      </div>
-                                                    </div>
-                                                  </nav>
+                                                  
 
                                                   <table class="sub-table">
-                                                    <thead>
-                                                      <tr>
-                                                        <th>Room Code</th>
-                                                        <th>Room Name</th>
-                                                        <th>Description</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                      </tr>
-                                                    </thead>
+
                                                     <tbody>
                                                       <tr *ngFor="let room of roomMap[floor.id]">
                                                         <td>{{ room.roomCode }}</td>
@@ -424,6 +255,12 @@
                                                         <td>{{ room.isActive ? 'Active' : 'Inactive' }}</td>
                                                         <td>
                                                           <div class="tab">
+                                                            <div class="tooltip-container">
+                                                              <img src="assets/plus.png" alt="Add"
+                                                                (click)="openCreateRoomPopup(floor.id)"
+                                                                class="tab-icon">
+                                                              <span class="tooltip-text">Add</span>
+                                                            </div>
                                                             <div class="tooltip-container">
                                                               <img src="assets/edit.png" alt="Edit"
                                                                 (click)="openUpdateRoomPopup(room)" class="tab-icon">
@@ -461,12 +298,240 @@
           </table>
         </td>
       </tr>
+
+    </ng-container>
+  </tbody>
+</table> -->
+
+
+
+<table class="company-table1" *ngIf="selectedRole === 'Group'">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Location Code</th>
+      <th>Location Name</th>
+      <th>Location Type</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let group of groupList">
+      <tr>
+        <td class="indent-0" (mousedown)="toggleGroupRow(group)">
+          <img src="assets/dropdown.png" class="tab-icon1" [ngClass]="{ 'rotated': expandedGroup[group.id] }" />
+        </td>
+        <td>{{ group.groupCode }}</td>
+        <td>{{ group.groupName }}</td>
+        <td>{{group.level}}</td>
+
+        <td>
+          <span [class.active]="group.isActive" [class.inactive]="!group.isActive">
+            {{ group.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <div class="tab">
+            <div class="tooltip-container">
+              <img src="assets/plus.png" alt="Add" (click)="openGroupPopup()" class="tab-icon">
+              <span class="tooltip-text">Add</span>
+            </div>
+            <div class="tooltip-container">
+              <img src="assets/edit.png" alt="Edit" (click)="openUpdateGroupPopup(group)" class="tab-icon">
+              <span class="tooltip-text">Edit</span>
+            </div>
+            <div class="tooltip-container">
+              <img src="assets/delete.png" alt="Delete" (click)="showDeletePopup(group.id)" class="tab-icon">
+              <span class="tooltip-text">Delete</span>
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <ng-container *ngIf="expandedGroup[group.id] && companyMap[group.id]">
+        <ng-container *ngFor="let comp of companyMap[group.id]">
+          <tr>
+            <td class="indent-1" (mousedown)="toggleCompanyRow(comp)">
+              <img src="assets/dropdown.png" class="tab-icon1" [ngClass]="{ 'rotated': expandedCompany[comp.id] }" />
+            </td>
+            <td>{{ comp.companyCode }}</td>
+            <td>{{ comp.companyName }}</td>
+            <td>{{comp.level}}</td>
+
+            <td>
+              <span [class.active]="comp.isActive" [class.inactive]="!comp.isActive">
+                {{ comp.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="tab">
+                <div class="tooltip-container">
+                  <img src="assets/plus.png" alt="Add" (click)="openCreateCompanyPopup(group.id)" class="tab-icon">
+                  <span class="tooltip-text">Add</span>
+                </div>
+                <div class="tooltip-container">
+                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateCompanyPopup(comp)" class="tab-icon">
+                  <span class="tooltip-text">Edit</span>
+                </div>
+                <div class="tooltip-container">
+                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteCompanyPopup(comp)" class="tab-icon">
+                  <span class="tooltip-text">Delete</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <ng-container *ngIf="expandedCompany[comp.id] && siteMap[comp.id]">
+            <ng-container *ngFor="let site of siteMap[comp.id]">
+              <tr>
+                <td class="indent-2" (mousedown)="toggleSiteRow(site)">
+                  <img src="assets/dropdown.png" class="tab-icon1" [ngClass]="{ 'rotated': expandedSite[site.id] }" />
+                </td>
+                <td>{{ site.siteCode }}</td>
+                <td>{{ site.siteName }}</td>
+                <td>{{site.level}}</td>
+
+                <td>
+                  <span [class.active]="site.isActive" [class.inactive]="!site.isActive">
+                    {{ site.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="tab">
+                    <div class="tooltip-container">
+                      <img src="assets/plus.png" alt="Add" (click)="openCreateSitePopup(comp.id)" class="tab-icon">
+                      <span class="tooltip-text">Add</span>
+                    </div>
+                    <div class="tooltip-container">
+                      <img src="assets/edit.png" alt="Edit" (click)="openUpdateSitePopup(site)" class="tab-icon">
+                      <span class="tooltip-text">Edit</span>
+                    </div>
+                    <div class="tooltip-container">
+                      <img src="assets/delete.png" alt="Delete" (click)="openDeleteSitePopup(site)" class="tab-icon">
+                      <span class="tooltip-text">Delete</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <ng-container *ngIf="expandedSite[site.id] && buildingMap[site.id]">
+                <ng-container *ngFor="let building of buildingMap[site.id]">
+                  <tr>
+                    <td class="indent-3" (mousedown)="toggleBuildingRow(building)">
+                      <img src="assets/dropdown.png" class="tab-icon1"
+                        [ngClass]="{ 'rotated': expandedBuilding[building.id] }" />
+                    </td>
+                    <td>{{ building.buildingCode }}</td>
+                    <td>{{ building.buildingName }}</td>
+                    <td>{{building.level}}</td>
+
+                    <td>
+                      <span [class.active]="building.isActive" [class.inactive]="!building.isActive">
+                        {{ building.isActive ? 'Active' : 'Inactive' }}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="tab">
+                        <div class="tooltip-container">
+                          <img src="assets/plus.png" alt="Add" (click)="openCreateBuildingPopup(site.id)"
+                            class="tab-icon">
+                          <span class="tooltip-text">Add</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <img src="assets/edit.png" alt="Edit" (click)="openUpdateBuildingPopup(building)"
+                            class="tab-icon">
+                          <span class="tooltip-text">Edit</span>
+                        </div>
+                        <div class="tooltip-container">
+                          <img src="assets/delete.png" alt="Delete" (click)="openDeleteBuildingPopup(building)"
+                            class="tab-icon">
+                          <span class="tooltip-text">Delete</span>
+                        </div>
+                      </div>
+
+                    </td>
+                  </tr>
+
+                  <ng-container *ngIf="expandedBuilding[building.id] && floorMap[building.id]">
+                    <ng-container *ngFor="let floor of floorMap[building.id]">
+                      <tr>
+                        <td class="indent-4" (mousedown)="toggleFloorRow(floor)">
+                          <img src="assets/dropdown.png" class="tab-icon1"
+                            [ngClass]="{ 'rotated': expandedFloor[floor.id] }" />
+                        </td>
+                        <td>{{ floor.floorCode }}</td>
+                        <td>{{ floor.floorName }}</td>
+                        <td>{{floor.level}}</td>
+
+                        <td>
+                          <span [class.active]="floor.isActive" [class.inactive]="!floor.isActive">
+                            {{ floor.isActive ? 'Active' : 'Inactive' }}
+                          </span>
+                        </td>
+                        <td>
+                          <div class="tab">
+                            <div class="tooltip-container">
+                              <img src="assets/plus.png" alt="Add" (click)="openCreateFloorPopup(building.id)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Add</span>
+                            </div>
+                            <div class="tooltip-container">
+                              <img src="assets/edit.png" alt="Edit" (click)="openUpdateFloorPopup(floor)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Edit</span>
+                            </div>
+                            <div class="tooltip-container">
+                              <img src="assets/delete.png" alt="Delete" (click)="openDeleteFloorPopup(floor)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Delete</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngIf="expandedFloor[floor.id] && roomMap[floor.id]">
+                        <ng-container *ngFor="let room of roomMap[floor.id]">
+                          <tr>
+                            <td class="indent-5"></td>
+                            <td>{{ room.roomCode }}</td>
+                            <td>{{ room.roomName }}</td>
+                            <td>{{room.level}}</td>
+                            <td>{{ room.isActive ? 'Active' : 'Inactive' }}</td>
+                            <td>
+                              <div class="tab">
+                                <div class="tooltip-container">
+                                  <img src="assets/plus.png" alt="Add" (click)="openCreateRoomPopup(floor.id)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Add</span>
+                                </div>
+                                <div class="tooltip-container">
+                                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateRoomPopup(room)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Edit</span>
+                                </div>
+                                <div class="tooltip-container">
+                                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteRoomPopup(room)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Delete</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </tbody>
 </table>
-
-
-
 
 
 <div class="modal" *ngIf="isCreateCompanyPopupOpen">
@@ -844,7 +909,7 @@
 
 
 
-<nav class="navbar1" *ngIf="selectedRole === 'Category'">
+<!-- <nav class="navbar1" *ngIf="selectedRole === 'Category'">
 
   <div class="navbar-left1">
     <span class="navbar-title1">Group</span>
@@ -852,172 +917,224 @@
 
 
 
-</nav>
+</nav> -->
 
 
-<table class="company-table" *ngIf="selectedRole === 'Category' && groupList.length">
+<table class="company-table1" *ngIf="selectedRole === 'Category' && groupList.length">
   <thead>
     <tr>
 
       <th></th>
-      <th>Group Code</th>
-      <th>Group Name</th>
+      <th>Category Code</th>
+      <th>Category Name</th>
+      <th>category Type</th>
       <th>Status</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngFor="let group of groupList">
       <tr>
-        <td (mousedown)="toggleCategoryRow(group)">
-          <img src="assets/dropdown.png" class="tab-icon" [ngClass]="{ 'rotated': expandedCategory[group.id] }" />
+        <td class="indent-0" (mousedown)="toggleCategoryRow(group)">
+          <img src="assets/dropdown.png" class="tab-icon1" [ngClass]="{ 'rotated': expandedCategory[group.id] }" />
         </td>
 
         <td>{{ group.groupCode }}</td>
         <td>{{ group.groupName }}</td>
+        <td>{{ group.level }}</td>
+
 
         <td>
           <span [class.active]="group.isActive" [class.inactive]="!group.isActive">
             {{ group.isActive ? 'Active' : 'Inactive' }}
           </span>
         </td>
+        <td></td>
       </tr>
 
 
 
 
-      <tr *ngIf="expandedCategory[group.id] && categoryMap[group.id]">
-        <td colspan="5">
+      <ng-container *ngIf="expandedCategory[group.id] && categoryMap[group.id]">
+        <ng-container *ngFor="let cat of categoryMap[group.id]">
+          <tr>
+            <td class="indent-1" (mousedown)="toggleSubCategoryRow(cat)">
+              <img src="assets/dropdown.png" class="tab-icon1" [ngClass]="{ 'rotated': expandedSubCategory[cat.id] }" />
+            </td>
 
-          <nav class="navbar1">
 
-            <div class="navbar-left1">
-              <span class="navbar-title1">Main Category</span>
-            </div>
+            <td>{{ cat.categoryCode }}</td>
+            <td>{{ cat.categoryName }}</td>
+            <td>{{ cat.categoryType }}</td>
+            <td>
+              <span [class.active]="cat.isActive" [class.inactive]="!cat.isActive">
+                {{ cat.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
 
-            <div class="navbar-right">
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                <span class="tooltip-text">Refresh</span>
+            <td>
+              <div class="tab">
+                <div class="tooltip-container">
+                  <img src="assets/plus.png" alt="Edit" (click)="openCreateCategoryPopup(group.id)" class="tab-icon">
+                  <span class="tooltip-text">Add</span>
+                </div>
+                <div class="tooltip-container">
+                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateCategoryPopup(cat)" class="tab-icon">
+                  <span class="tooltip-text">Edit</span>
+                </div>
+                <div class="tooltip-container">
+                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteCategoryPopup(cat)" class="tab-icon">
+                  <span class="tooltip-text">Delete</span>
+                </div>
               </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/add.png" (click)="openCreateCategoryPopup(group.id)"
-                    alt="Add"></button>
-                <span class="tooltip-text">Add</span>
-              </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                <span class="tooltip-text">Download</span>
-              </div>
-              <div class="tooltip-container">
-                <button class="icon-button"><img src="assets/page.png"></button>
-                <span class="tooltip-text">Pagination</span>
-              </div>
-            </div>
+            </td>
+          </tr>
 
-          </nav>
-          <table class="sub-table">
-            <thead>
+
+          <ng-container *ngIf="expandedSubCategory[cat.id] && subCategoryMap[cat.id]">
+
+            <ng-container *ngFor="let sub of subCategoryMap[cat.id]">
               <tr>
-                <th></th>
-                <th>Category Code</th>
-                <th>Category Name</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let cat of categoryMap[group.id]">
-                <tr>
-                  <td (mousedown)="toggleSubCategoryRow(cat)">
-                    <img src="assets/dropdown.png" class="tab-icon"
-                      [ngClass]="{ 'rotated': expandedSubCategory[cat.id] }" />
-                  </td>
 
+                <td class="indent-2" (mousedown)="toggleSubSubCategoryRow(sub)">
+                  <img src="assets/dropdown.png" class="tab-icon1"
+                    [ngClass]="{ 'rotated': expandedSubSubCategory[sub.id] }" />
+                </td>
 
-                  <td>{{ cat.categoryCode }}</td>
-                  <td>{{ cat.categoryName }}</td>
-                  <td>
-                    <span [class.active]="cat.isActive" [class.inactive]="!cat.isActive">
-                      {{ cat.isActive ? 'Active' : 'Inactive' }}
-                    </span>
-                  </td>
-
-                  <td>
-                    <div class="tab">
-                      <div class="tooltip-container">
-                        <img src="assets/edit.png" alt="Edit" (click)="openUpdateCategoryPopup(cat)" class="tab-icon">
-                        <span class="tooltip-text">Edit</span>
-                      </div>
-                      <div class="tooltip-container">
-                        <img src="assets/delete.png" alt="Delete" (click)="openDeleteCategoryPopup(cat)"
-                          class="tab-icon">
-                        <span class="tooltip-text">Delete</span>
-                      </div>
+                <td>{{ sub.categoryCode }}</td>
+                <td>{{ sub.categoryName }}</td>
+                <td>{{ sub.categoryType }}</td>
+                <td>{{ sub.isActive ? 'Active' : 'Inactive' }}</td>
+                <td>
+                  <div class="tab">
+                    <div class="tooltip-container">
+                      <img src="assets/plus.png" alt="Edit" (click)="openCreateSubCategoryPopup(cat.id)"
+                        class="tab-icon">
+                      <span class="tooltip-text">Add</span>
                     </div>
-                  </td>
-                </tr>
+                    <div class="tooltip-container">
+                      <img src="assets/edit.png" alt="Edit" (click)="openUpdateSubCategoryPopup(sub)" class="tab-icon">
+                      <span class="tooltip-text">Edit</span>
+                    </div>
+                    <div class="tooltip-container">
+                      <img src="assets/delete.png" alt="Delete" (click)="openDeleteSubCategoryPopup(sub)"
+                        class="tab-icon">
+                      <span class="tooltip-text">Delete</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
 
 
-                <tr *ngIf="expandedSubCategory[cat.id] && subCategoryMap[cat.id]">
-                  <td colspan="5">
-                    <nav class="navbar1">
 
-                      <div class="navbar-left1">
-                        <span class="navbar-title1">Sub Category</span>
-                      </div>
 
-                      <div class="navbar-right">
+              <ng-container *ngIf="expandedSubSubCategory[sub.id] && subSubCategoryMap[sub.id]">
+
+                <ng-container *ngFor="let subsub of subSubCategoryMap[sub.id]">
+                  <tr>
+                    <td class="indent-3" (mousedown)="toggleBrandRow(subsub)">
+                      <img src="assets/dropdown.png" class="tab-icon1"
+                        [ngClass]="{ 'rotated': expandedBrand[subsub.id] }" />
+                    </td>
+
+                    <td>{{ subsub.categoryCode }}</td>
+                    <td>{{ subsub.categoryName }}</td>
+                    <td>{{ subsub.categoryType }}</td>
+                    <td>
+                      <span [class.active]="subsub.isActive" [class.inactive]="!subsub.isActive">
+                        {{ subsub.isActive ? 'Active' : 'Inactive' }}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="tab">
                         <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                          <span class="tooltip-text">Refresh</span>
-                        </div>
-                        <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/add.png"
-                              (click)="openCreateSubCategoryPopup(cat.id)" alt="Add"></button>
+                          <img src="assets/plus.png" alt="Edit" (click)="openCreateSubSubCategoryPopup(sub.id)"
+                            class="tab-icon">
                           <span class="tooltip-text">Add</span>
                         </div>
                         <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                          <span class="tooltip-text">Download</span>
+                          <img src="assets/edit.png" alt="Edit" (click)="openUpdateSubSubCategoryPopup(subsub)"
+                            class="tab-icon">
+                          <span class="tooltip-text">Edit</span>
                         </div>
                         <div class="tooltip-container">
-                          <button class="icon-button"><img src="assets/page.png"></button>
-                          <span class="tooltip-text">Pagination</span>
+                          <img src="assets/delete.png" alt="Delete" (click)="openDeleteSubSubCategoryPopup(subsub)"
+                            class="tab-icon">
+                          <span class="tooltip-text">Delete</span>
                         </div>
                       </div>
+                    </td>
+                  </tr>
 
-                    </nav>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Sub Category Code</th>
-                          <th>Sub Category Name</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <ng-container *ngFor="let sub of subCategoryMap[cat.id]">
+
+
+                  <ng-container *ngIf="expandedBrand[subsub.id] && brandMap[subsub.id]">
+
+                    <ng-container *ngFor="let brand of brandMap[subsub.id]">
+                      <tr>
+                        <td class="indent-4" (mousedown)="toggleModelRow(brand)">
+                          <img src="assets/dropdown.png" class="tab-icon1"
+                            [ngClass]="{ 'rotated': expandedModel[brand.id] }" />
+                        </td>
+                        <td>{{ brand.categoryCode }}</td>
+                        <td>{{ brand.categoryName }}</td>
+                        <td>{{ brand.categoryType }}</td>
+                        <td>
+                          <span [class.active]="brand.isActive" [class.inactive]="!brand.isActive">
+                            {{ brand.isActive ? 'Active' : 'Inactive' }}
+                          </span>
+                        </td>
+                        <td>
+                          <div class="tab">
+                            <div class="tooltip-container">
+                              <img src="assets/plus.png" alt="dropdown" (click)="openCreateBrandPopup(subsub.id)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Add</span>
+                            </div>
+                            <div class="tooltip-container">
+                              <img src="assets/edit.png" alt="Edit" (click)="openUpdateBrandPopup(brand)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Edit</span>
+                            </div>
+                            <div class="tooltip-container">
+                              <img src="assets/delete.png" alt="Delete" (click)="openDeleteBrandPopup(brand)"
+                                class="tab-icon">
+                              <span class="tooltip-text">Delete</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+
+
+                      <ng-container *ngIf="expandedModel[brand.id] && modelMap[brand.id]">
+
+                        <ng-container *ngFor="let model of modelMap[brand.id]">
                           <tr>
+                            <td class="indent-5"></td>
+                            <td>{{ model.modelCode }}</td>
+                            <td>{{ model.modelName }}</td>
+                            <td>{{ model.categoryType }}</td>
 
-                            <td (mousedown)="toggleSubSubCategoryRow(sub)">
-                              <img src="assets/dropdown.png" class="tab-icon"
-                                [ngClass]="{ 'rotated': expandedSubSubCategory[sub.id] }" />
+                            <td>
+                              <span [class.active]="model.isActive" [class.inactive]="!model.isActive">
+                                {{ model.isActive ? 'Active' : 'Inactive' }}
+                              </span>
                             </td>
-
-                            <td>{{ sub.categoryCode }}</td>
-                            <td>{{ sub.categoryName }}</td>
-                            <td>{{ sub.isActive ? 'Active' : 'Inactive' }}</td>
                             <td>
                               <div class="tab">
                                 <div class="tooltip-container">
-                                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateSubCategoryPopup(sub)"
+                                  <img src="assets/plus.png" alt="Edit" (click)="openCreateModelPopup(brand.id)"
+                                    class="tab-icon">
+                                  <span class="tooltip-text">Add</span>
+                                </div>
+                                <div class="tooltip-container">
+                                  <img src="assets/edit.png" alt="Edit" (click)="openUpdateModelPopup(model)"
                                     class="tab-icon">
                                   <span class="tooltip-text">Edit</span>
                                 </div>
                                 <div class="tooltip-container">
-                                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteSubCategoryPopup(sub)"
+                                  <img src="assets/delete.png" alt="Delete" (click)="openDeleteModelPopup(model)"
                                     class="tab-icon">
                                   <span class="tooltip-text">Delete</span>
                                 </div>
@@ -1028,273 +1145,40 @@
 
 
 
-                          <tr *ngIf="expandedSubSubCategory[sub.id] && subSubCategoryMap[sub.id]">
-                            <td colspan="5">
-
-                              <nav class="navbar1">
-
-                                <div class="navbar-left1">
-                                  <span class="navbar-title1">Sub SubCategory</span>
-                                </div>
-
-                                <div class="navbar-right">
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
-                                    <span class="tooltip-text">Refresh</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/add.png"
-                                        (click)="openCreateSubSubCategoryPopup(sub.id)" alt="Add"></button>
-                                    <span class="tooltip-text">Add</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
-                                    <span class="tooltip-text">Download</span>
-                                  </div>
-                                  <div class="tooltip-container">
-                                    <button class="icon-button"><img src="assets/page.png"></button>
-                                    <span class="tooltip-text">Pagination</span>
-                                  </div>
-                                </div>
-
-                              </nav>
-                              <table class="sub-table">
-                                <thead>
-                                  <tr>
-                                    <th></th>
-                                    <th>Sub-SubCategory Code</th>
-                                    <th>Sub-SubCategory Name</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container *ngFor="let subsub of subSubCategoryMap[sub.id]">
-                                    <tr>
-                                      <td (mousedown)="toggleBrandRow(subsub)">
-                                        <img src="assets/dropdown.png" class="tab-icon"
-                                          [ngClass]="{ 'rotated': expandedBrand[subsub.id] }" />
-                                      </td>
-
-                                      <td>{{ subsub.categoryCode }}</td>
-                                      <td>{{ subsub.categoryName }}</td>
-                                      <td>
-                                        <span [class.active]="subsub.isActive" [class.inactive]="!subsub.isActive">
-                                          {{ subsub.isActive ? 'Active' : 'Inactive' }}
-                                        </span>
-                                      </td>
-                                      <td>
-                                        <div class="tab">
-                                          <div class="tooltip-container">
-                                            <img src="assets/edit.png" alt="Edit"
-                                              (click)="openUpdateSubSubCategoryPopup(subsub)" class="tab-icon">
-                                            <span class="tooltip-text">Edit</span>
-                                          </div>
-                                          <div class="tooltip-container">
-                                            <img src="assets/delete.png" alt="Delete"
-                                              (click)="openDeleteSubSubCategoryPopup(subsub)" class="tab-icon">
-                                            <span class="tooltip-text">Delete</span>
-                                          </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-
-
-
-                                    <tr *ngIf="expandedBrand[subsub.id] && brandMap[subsub.id]">
-                                      <td colspan="6">
-                                        <nav class="navbar1">
-
-                                          <div class="navbar-left1">
-                                            <span class="navbar-title1">Brand</span>
-                                          </div>
-
-                                          <div class="navbar-right">
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/refresh.png"
-                                                  alt="Refresh"></button>
-                                              <span class="tooltip-text">Refresh</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/add.png"
-                                                  (click)="openCreateBrandPopup(subsub.id)" alt="Add"></button>
-                                              <span class="tooltip-text">Add</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/download.png"
-                                                  alt="Download"></button>
-                                              <span class="tooltip-text">Download</span>
-                                            </div>
-                                            <div class="tooltip-container">
-                                              <button class="icon-button"><img src="assets/page.png"></button>
-                                              <span class="tooltip-text">Pagination</span>
-                                            </div>
-                                          </div>
-
-                                        </nav>
-                                        <table class="sub-table">
-                                          <thead>
-                                            <tr>
-                                              <th></th>
-                                              <th>Brand Code</th>
-                                              <th>Brand Name</th>
-                                              <th>Status</th>
-                                              <th>Actions</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <ng-container *ngFor="let brand of brandMap[subsub.id]">
-                                              <tr>
-                                                <td (mousedown)="toggleModelRow(brand)">
-                                                  <img src="assets/dropdown.png" class="tab-icon"
-                                                    [ngClass]="{ 'rotated': expandedModel[brand.id] }" />
-                                                </td>
-                                                <td>{{ brand.categoryCode }}</td>
-                                                <td>{{ brand.categoryName }}</td>
-                                                <td>
-                                                  <span [class.active]="brand.isActive"
-                                                    [class.inactive]="!brand.isActive">
-                                                    {{ brand.isActive ? 'Active' : 'Inactive' }}
-                                                  </span>
-                                                </td>
-                                                <td>
-                                                  <div class="tab">
-                                                    <div class="tooltip-container">
-                                                      <img src="assets/edit.png" alt="Edit"
-                                                        (click)="openUpdateBrandPopup(brand)" class="tab-icon">
-                                                      <span class="tooltip-text">Edit</span>
-                                                    </div>
-                                                    <div class="tooltip-container">
-                                                      <img src="assets/delete.png" alt="Delete"
-                                                        (click)="openDeleteBrandPopup(brand)" class="tab-icon">
-                                                      <span class="tooltip-text">Delete</span>
-                                                    </div>
-                                                  </div>
-                                                </td>
-                                              </tr>
-
-
-
-                                              <tr *ngIf="expandedModel[brand.id] && modelMap[brand.id]">
-                                                <td colspan="5">
-                                                  <nav class="navbar1">
-
-                                                    <div class="navbar-left1">
-                                                      <span class="navbar-title1">Model</span>
-                                                    </div>
-
-                                                    <div class="navbar-right">
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/refresh.png"
-                                                            alt="Refresh"></button>
-                                                        <span class="tooltip-text">Refresh</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/add.png"
-                                                            (click)="openCreateModelPopup(brand.id)" alt="Add"></button>
-                                                        <span class="tooltip-text">Add</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/download.png"
-                                                            alt="Download"></button>
-                                                        <span class="tooltip-text">Download</span>
-                                                      </div>
-                                                      <div class="tooltip-container">
-                                                        <button class="icon-button"><img src="assets/page.png"></button>
-                                                        <span class="tooltip-text">Pagination</span>
-                                                      </div>
-                                                    </div>
-
-                                                  </nav>
-
-                                                  <table class="sub-table">
-                                                    <thead>
-                                                      <tr>
-                                                        <th>Model Code</th>
-                                                        <th>Model Name</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      <ng-container *ngFor="let model of modelMap[brand.id]">
-                                                        <tr>
-                                                          <td>{{ model.modelCode }}</td>
-                                                          <td>{{ model.modelName }}</td>
-                                                          <td>
-                                                            <span [class.active]="model.isActive"
-                                                              [class.inactive]="!model.isActive">
-                                                              {{ model.isActive ? 'Active' : 'Inactive' }}
-                                                            </span>
-                                                          </td>
-                                                          <td>
-                                                            <div class="tab">
-                                                              <div class="tooltip-container">
-                                                                <img src="assets/edit.png" alt="Edit"
-                                                                  (click)="openUpdateModelPopup(model)"
-                                                                  class="tab-icon">
-                                                                <span class="tooltip-text">Edit</span>
-                                                              </div>
-                                                              <div class="tooltip-container">
-                                                                <img src="assets/delete.png" alt="Delete"
-                                                                  (click)="openDeleteModelPopup(model)"
-                                                                  class="tab-icon">
-                                                                <span class="tooltip-text">Delete</span>
-                                                              </div>
-                                                            </div>
-                                                          </td>
-                                                        </tr>
-
-
-
-
-                                                      </ng-container>
-                                                    </tbody>
-                                                  </table>
-                                                </td>
-                                              </tr>
-
-
-
-
-
-
-                                            </ng-container>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-
-
-
-
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-
-
-
-
-
-
-
-
                         </ng-container>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
+
+                      </ng-container>
 
 
 
 
+
+
+                    </ng-container>
+
+                  </ng-container>
+
+
+
+
+                </ng-container>
               </ng-container>
-            </tbody>
-          </table>
-        </td>
-      </tr>
+
+
+
+
+
+
+
+
+            </ng-container>
+          </ng-container>
+
+
+
+
+        </ng-container>
+      </ng-container>
 
 
 
@@ -2584,7 +2468,7 @@
       <span class="tooltip-text">Refresh</span>
     </div>
     <!-- <div class="tooltip-container" (click)="openCreateAssetPopup()"> -->
-      <div class="tooltip-container" routerLink="/create-asset">
+    <div class="tooltip-container" routerLink="/create-asset">
       <button class="icon-button"><img src="assets/add.png" alt="Add"></button>
       <span class="tooltip-text">Add</span>
     </div>
@@ -2630,8 +2514,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let asset of assetList">
-      
-      
+
+
       <td>{{ asset.assetCode }}</td>
       <td>{{asset.purchaseCode}}</td>
       <td>{{ asset.assetDescription }}</td>
