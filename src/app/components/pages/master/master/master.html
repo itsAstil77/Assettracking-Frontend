@@ -6,8 +6,11 @@
 
 
 <div class="user-tabs">
-  <div class="tab1" [ngClass]="{ active: selectedRole === 'Group' }" (click)="selectedRole = ('Group')">
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'mainGroup' }" (click)="selectedRole = ('mainGroup')">
     Group
+  </div>
+  <div class="tab1" [ngClass]="{ active: selectedRole === 'Group' }" (click)="selectedRole = ('Group')">
+    Location
   </div>
   <div class="tab1" [ngClass]="{ active: selectedRole === 'Department' }" (click)="selectedRole = 'Department'">
     Department
@@ -334,6 +337,10 @@
         <td>
           <div class="tab">
             <div class="tooltip-container">
+              <img src="assets/plus.png" alt="Add" (click)="openCreateCompanyPopup(group.id)" class="tab-icon">
+              <span class="tooltip-text">Add</span>
+            </div>
+            <!-- <div class="tooltip-container">
               <img src="assets/plus.png" alt="Add" (click)="openGroupPopup()" class="tab-icon">
               <span class="tooltip-text">Add</span>
             </div>
@@ -344,7 +351,7 @@
             <div class="tooltip-container">
               <img src="assets/delete.png" alt="Delete" (click)="showDeletePopup(group.id)" class="tab-icon">
               <span class="tooltip-text">Delete</span>
-            </div>
+            </div> -->
 
           </div>
         </td>
@@ -368,7 +375,7 @@
             <td>
               <div class="tab">
                 <div class="tooltip-container">
-                  <img src="assets/plus.png" alt="Add" (click)="openCreateCompanyPopup(group.id)" class="tab-icon">
+                  <img src="assets/plus.png" alt="Add" (click)="openCreateSitePopup(comp.id)" class="tab-icon">
                   <span class="tooltip-text">Add</span>
                 </div>
                 <div class="tooltip-container">
@@ -401,7 +408,7 @@
                 <td>
                   <div class="tab">
                     <div class="tooltip-container">
-                      <img src="assets/plus.png" alt="Add" (click)="openCreateSitePopup(comp.id)" class="tab-icon">
+                      <img src="assets/plus.png" alt="Add" (click)="openCreateBuildingPopup(site.id)" class="tab-icon">
                       <span class="tooltip-text">Add</span>
                     </div>
                     <div class="tooltip-container">
@@ -435,7 +442,7 @@
                     <td>
                       <div class="tab">
                         <div class="tooltip-container">
-                          <img src="assets/plus.png" alt="Add" (click)="openCreateBuildingPopup(site.id)"
+                          <img src="assets/plus.png" alt="Add" (click)="openCreateFloorPopup(building.id)"
                             class="tab-icon">
                           <span class="tooltip-text">Add</span>
                         </div>
@@ -473,7 +480,7 @@
                         <td>
                           <div class="tab">
                             <div class="tooltip-container">
-                              <img src="assets/plus.png" alt="Add" (click)="openCreateFloorPopup(building.id)"
+                              <img src="assets/plus.png" alt="Add" (click)="openCreateRoomPopup(floor.id)"
                                 class="tab-icon">
                               <span class="tooltip-text">Add</span>
                             </div>
@@ -501,11 +508,11 @@
                             <td>{{ room.isActive ? 'Active' : 'Inactive' }}</td>
                             <td>
                               <div class="tab">
-                                <div class="tooltip-container">
+                                <!-- <div class="tooltip-container">
                                   <img src="assets/plus.png" alt="Add" (click)="openCreateRoomPopup(floor.id)"
                                     class="tab-icon">
                                   <span class="tooltip-text">Add</span>
-                                </div>
+                                </div> -->
                                 <div class="tooltip-container">
                                   <img src="assets/edit.png" alt="Edit" (click)="openUpdateRoomPopup(room)"
                                     class="tab-icon">
@@ -625,6 +632,73 @@
   </div>
 </div>
 
+
+
+<nav class="navbar1" *ngIf="selectedRole === 'mainGroup'">
+
+  <div class="navbar-left1">
+    <span class="navbar-title1">Group</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png" (click)="openGroupPopup()" alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/download.png" alt="Download"></button>
+      <span class="tooltip-text">Download</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Pagination</span>
+    </div>
+  </div>
+
+</nav>
+
+<table class="company-table" *ngIf="selectedRole === 'mainGroup'">
+  <thead>
+    <tr>
+      <th>Group Code</th>
+      <th>Group Name</th>
+      <th>Group Type</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let group of groupList">
+      <td>{{ group.groupCode }}</td>
+      <td>{{ group.groupName }}</td>
+      <td>{{group.level}}</td>
+
+      <td>
+        <span [class.active]="group.isActive" [class.inactive]="!group.isActive">
+          {{ group.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <div class="tab">
+          <div class="tooltip-container">
+            <img src="assets/edit.png" alt="Edit" (click)="openUpdateGroupPopup(group)" class="tab-icon">
+            <span class="tooltip-text">Edit</span>
+          </div>
+          <div class="tooltip-container">
+            <img src="assets/delete.png" alt="Delete" (click)="showDeletePopup(group.id)" class="tab-icon">
+            <span class="tooltip-text">Delete</span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -949,7 +1023,15 @@
             {{ group.isActive ? 'Active' : 'Inactive' }}
           </span>
         </td>
-        <td></td>
+        
+        <td>
+          <div class="tab">
+            <div class="tooltip-container">
+              <img src="assets/plus.png" alt="Edit" (click)="openCreateCategoryPopup(group.id)" class="tab-icon">
+              <span class="tooltip-text">Add</span>
+            </div>
+          </div>
+        </td>
       </tr>
 
 
@@ -975,7 +1057,7 @@
             <td>
               <div class="tab">
                 <div class="tooltip-container">
-                  <img src="assets/plus.png" alt="Edit" (click)="openCreateCategoryPopup(group.id)" class="tab-icon">
+                  <img src="assets/plus.png" alt="Edit"  (click)="openCreateSubCategoryPopup(cat.id)" class="tab-icon">
                   <span class="tooltip-text">Add</span>
                 </div>
                 <div class="tooltip-container">
@@ -1008,7 +1090,7 @@
                 <td>
                   <div class="tab">
                     <div class="tooltip-container">
-                      <img src="assets/plus.png" alt="Edit" (click)="openCreateSubCategoryPopup(cat.id)"
+                      <img src="assets/plus.png" alt="Edit" (click)="openCreateSubSubCategoryPopup(sub.id)"
                         class="tab-icon">
                       <span class="tooltip-text">Add</span>
                     </div>
@@ -1048,7 +1130,7 @@
                     <td>
                       <div class="tab">
                         <div class="tooltip-container">
-                          <img src="assets/plus.png" alt="Edit" (click)="openCreateSubSubCategoryPopup(sub.id)"
+                          <img src="assets/plus.png" alt="Edit" (click)="openCreateBrandPopup(subsub.id)"
                             class="tab-icon">
                           <span class="tooltip-text">Add</span>
                         </div>
@@ -1087,7 +1169,7 @@
                         <td>
                           <div class="tab">
                             <div class="tooltip-container">
-                              <img src="assets/plus.png" alt="dropdown" (click)="openCreateBrandPopup(subsub.id)"
+                              <img src="assets/plus.png" alt="dropdown" (click)="openCreateModelPopup(brand.id)"
                                 class="tab-icon">
                               <span class="tooltip-text">Add</span>
                             </div>
@@ -1123,11 +1205,11 @@
                             </td>
                             <td>
                               <div class="tab">
-                                <div class="tooltip-container">
+                                <!-- <div class="tooltip-container">
                                   <img src="assets/plus.png" alt="Edit" (click)="openCreateModelPopup(brand.id)"
                                     class="tab-icon">
                                   <span class="tooltip-text">Add</span>
-                                </div>
+                                </div> -->
                                 <div class="tooltip-container">
                                   <img src="assets/edit.png" alt="Edit" (click)="openUpdateModelPopup(model)"
                                     class="tab-icon">
