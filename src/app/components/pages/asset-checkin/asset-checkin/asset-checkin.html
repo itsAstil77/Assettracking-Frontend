@@ -86,7 +86,7 @@
 
     <div class="form-group">
       <label>Company</label>
-      <select [(ngModel)]="assetCheckIn.company" (change)="onSiteChangeByCompanyId(assetCheckIn.company)">
+      <select [(ngModel)]="selectedCompanyId" (change)="onSiteChangeByCompanyId(selectedCompanyId)">
         <option *ngFor="let company of companyList" [value]="company.id">
           {{ company.companyName }}
         </option>
@@ -96,7 +96,7 @@
 
     <div class="form-group">
       <label>site</label>
-      <select [(ngModel)]="assetCheckIn.site" (change)="onSiteChange(assetCheckIn.site)">
+      <select [(ngModel)]="selectedSiteId" (change)="onSiteChange(selectedSiteId)">
         <option *ngFor="let site of siteList" [value]="site.id">
           {{ site.siteName }}
         </option>
@@ -106,7 +106,7 @@
 
     <div class="form-group">
       <label>Building</label>
-      <select [(ngModel)]="assetCheckIn.building" (change)="onBuildingChange(assetCheckIn.building)">
+      <select [(ngModel)]="selectedBuildingId" (change)="onBuildingChange(selectedBuildingId)">
         <option *ngFor="let building of buildingList" [value]="building.id">
           {{ building.buildingName }}
         </option>
@@ -116,7 +116,7 @@
 
     <div class="form-group">
       <label>Floor</label>
-      <select [(ngModel)]="assetCheckIn.floor" (change)="onFloorChange(assetCheckIn.floor)">
+      <select [(ngModel)]="selectedFloorId" (change)="onFloorChange(selectedFloorId)">
         <option *ngFor="let floor of floorList" [value]="floor.id">
           {{ floor.floorName }}
         </option>
@@ -126,7 +126,7 @@
 
     <div class="form-group">
       <label>Room</label>
-      <select [(ngModel)]="assetCheckIn.room">
+      <select [(ngModel)]="assetCheckIn.roomName">
         <option *ngFor="let room of roomList" [value]="room.roomName">
           {{ room.roomName }}
         </option>

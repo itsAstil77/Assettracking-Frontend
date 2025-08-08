@@ -115,10 +115,15 @@ export class CreateAssetMovement implements OnInit {
   id: '',
   assetcode: '',
   group: '',
+  groupName: '',
   company: '',
+  companyName:'',
   site: '',
+  siteName:'',
   building: '',
+  buildingName: '',
   floor: '',
+  floorName: '',
   room: '',
   department: '',
   custodian: '',
@@ -202,7 +207,7 @@ export class CreateAssetMovement implements OnInit {
 
     onGroupChange(groupId: string): void {
     const selectedGroup = this.groupList.find(group => group.id === groupId);
-    this.assetMovement.group = selectedGroup?.groupName;
+    this.assetMovement.groupName = selectedGroup?.groupName;
 
     this.assetMovementService.getCompanyByGroupId(groupId).subscribe({
       next: (res: any) => {
@@ -216,11 +221,15 @@ export class CreateAssetMovement implements OnInit {
   }
 
 
+ 
+
+
+
   siteList: any[] = [];
 
   onCompanyChange(companyId: string): void {
     const selectedCompany = this.companyList.find(comp => comp.id === companyId);
-    this.assetMovement.company = selectedCompany?.companyName;
+    this.assetMovement.companyName = selectedCompany?.companyName;
 
     this.assetMovementService.getSitesByCompanyId(companyId).subscribe({
       next: (res: any) => {
@@ -237,7 +246,7 @@ export class CreateAssetMovement implements OnInit {
 
   onSiteChange(siteId: string): void {
     const selectedSite = this.siteList.find(site => site.id === siteId);
-    this.assetMovement.site = selectedSite.siteName;
+    this.assetMovement.siteName = selectedSite.siteName;
 
     this.assetMovementService.getBuildingsBySiteId(siteId).subscribe({
       next: (res: any) => {
@@ -255,7 +264,7 @@ export class CreateAssetMovement implements OnInit {
 
   onBuildingChange(buildingId: string): void {
     const selectedBuilding = this.buildingList.find(building => building.id === buildingId);
-    this.assetMovement.building = selectedBuilding.buildingName;
+    this.assetMovement.buildingName = selectedBuilding.buildingName;
 
     this.assetMovementService.getFloorsByBuildingId(buildingId).subscribe({
       next: (res: any) => {
@@ -271,7 +280,7 @@ export class CreateAssetMovement implements OnInit {
   roomList: any[] = [];
   onFloorChange(floorId: string): void {
     const selectedFloor = this.floorList.find(floor => floor.id === floorId);
-    this.assetMovement.floor = selectedFloor.floorName;
+    this.assetMovement.floorName = selectedFloor.floorName;
 
     this.assetMovementService.getRoomsByFloorId(floorId).subscribe({
       next: (res: any) => {

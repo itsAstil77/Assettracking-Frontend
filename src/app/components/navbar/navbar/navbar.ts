@@ -97,7 +97,7 @@ export class Navbar {
     ) {
       this.activeMenuItem = 'transaction';
     }
-    if (
+    else if (
       currentUrl.includes('/report') ||
       currentUrl.includes('/asset-movement-report') ||
       currentUrl.includes('/asset-report-sum') ||

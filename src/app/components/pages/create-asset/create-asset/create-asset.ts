@@ -36,6 +36,18 @@ export class CreateAsset implements OnInit {
 
   groupList: any[] = []
 
+
+  selectedImage: File | null = null;
+
+onImageSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedImage = file;
+    console.log("Selected image:", file);
+  }
+}
+
+
   loadGroups(): void {
     this.masterService.getGroups().subscribe({
       next: (data) => {

@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
      provideHttpClient( withInterceptors([apiInterceptor])),
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes)
+    //provideClientHydration(withEventReplay())
   ]
 };

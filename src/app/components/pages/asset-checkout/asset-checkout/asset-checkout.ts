@@ -75,9 +75,13 @@ export class AssetCheckout {
     custodian: '',
     department: '',
     company: '',
+    companyName: '',
     site: '',
+    siteName: '',
     building: '',
+    buildingName: '',
     floor: '',
+    floorName: '',
     room: '',
     duedate: '',
     remarks: '',
@@ -100,7 +104,7 @@ export class AssetCheckout {
 
   onSiteChangeByCompanyId(companyId: string): void {
     const selectedCompany = this.companyList.find(comp => comp.id === companyId);
-    this.assetCheckOut.company = selectedCompany?.companyName;
+    this.assetCheckOut.companyName = selectedCompany?.companyName;
 
     this.checkinService.getSiteByCompanyId(companyId).subscribe({
       next: (res: any) => {
@@ -117,7 +121,7 @@ export class AssetCheckout {
 
   onSiteChange(siteId: string): void {
     const selectedSite = this.siteList.find(site => site.id === siteId);
-    this.assetCheckOut.site = selectedSite.siteName;
+    this.assetCheckOut.siteName = selectedSite.siteName;
 
     this.checkinService.getBuildingBySiteId(siteId).subscribe({
       next: (res: any) => {
@@ -133,7 +137,7 @@ export class AssetCheckout {
   floorList: any[] = [];
   onBuildingChange(buildingId: string): void {
     const selectedBuilding = this.buildingList.find(building => building.id === buildingId);
-    this.assetCheckOut.building = selectedBuilding.buildingName;
+    this.assetCheckOut.buildingName = selectedBuilding.buildingName;
 
     this.checkinService.getFloorByBuildingId(buildingId).subscribe({
       next: (res: any) => {
@@ -149,7 +153,7 @@ export class AssetCheckout {
   roomList: any[] = [];
   onFloorChange(floorId: string): void {
     const selectedFloor = this.floorList.find(floor => floor.id === floorId);
-    this.assetCheckOut.floor = selectedFloor.floorName;
+    this.assetCheckOut.floorName = selectedFloor.floorName;
 
     this.checkinService.getRoomByFloorId(floorId).subscribe({
       next: (res: any) => {
@@ -164,7 +168,7 @@ export class AssetCheckout {
 
 
 
-  checkoutData:any[]=[];
+  checkoutData: any[] = [];
 
   submitCheckout() {
     const selectedAssets = this.assetsList
@@ -202,13 +206,19 @@ export class AssetCheckout {
     };
 
     this.checkOutService.submitCheckOut(requestBody).subscribe({
-      next: (res:any) => {
-       this.alertService.showAlert(res.message, "success");
+      next: (res: any) => {
+        this.alertService.showAlert(res.message, "success");
+        this.reloadPage();
       },
       error: (err) => {
         this.alertService.showAlert(err.message, "error");
       }
     });
+  }
+
+    
+  reloadPage() {
+    window.location.reload();
   }
 
 }

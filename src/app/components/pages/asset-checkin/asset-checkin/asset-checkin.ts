@@ -12,7 +12,7 @@ import { Alert } from '../../../services/alert/alert';
 })
 export class AssetCheckin implements OnInit {
 
-  constructor(private checkinService: Checkin, private cdr: ChangeDetectorRef,private alertService: Alert) { }
+  constructor(private checkinService: Checkin, private cdr: ChangeDetectorRef, private alertService: Alert) { }
 
   custodianList: any[] = [];
   selectedCustodian: string = '';
@@ -76,11 +76,11 @@ export class AssetCheckin implements OnInit {
     assets: [],
     newcustodian: '',
     department: '',
-    company: '',
-    site: '',
-    building: '',
-    floor: '',
-    room: '',
+    companyName: '',
+    siteName: '',
+    buildingName: '',
+    floorName: '',
+    roomName: '',
     duedate: '',
     remarks: ''
   }
@@ -98,16 +98,25 @@ export class AssetCheckin implements OnInit {
   }
 
 
+
+selectedCompanyId: string = '';
+selectedSiteId: string = '';
+selectedBuildingId: string = '';
+selectedFloorId: string = '';
+
   siteList: any[] = [];
 
   onSiteChangeByCompanyId(companyId: string): void {
-    const selectedCompany = this.companyList.find(comp => comp.id === companyId);
-    this.assetCheckIn.company = selectedCompany.companyName;
+
 
     this.checkinService.getSiteByCompanyId(companyId).subscribe({
       next: (res: any) => {
         this.siteList = res;
         this.cdr.detectChanges();
+
+        const selectedCompany = this.companyList.find(comp => comp.id === companyId);
+        this.assetCheckIn.companyName = selectedCompany ? selectedCompany.companyName:'';
+        
       },
       error: (err) => {
         console.error('Error fetching sites:', err);
@@ -118,13 +127,15 @@ export class AssetCheckin implements OnInit {
   buildingList: any[] = [];
 
   onSiteChange(siteId: string): void {
-    const selectedSite = this.siteList.find(site => site.id === siteId);
-    this.assetCheckIn.site = selectedSite.siteName;
+
 
     this.checkinService.getBuildingBySiteId(siteId).subscribe({
       next: (res: any) => {
         this.buildingList = res;
         this.cdr.detectChanges();
+
+        const selectedSite = this.siteList.find(site => site.id === siteId);
+        this.assetCheckIn.siteName = selectedSite ? selectedSite.siteName : ''
       },
       error: (err) => {
         console.error('Error fetching buildings:', err);
@@ -136,13 +147,15 @@ export class AssetCheckin implements OnInit {
 
 
   onBuildingChange(buildingId: string): void {
-    const selectedBuilding = this.buildingList.find(building => building.id === buildingId);
-    this.assetCheckIn.building = selectedBuilding.buildingName;
 
     this.checkinService.getFloorByBuildingId(buildingId).subscribe({
       next: (res: any) => {
         this.floorList = res;
         this.cdr.detectChanges();
+
+        const selectedBuilding = this.buildingList.find(building => building.id === buildingId);
+        this.assetCheckIn.buildingName= selectedBuilding.buildingName;
+
       },
       error: (err) => {
         console.error('Error fetching floors:', err);
@@ -152,13 +165,14 @@ export class AssetCheckin implements OnInit {
 
   roomList: any[] = [];
   onFloorChange(floorId: string): void {
-    const selectedFloor = this.floorList.find(floor => floor.id === floorId);
-    this.assetCheckIn.floor = selectedFloor.floorName;
+
 
     this.checkinService.getRoomByFloorId(floorId).subscribe({
       next: (res: any) => {
         this.roomList = res;
         this.cdr.detectChanges();
+        const selectedFloor = this.floorList.find(floor => floor.id === floorId);
+        this.assetCheckIn.floorName = selectedFloor.floorName;
       },
       error: (err) => {
         console.error('Error fetching rooms:', err);
@@ -169,30 +183,30 @@ export class AssetCheckin implements OnInit {
 
   submitCheckin() {
     const selectedAssets = this.assetsList.filter(asset => asset.selected).map(asset => ({
-        id: asset.id,
-        assetCode: asset.assetCode,
-        companyName: asset.companyName,
-        siteName: asset.siteName,
-        buildingName: asset.buildingName,
-        floorName: asset.floorName,
-        room: asset.room,
-        department: asset.department,
-        custodian: asset.custodian,
-        sector: asset.sector,
-        mainCategory: asset.mainCategory,
-        subCategory: asset.subCategory,
-        subSubCategory: asset.subSubCategory,
-        group: asset.group,
-        brand: asset.brand,
-        model: asset.model,
-        assetDescription: asset.assetDescription,
-        referenceCode: asset.referenceCode,
-        quantity: asset.quantity,
-        assetStatus: asset.assetStatus,
-        assetCondition: asset.assetCondition,
-        assetType: asset.assetType,
-        purchaseCode: asset.purchaseCode
-      }));
+      id: asset.id,
+      assetCode: asset.assetCode,
+      companyName: asset.companyName,
+      siteName: asset.siteName,
+      buildingName: asset.buildingName,
+      floorName: asset.floorName,
+      room: asset.room,
+      department: asset.department,
+      custodian: asset.custodian,
+      sector: asset.sector,
+      mainCategory: asset.mainCategory,
+      subCategory: asset.subCategory,
+      subSubCategory: asset.subSubCategory,
+      group: asset.group,
+      brand: asset.brand,
+      model: asset.model,
+      assetDescription: asset.assetDescription,
+      referenceCode: asset.referenceCode,
+      quantity: asset.quantity,
+      assetStatus: asset.assetStatus,
+      assetCondition: asset.assetCondition,
+      assetType: asset.assetType,
+      purchaseCode: asset.purchaseCode
+    }));
 
     const requestBody = {
       ...this.assetCheckIn,
@@ -203,11 +217,17 @@ export class AssetCheckin implements OnInit {
     this.checkinService.submitCheckin(requestBody).subscribe({
       next: (res: any) => {
         this.alertService.showAlert(res.message, "success");
+        this.reloadPage();
+
       },
       error: (err) => {
         this.alertService.showAlert(err.message, "error");
       }
     });
+  }
+  
+  reloadPage() {
+    window.location.reload();
   }
 }
 
