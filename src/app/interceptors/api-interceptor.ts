@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-//  const BASE_URL = 'http://172.16.100.71:5221/api';
+ //const BASE_URL = 'http://172.16.100.71:5221/api';
 
   const BASE_URL ='/api';
 

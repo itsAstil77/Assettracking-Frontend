@@ -35,7 +35,7 @@ export class Login {
       next: (res: any) => {
         if (res.message === "OTP sent to email") {
           this.alertService.showAlert(res.message, "success");
-          this.router.navigateByUrl("otp");
+          this.router.navigateByUrl("dashboard");
         } else {
           this.alertService.showAlert(res.message, "error");
         }
