@@ -31,7 +31,16 @@
             </div> -->
             <div class="form-group">
                 <label>Disposal Reason</label>
-                <input type="text" [(ngModel)]="assetDisposal.disposalReason" name="disposalReason" />
+                <select [(ngModel)]="assetDisposal.disposalReason" name="disposalReason" >
+
+                    <option>Damaged</option>
+                    <option>Fully Depreciated</option>
+                    <option>Lost</option>
+                    <option>Obsolete</option>
+                    <option>Replacement</option>
+                    <option>Sold</option>
+                    
+                    </select>
             </div>
             <!-- <div class="form-group">
                 <label>Requested</label>

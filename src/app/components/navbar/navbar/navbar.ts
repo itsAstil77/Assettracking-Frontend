@@ -116,9 +116,8 @@ export class Navbar {
       this.activeMenuItem = 'reports';
     }
     else if (currentUrl.includes('master')) this.activeMenuItem = 'master';
-    // else if (currentUrl.includes('report')) this.activeMenuItem = 'report';
     else if (currentUrl.includes('admin')) this.activeMenuItem = 'admin';
-    else this.activeMenuItem = 'dashboard'; // fallback default
+    else this.activeMenuItem = 'dashboard'; 
   }
 
 

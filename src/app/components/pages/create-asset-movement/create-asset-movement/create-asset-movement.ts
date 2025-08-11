@@ -134,7 +134,7 @@ export class CreateAssetMovement implements OnInit {
   approvalworkflow: '',
   nextapprovalworkflow: '',
   lastapprovalworkflow: '',
-  status: '',
+  status: 'Draft',
   imageBase64: '',
   remarks: '',
   assets: [],

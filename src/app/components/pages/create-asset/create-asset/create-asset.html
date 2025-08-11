@@ -174,25 +174,41 @@
         </div>
         <div class="form-group">
             <label>Quantity</label>
-            <input type="text" [(ngModel)]="newAsset.quantity">
+            <input type="number" [(ngModel)]="newAsset.quantity">
         </div>
         <div class="form-group">
             <label>Type</label>
-            <input type="text" [(ngModel)]="newAsset.assetType">
+            <select [(ngModel)]="newAsset.assetType">
+                <option>Non Taggable</option>
+                <option>Taggable</option>
+
+            </select>
         </div>
 
         <div class="form-group">
             <label>Status</label>
-            <input type="text" [(ngModel)]="newAsset.assetStatus">
+            <select [(ngModel)]="newAsset.assetStatus">
+                <option>inactive</option>
+                <option>installed</option>
+                <option>New</option>
+                <option>Reserved</option>
+                <option>Under Maintenance</option>
+                <option>Under Repair</option>
+
+            </select>
         </div>
 
         <div class="form-group">
             <label>Condition</label>
-            <input type="text" [(ngModel)]="newAsset.assetCondition">
+            <select [(ngModel)]="newAsset.assetCondition">
+                <option>Acceptable</option>
+                <option>Good</option>
+                <option>Need Replacement</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Upload Image</label>
-            <input type="file" (change)="onImageSelected($event)" accept="image/*">
+            <input type="file" (change)="onImageSelected($event)" >
         </div>
 
     </div>
